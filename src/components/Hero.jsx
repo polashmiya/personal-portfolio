@@ -219,7 +219,7 @@ const Hero = () => {
                 rotate: { duration: 20, repeat: Infinity, ease: "linear" } 
               }}
             >
-              <span className="text-xs">Tailwind</span>
+              <span className="text-xs">Asp .NET</span>
             </motion.div>
           </div>
         </motion.div>

@@ -14,7 +14,7 @@ import './custom.css';
 
 function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [showGlowEffect, setShowGlowEffect] = useState(true); // Enabled by default
+  const [showGlowEffect, setShowGlowEffect] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -7,7 +7,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
     // Check for user's preferred color scheme
@@ -90,8 +90,8 @@ const Header = () => {
               <FaLaptopCode size={24} />
             </div>
             <div className={`text-2xl font-bold font-serif transition-all duration-300 ${isScrolled ? 'text-xl' : 'text-2xl'}`}>
-              <span className="text-dark-900 dark:text-white">Port</span>
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-500">folio</span>
+              <span className="text-dark-900 dark:text-white">Md.</span>
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-500">POLASH</span>
             </div>
           </motion.div>
 

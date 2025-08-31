@@ -61,19 +61,19 @@ const Contact = () => {
     {
       icon: <FaEnvelope className="text-primary-600" size={24} />,
       title: "Email",
-      content: "john.smith@example.com",
-      link: "mailto:john.smith@example.com"
+      content: "polashmiya2015@gmail.com",
+      link: "mailto:polashmiya2015@gmail.com"
     },
     {
       icon: <FaPhone className="text-primary-600" size={24} />,
       title: "Phone",
-      content: "+1 (555) 123-4567",
-      link: "tel:+15551234567"
+      content: "+88 01719623984",
+      link: "tel:+8801719623984"
     },
     {
       icon: <FaMapMarkerAlt className="text-primary-600" size={24} />,
       title: "Location",
-      content: "San Francisco, CA",
+      content: "Uttara, Dhaka",
       link: "#"
     }
   ];
@@ -82,23 +82,16 @@ const Contact = () => {
     {
       icon: <FaLinkedin size={24} />,
       name: "LinkedIn",
-      url: "https://linkedin.com",
+      url: "https://www.linkedin.com/in/md-polash-miya-726667193/",
       color: "hover:text-blue-600",
       hoverBg: "hover:bg-blue-50"
     },
     {
       icon: <FaGithub size={24} />,
       name: "GitHub",
-      url: "https://github.com",
+      url: "https://github.com/polashmiya",
       color: "hover:text-gray-900",
       hoverBg: "hover:bg-gray-50"
-    },
-    {
-      icon: <FaTwitter size={24} />,
-      name: "Twitter",
-      url: "https://twitter.com",
-      color: "hover:text-blue-400",
-      hoverBg: "hover:bg-blue-50"
     }
   ];
   

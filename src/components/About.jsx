@@ -142,7 +142,7 @@ const About = () => {
             
             <div className="space-y-4 text-dark-600 text-lg leading-relaxed">
               <p>
-                With over 5 years of experience in software development, I specialize in building
+                With over 3+ years of experience in software development, I specialize in building
                 modern web applications that combine beautiful design with robust functionality.
               </p>
               <p>
