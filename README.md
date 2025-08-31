@@ -120,6 +120,6 @@ Contributions, issues, and feature requests are welcome!
 
 ## 📞 Contact
 
-Your Name - [your.email@example.com](mailto:your.email@example.com)
+Md Polash Miya - [polashmiya2015@gmail.com](mailto:polashmiya2015@gmail.com)
 
-Project Link: [https://github.com/yourusername/portfolio](https://github.com/yourusername/portfolio)
+Project Link: [https://github.com/polashmiya/personal-portfolio](https://github.com/polashmiya/personal-portfolio)
