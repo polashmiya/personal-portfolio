@@ -1,11 +1,17 @@
 import { motion } from 'framer-motion';
 import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaCode, FaLaptopCode, FaMobileAlt } from 'react-icons/fa';
 import profileImage from '../assets/profile.jpg';
+import React, { useState } from "react";
+import ResumeModal from "./ResumeModal";
 
 const Hero = () => {
   const scrollToAbout = () => {
     document.querySelector('#about')?.scrollIntoView({ behavior: 'smooth' });
   };
+
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const openResume = () => setResumeOpen(true);
+  const closeResume = () => setResumeOpen(false);
 
   return (
     <section id="home" className="relative min-h-screen flex items-center bg-hero-pattern bg-dark-50 pt-20 overflow-hidden">
@@ -117,6 +123,17 @@ const Hero = () => {
             >
               View My Work
             </motion.a>
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="button"
+              className="btn btn-secondary"
+              onClick={openResume}
+            >
+              Resume
+            </motion.button>
+  {/* Resume Modal */}
+  <ResumeModal isOpen={resumeOpen} onClose={closeResume} />
           </motion.div>
           
           <motion.div
