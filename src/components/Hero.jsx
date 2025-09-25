@@ -78,7 +78,7 @@ const Hero = () => {
             className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 shadow-md mb-6"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 font-semibold">
-              Full Stack Software Engineer
+              Software Engineer I @ AKIJ iBOS Limited
             </span>
           </motion.div>
           
@@ -88,7 +88,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Crafting Digital <span className="text-gradient">Experiences</span> That Inspire
+            Md. Polash Miya
           </motion.h1>
           
           <motion.p 
@@ -97,8 +97,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            I bring creative ideas to life through clean code and stunning design.
-            Specializing in building modern web applications that deliver exceptional user experiences.
+            Software Engineer specializing in React JS, ERP solutions, and modern web development. Experienced in building responsive applications, integrating RESTful APIs, and collaborating with cross-functional teams to deliver business-critical features.
           </motion.p>
           
           <motion.div 

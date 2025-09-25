@@ -136,22 +136,19 @@ const About = () => {
             transition={{ duration: 0.8, delay: 0.4 }}
             viewport={{ once: true }}
             className="space-y-6"
-          >            <h3 className="text-3xl font-serif font-bold text-dark-900 mb-6">
-              I'm a <span className="text-gradient">Full-Stack Developer</span> Passionate About Creating Amazing Digital Experiences
+          >
+            <h3 className="text-3xl font-serif font-bold text-dark-900 mb-6">
+              I'm a <span className="text-gradient">Software Engineer</span> specializing in ERP & React JS
             </h3>
-            
             <div className="space-y-4 text-dark-600 text-lg leading-relaxed">
               <p>
-                With over 3+ years of experience in software development, I specialize in building
-                modern web applications that combine beautiful design with robust functionality.
+                With 3+ years of experience, I have contributed to major ERP projects like Managerium, APON ERP, and AKIJ ERP, focusing on front-end development and business module delivery.
               </p>
               <p>
-                My approach combines technical expertise with creative problem-solving to deliver
-                solutions that not only meet requirements but also provide exceptional user experiences.
+                My expertise includes React JS, RESTful API integration, and collaborating with UX designers and backend teams to deliver seamless user experiences.
               </p>
               <p>
-                I'm passionate about using technology to solve real-world problems and help businesses
-                achieve their digital transformation goals.
+                I am dedicated to solving business challenges through technology and continuous learning, holding a Diploma in Engineering (CMT) from Dhaka Polytechnic Institute.
               </p>
             </div>
 

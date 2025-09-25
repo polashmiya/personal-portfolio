@@ -4,46 +4,27 @@ import { FaBriefcase, FaCalendarAlt, FaMapMarkerAlt, FaQuoteLeft } from 'react-i
 const Experience = () => {
   const experiences = [
     {
-      title: "Senior Software Engineer",
-      company: "Tech Solutions Inc.",
-      period: "2022 - Present",
-      location: "San Francisco, CA",
+      title: "Software Engineer I",
+      company: "AKIJ iBOS Limited | An AKIJ Company",
+      period: "June 2024 – Present",
+      location: "Dhaka, Bangladesh",
       description: [
-        "Led a team of 5 developers in building scalable web applications using React and Node.js",
-        "Architected microservices infrastructure that improved system performance by 40%",
-        "Implemented CI/CD pipelines reducing deployment time from 2 hours to 15 minutes",
-        "Mentored junior developers and conducted code reviews to maintain high code quality"
+        "Created/maintained responsive React JS apps for cross-browser suitability.",
+        "Integrated front-end with RESTful APIs for seamless data flow.",
+        "Collaborated with UX designers for consistent user experience on all devices."
       ],
-      technologies: ["React", "Node.js", "TypeScript", "AWS", "Docker", "MongoDB"],
-      testimonial: "John's leadership transformed our development process and greatly improved our product quality."
+      technologies: ["React JS", "RESTful API", "ERP", "Tailwind CSS", "Redux"],
     },
     {
-      title: "Full Stack Developer",
-      company: "Digital Innovations Ltd.",
-      period: "2020 - 2022",
-      location: "New York, NY",
+      title: "Junior Software Engineer",
+      company: "AKIJ iBOS Limited | An AKIJ Company",
+      period: "April 2022 – June 2024",
+      location: "Dhaka, Bangladesh",
       description: [
-        "Developed and maintained 10+ client-facing web applications",
-        "Collaborated with UX/UI designers to implement responsive designs",
-        "Optimized database queries resulting in 30% faster page load times",
-        "Integrated third-party APIs and payment systems for e-commerce platforms"
+        "Built responsive web interfaces using HTML, CSS, JavaScript, React JS.",
+        "Assisted in debugging, issue resolution, and performance optimization."
       ],
-      technologies: ["Vue.js", "Express.js", "PostgreSQL", "Redis", "Stripe API", "Jest"],
-      testimonial: "John's technical skills and problem-solving abilities made him an invaluable asset to our team."
-    },
-    {
-      title: "Frontend Developer",
-      company: "StartupXYZ",
-      period: "2019 - 2020",
-      location: "Austin, TX",
-      description: [
-        "Built responsive web interfaces using modern JavaScript frameworks",
-        "Worked closely with backend team to integrate RESTful APIs",
-        "Implemented automated testing suites improving code coverage by 60%",
-        "Participated in agile development process and sprint planning"
-      ],
-      technologies: ["React", "Redux", "SASS", "Webpack", "Jest", "Cypress"],
-      testimonial: "John quickly became one of our most productive team members, delivering high-quality code ahead of schedule."
+      technologies: ["React JS", "HTML", "CSS", "JavaScript", "ERP"],
     }
   ];
 
