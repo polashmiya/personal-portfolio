@@ -67,12 +67,12 @@ const About = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="section-subtitle">About Me</span>
-          <h2 className="section-title">
+          <span className="section-subtitle dark:text-primary-400">About Me</span>
+          <h2 className="section-title dark:text-white">
             Know Me Better
           </h2>
-          <div className="section-divider"></div>
-          <p className="section-description">
+          <div className="section-divider dark:bg-gradient-to-r dark:from-primary-700 dark:to-secondary-700"></div>
+          <p className="section-description dark:text-gray-300">
             Passionate software engineer dedicated to creating intuitive and powerful digital experiences
           </p>
         </motion.div>
@@ -209,7 +209,7 @@ const About = () => {
           viewport={{ once: true }}
           className="mt-24"
         >
-          <h3 className="text-2xl font-bold text-center mb-16">My Areas of Expertise</h3>
+          <h3 className="text-2xl font-bold text-center mb-16 dark:text-white">My Areas of Expertise</h3>
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {strengths.map((strength) => (
               <motion.div
