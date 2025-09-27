@@ -52,6 +52,69 @@ const resumeData = {
       description: [
         "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
       ]
+    },
+     {
+      name: "MANAGERIUM, An ERP Based Solution",
+      description: [
+        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
+        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
+        "Utilized broad business module expertise to ensure exceptional solution delivery."
+      ]
+    },
+    {
+      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
+      description: [
+        "Led the Promotion Management module's creation, ensuring seamless promotions.",
+        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
+      ]
+    },
+    {
+      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
+      description: [
+        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
+      ]
+    }
+    , {
+      name: "MANAGERIUM, An ERP Based Solution",
+      description: [
+        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
+        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
+        "Utilized broad business module expertise to ensure exceptional solution delivery."
+      ]
+    },
+    {
+      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
+      description: [
+        "Led the Promotion Management module's creation, ensuring seamless promotions.",
+        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
+      ]
+    },
+    {
+      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
+      description: [
+        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
+      ]
+    },
+     {
+      name: "MANAGERIUM, An ERP Based Solution",
+      description: [
+        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
+        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
+        "Utilized broad business module expertise to ensure exceptional solution delivery."
+      ]
+    },
+    {
+      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
+      description: [
+        "Led the Promotion Management module's creation, ensuring seamless promotions.",
+        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
+      ]
+    },
+    {
+      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
+      description: [
+        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
+      ]
     }
   ],
   skills: {

@@ -3,6 +3,7 @@ import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaCode, FaLaptopCode, F
 import profileImage from '../assets/profile.jpg';
 import React, { useState } from "react";
 import ResumeModal from "./ResumeModal";
+import { heroSectionInfo } from '../dummyData';
 
 const Hero = () => {
   const scrollToAbout = () => {
@@ -78,7 +79,7 @@ const Hero = () => {
             className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 shadow-md mb-6"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 font-semibold">
-              Software Engineer I @ AKIJ iBOS Limited
+              {heroSectionInfo?.designation} @ {heroSectionInfo?.company}
             </span>
           </motion.div>
           
@@ -88,7 +89,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >
-            Md. Polash Miya
+            {heroSectionInfo?.name}
           </motion.h1>
           
           <motion.p 
@@ -97,7 +98,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
           >
-            Software Engineer specializing in React JS, ERP solutions, and modern web development. Experienced in building responsive applications, integrating RESTful APIs, and collaborating with cross-functional teams to deliver business-critical features.
+            {heroSectionInfo?.description}
           </motion.p>
           
           <motion.div 
@@ -122,7 +123,7 @@ const Hero = () => {
             >
               View My Work
             </motion.a>
-            <motion.button
+            {/* <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               type="button"
@@ -130,7 +131,7 @@ const Hero = () => {
               onClick={openResume}
             >
               Resume
-            </motion.button>
+            </motion.button> */}
   {/* Resume Modal */}
   <ResumeModal isOpen={resumeOpen} onClose={closeResume} />
           </motion.div>
