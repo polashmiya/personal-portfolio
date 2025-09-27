@@ -76,9 +76,9 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 dark:border-dark-700 shadow-md mb-6"
+            className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 dark:border-primary-700 shadow-md mb-6"
           >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 font-semibold">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-300 dark:to-secondary-400 font-semibold">
               {heroSectionInfo?.designation} @ {heroSectionInfo?.company}
             </span>
           </motion.div>

@@ -6,7 +6,7 @@ const TalkButton = ({ onClick, className = "", fullWidth = false }) => {
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className={`btn-primary text-sm px-6 py-2 relative overflow-hidden ${fullWidth ? 'w-full' : ''} ${className}`}
+        className={`btn-primary text-sm px-6 py-2 relative overflow-hidden ${fullWidth ? 'w-full' : ''} ${className} dark:bg-primary-700 dark:text-white dark:border-none dark:shadow-lg dark:hover:bg-primary-800 dark:focus:ring-primary-400`}
         onClick={onClick}
       >
         Let's Talk

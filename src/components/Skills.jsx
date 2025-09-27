@@ -125,11 +125,11 @@ const Skills = () => {
   };
 
   return (
-  <section id="skills" className="section-padding py-20 bg-gradient-to-b from-gray-50 dark:from-dark-900 to-white dark:to-dark-800 relative overflow-hidden">
+    <section id="skills" className="section-padding py-20 bg-gradient-to-b from-gray-50 dark:from-dark-900 to-white dark:to-dark-800 relative overflow-hidden">
       {/* Background decorations */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-20 -mr-48 -mt-48"></div>
-      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-100 rounded-full filter blur-3xl opacity-20 -ml-48 -mb-48"></div>
-      
+      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 dark:bg-dark-700 rounded-full filter blur-3xl opacity-20 -mr-48 -mt-48"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-100 dark:bg-dark-700 rounded-full filter blur-3xl opacity-20 -ml-48 -mb-48"></div>
+
       <div className="container-custom max-w-6xl mx-auto px-4 relative">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -138,12 +138,12 @@ const Skills = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <span className="section-subtitle">Expertise</span>
-          <h2 className="section-title">
+          <span className="section-subtitle dark:text-primary-400">Expertise</span>
+          <h2 className="section-title dark:text-white">
             Skills & Technologies
           </h2>
-          <div className="section-divider"></div>
-          <p className="section-description">
+          <div className="section-divider dark:bg-gradient-to-r dark:from-primary-700 dark:to-secondary-700"></div>
+          <p className="section-description dark:text-gray-300">
             Technologies I work with to bring ideas to life
           </p>
         </motion.div>
@@ -160,15 +160,15 @@ const Skills = () => {
               key={categoryIndex}
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.3 } }}
-              className={`bg-white dark:bg-dark-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${category.shadowColor}`}
+              className={`bg-white dark:bg-dark-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${category.shadowColor} dark:shadow-black/30`}
             >
-              <div className={`h-2 bg-gradient-to-r ${category.color}`}></div>
+              <div className={`h-2 bg-gradient-to-r ${category.color} dark:from-primary-700 dark:to-secondary-700`}></div>
               <div className="p-6">
                 <div className="flex items-center justify-center mb-6">
                   <div className={`p-3 rounded-full ${category.lightColor} dark:bg-dark-800 transform transition-transform duration-500 hover:rotate-12`}>
                     {category.icon}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 ml-3">
+                  <h3 className="text-xl font-bold text-gray-900 dark:text-white ml-3">
                     {category.title}
                   </h3>
                 </div>
@@ -206,7 +206,7 @@ const Skills = () => {
                             ease: "easeOut" 
                           }}
                           viewport={{ once: true }}
-                          className={`h-full bg-gradient-to-r ${category.color} ${hoveredSkill === `${categoryIndex}-${skillIndex}` ? 'animate-pulse' : ''}`}
+                          className={`h-full bg-gradient-to-r ${category.color} dark:from-primary-700 dark:to-secondary-700 ${hoveredSkill === `${categoryIndex}-${skillIndex}` ? 'animate-pulse' : ''}`}
                         />
                       </div>
                       <div className="text-xs text-right font-medium text-gray-500 dark:text-gray-300">
@@ -228,15 +228,15 @@ const Skills = () => {
           viewport={{ once: true }}
           className="mt-20"
         >
-          <div className="bg-white rounded-xl shadow-lg p-8 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-primary-100 to-primary-200 rounded-full filter blur-3xl opacity-30 -mr-32 -mt-32"></div>
-            <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-secondary-100 to-secondary-200 rounded-full filter blur-3xl opacity-30 -ml-32 -mb-32"></div>
-            
+          <div className="bg-white dark:bg-dark-900 rounded-xl shadow-lg dark:shadow-black/30 p-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-b from-primary-100 to-primary-200 dark:from-primary-900 dark:to-primary-800 rounded-full filter blur-3xl opacity-30 -mr-32 -mt-32"></div>
+            <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-secondary-100 to-secondary-200 dark:from-secondary-900 dark:to-secondary-800 rounded-full filter blur-3xl opacity-30 -ml-32 -mb-32"></div>
+
             <div className="relative z-10">
-              <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
                 Other Technologies & Tools
               </h3>
-              
+
               <div className="flex flex-wrap justify-center gap-4">
                 {[
                   'Jest', 'Cypress', 'Webpack', 'Vite', 'Next.js', 'Express.js',
@@ -253,7 +253,7 @@ const Skills = () => {
                       transition: { duration: 0.3 } 
                     }}
                     viewport={{ once: true }}
-                    className="px-4 py-2 bg-gradient-to-r from-gray-50 to-white text-gray-700 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100"
+                    className="px-4 py-2 bg-gradient-to-r from-gray-50 to-white dark:from-dark-800 dark:to-dark-700 text-gray-700 dark:text-gray-200 rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 dark:border-dark-700"
                   >
                     {tech}
                   </motion.span>
