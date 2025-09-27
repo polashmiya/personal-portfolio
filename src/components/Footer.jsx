@@ -35,7 +35,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-black dark:to-dark-950 text-white relative">
+  <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-dark-900 dark:to-dark-950 text-white relative">
       {/* Background pattern */}
       <div className="absolute inset-0 overflow-hidden opacity-10">
         <div className="absolute top-0 left-0 w-full h-full">
@@ -49,8 +49,8 @@ const Footer = () => {
       </div>
       
       {/* Colored overlays for visual interest */}
-      <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-blue-500 filter blur-[150px] opacity-10 animate-blob"></div>
-      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-purple-500 filter blur-[150px] opacity-10 animate-blob animation-delay-4000"></div>
+  <div className="absolute bottom-0 left-0 w-1/3 h-1/3 bg-blue-500 dark:bg-primary-900 filter blur-[150px] opacity-10 animate-blob"></div>
+  <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-purple-500 dark:bg-purple-900 filter blur-[150px] opacity-10 animate-blob animation-delay-4000"></div>
       
       {/* Back to top button */}
       <div className="container-custom px-4 sm:px-6 lg:px-8 relative">
@@ -84,7 +84,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-semibold text-white relative inline-block pb-2">
+            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
               John Smith
               <motion.span 
                 initial={{ width: 0 }}
@@ -94,7 +94,7 @@ const Footer = () => {
                 className="absolute left-0 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"
               ></motion.span>
             </h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 dark:text-gray-400 text-sm">
               A passionate software engineer dedicated to creating elegant solutions to complex problems.
             </p>
             <div className="flex space-x-3 pt-2">
@@ -110,7 +110,7 @@ const Footer = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.3, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className={`w-9 h-9 rounded-full flex items-center justify-center bg-gray-800 dark:bg-dark-800 text-gray-300 ${link.color} transition-all duration-300 hover:shadow-lg`}
+                  className={`w-9 h-9 rounded-full flex items-center justify-center bg-gray-800 dark:bg-dark-800 text-gray-300 dark:text-primary-300 ${link.color} transition-all duration-300 hover:shadow-lg`}
                   aria-label={link.label}
                 >
                   {link.icon}
@@ -127,7 +127,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-semibold text-white relative inline-block pb-2">
+            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
               Quick Links
               <motion.span 
                 initial={{ width: 0 }}
@@ -148,7 +148,7 @@ const Footer = () => {
                 >
                   <a 
                     href={link.href} 
-                    className="text-gray-300 hover:text-primary-400 transition-colors duration-300 flex items-center group"
+                    className="text-gray-300 dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300 flex items-center group"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mr-2 transform scale-0 group-hover:scale-100 transition-all duration-300"></span>
                     {link.name}
@@ -166,7 +166,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-semibold text-white relative inline-block pb-2">
+            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
               Contact
               <motion.span 
                 initial={{ width: 0 }}
@@ -180,8 +180,8 @@ const Footer = () => {
               <div className="flex items-start">
                 <FaEnvelope className="text-primary-400 mr-3 mt-1" />
                 <div>
-                  <p className="text-gray-300 text-sm">Email</p>
-                  <a href="mailto:john.smith@example.com" className="text-white hover:text-primary-400 transition-colors duration-300">
+                  <p className="text-gray-300 dark:text-gray-400 text-sm">Email</p>
+                  <a href="mailto:john.smith@example.com" className="text-white dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300">
                     john.smith@example.com
                   </a>
                 </div>
@@ -189,8 +189,8 @@ const Footer = () => {
               <div className="flex items-start">
                 <FaMapMarkerAlt className="text-primary-400 mr-3 mt-1" />
                 <div>
-                  <p className="text-gray-300 text-sm">Location</p>
-                  <p className="text-white">San Francisco, CA</p>
+                  <p className="text-gray-300 dark:text-gray-400 text-sm">Location</p>
+                  <p className="text-white dark:text-primary-300">San Francisco, CA</p>
                 </div>
               </div>
             </div>
@@ -204,7 +204,7 @@ const Footer = () => {
             viewport={{ once: true }}
             className="space-y-4"
           >
-            <h3 className="text-xl font-semibold text-white relative inline-block pb-2">
+            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
               Newsletter
               <motion.span 
                 initial={{ width: 0 }}
@@ -214,21 +214,21 @@ const Footer = () => {
                 className="absolute left-0 bottom-0 h-1 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"
               ></motion.span>
             </h3>
-            <p className="text-gray-300 text-sm">
+            <p className="text-gray-300 dark:text-gray-400 text-sm">
               Subscribe to my newsletter for the latest updates and articles.
             </p>
             <form className="flex flex-col space-y-2">
               <input 
                 type="email" 
                 placeholder="Enter your email" 
-                className="bg-gray-800 dark:bg-dark-800 text-white px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
+                className="bg-gray-800 dark:bg-dark-800 text-white dark:text-primary-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
                 required
               />
               <motion.button 
                 type="submit"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="bg-gradient-to-r from-primary-600 to-primary-500 text-white py-2 rounded-lg hover:shadow-lg transition-all duration-300 text-sm font-medium"
+                className="bg-gradient-to-r from-primary-600 to-primary-500 dark:from-primary-700 dark:to-primary-500 text-white dark:text-primary-300 py-2 rounded-lg hover:shadow-lg transition-all duration-300 text-sm font-medium"
               >
                 Subscribe
               </motion.button>
@@ -245,12 +245,12 @@ const Footer = () => {
           className="border-t border-gray-800 dark:border-dark-700 pt-8 flex flex-col md:flex-row justify-between items-center"
         >
           <div className="flex items-center mb-4 md:mb-0">
-            <FaCode className="text-primary-400 mr-2" />
-            <p className="text-gray-300 text-sm">
+            <FaCode className="text-primary-400 dark:text-primary-300 mr-2" />
+            <p className="text-gray-300 dark:text-primary-300 text-sm">
               &copy; {currentYear} John Smith. All rights reserved.
             </p>
           </div>
-          <p className="text-gray-300 text-sm flex items-center">
+          <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
             Made with <FaHeart className="text-red-500 mx-1 animate-pulse" /> using React & Tailwind CSS
           </p>
         </motion.div>

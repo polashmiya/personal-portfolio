@@ -52,9 +52,9 @@ const Experience = () => {
   };
 
   return (
-    <section id="experience" className="section-padding py-20 bg-white dark:bg-dark-900 relative overflow-hidden">      {/* Decorative Elements with reduced opacity */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-primary-100/20 rounded-full filter blur-3xl -ml-32 -mt-32 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-100/20 rounded-full filter blur-3xl -mr-32 -mb-32 pointer-events-none"></div>
+  <section id="experience" className="section-padding py-20 bg-white dark:bg-dark-900 relative overflow-hidden">      {/* Decorative Elements with reduced opacity */}
+  <div className="absolute top-0 left-0 w-64 h-64 bg-primary-100/20 dark:bg-dark-800/30 rounded-full filter blur-3xl -ml-32 -mt-32 pointer-events-none"></div>
+  <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-100/20 dark:bg-dark-700/30 rounded-full filter blur-3xl -mr-32 -mb-32 pointer-events-none"></div>
       
       <div className="container-custom max-w-6xl mx-auto px-4 relative z-10">
         <motion.div
@@ -65,11 +65,11 @@ const Experience = () => {
           className="text-center mb-16"
         >
           <span className="text-sm uppercase tracking-wider font-semibold text-primary-600 mb-3 block">Career Path</span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
             Work Experience
           </h2>
           <div className="mx-auto w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full mb-6"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             My professional journey and the impact I've made at each step
           </p>
         </motion.div>        <motion.div
@@ -89,38 +89,38 @@ const Experience = () => {
               
               {/* Content */}
               <div className={`md:w-5/12 relative ${index % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'}`}>                <motion.div 
-                  className="bg-white rounded-xl p-8 shadow-lg border border-gray-100 backdrop-blur-sm"
+                  className="bg-white dark:bg-dark-900 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-dark-700 backdrop-blur-sm"
                   whileHover={{ 
                     y: -5, 
                     transition: { duration: 0.3 },
                     boxShadow: "0 15px 30px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -15px rgba(0, 0, 0, 0.05)"
                   }}
                 >
-                  <span className="absolute top-10 md:top-12 left-0 md:left-auto md:right-full transform translate-x-4 md:-translate-x-4 w-8 h-8 bg-white rotate-45 hidden md:block border-l border-t border-gray-100" 
+                  <span className="absolute top-10 md:top-12 left-0 md:left-auto md:right-full transform translate-x-4 md:-translate-x-4 w-8 h-8 bg-white dark:bg-dark-900 rotate-45 hidden md:block border-l border-t border-gray-100 dark:border-dark-700" 
                     style={{ display: index % 2 === 0 ? 'none' : 'block' }}></span>
-                  <span className="absolute top-10 md:top-12 right-full md:right-auto md:left-full transform -translate-x-4 md:translate-x-4 w-8 h-8 bg-white rotate-45 hidden md:block border-r border-b border-gray-100" 
+                  <span className="absolute top-10 md:top-12 right-full md:right-auto md:left-full transform -translate-x-4 md:translate-x-4 w-8 h-8 bg-white dark:bg-dark-900 rotate-45 hidden md:block border-r border-b border-gray-100 dark:border-dark-700" 
                     style={{ display: index % 2 === 0 ? 'block' : 'none' }}></span>
                     
                   <div className="flex items-center mb-4">
-                    <div className="p-3 rounded-full bg-primary-50 text-primary-600 mr-4 shadow-sm">
+                    <div className="p-3 rounded-full bg-primary-50 dark:bg-dark-800 text-primary-600 dark:text-primary-300 mr-4 shadow-sm">
                       <FaBriefcase size={20} />
                     </div>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900">
+                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                         {exp.title}
                       </h3>
-                      <h4 className="text-lg font-semibold text-primary-600">
+                      <h4 className="text-lg font-semibold text-primary-600 dark:text-primary-400">
                         {exp.company}
                       </h4>
                     </div>
                   </div>
                   
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-sm">
-                    <div className="flex items-center mb-2 sm:mb-0 text-gray-600">
+                    <div className="flex items-center mb-2 sm:mb-0 text-gray-600 dark:text-gray-300">
                       <FaCalendarAlt className="mr-2" />
                       {exp.period}
                     </div>
-                    <div className="flex items-center text-gray-600">
+                    <div className="flex items-center text-gray-600 dark:text-gray-300">
                       <FaMapMarkerAlt className="mr-2" />
                       {exp.location}
                     </div>
@@ -128,7 +128,7 @@ const Experience = () => {
 
                   <div className="mb-6">
                     <ul className="space-y-2">                      {exp.description.map((item, i) => (
-                        <li key={`desc-${exp.company}-${i}`} className="text-gray-600 flex items-start">
+                        <li key={`desc-${exp.company}-${i}`} className="text-gray-600 dark:text-gray-300 flex items-start">
                           <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary-600 mt-2 mr-2"></span>
                           {item}
                         </li>
@@ -136,15 +136,15 @@ const Experience = () => {
                     </ul>
                   </div>
                     {exp.testimonial && (
-                    <div className="bg-gray-50 p-4 rounded-lg mb-6 relative shadow-sm border border-gray-100">
+                    <div className="bg-gray-50 dark:bg-dark-800 p-4 rounded-lg mb-6 relative shadow-sm border border-gray-100 dark:border-dark-700">
                       <FaQuoteLeft className="text-primary-300 absolute top-2 left-2" size={16} />
-                      <p className="text-gray-600 italic text-sm pl-6">"{exp.testimonial}"</p>
+                      <p className="text-gray-600 dark:text-gray-300 italic text-sm pl-6">"{exp.testimonial}"</p>
                     </div>
                   )}<div className="flex flex-wrap gap-2">
                     {exp.technologies.map((tech) => (
                       <span
                         key={`tech-${exp.company}-${tech}`}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 text-primary-600 border border-gray-100 transition-all duration-200"
+                        className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 dark:bg-dark-800 text-primary-600 dark:text-primary-300 border border-gray-100 dark:border-dark-700 transition-all duration-200"
                       >
                         {tech}
                       </span>
@@ -165,7 +165,7 @@ const Experience = () => {
             href="#contact"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center group py-3 px-6 rounded-lg bg-primary-600 text-white font-medium transition-all duration-300 shadow-md"
+            className="inline-flex items-center group py-3 px-6 rounded-lg bg-primary-600 dark:bg-primary-700 text-white dark:text-primary-300 font-medium transition-all duration-300 shadow-md"
           >
             Ready to collaborate? <span className="ml-2 text-lg group-hover:translate-x-1 transition-all duration-300">→</span>
           </motion.a>

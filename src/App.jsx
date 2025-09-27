@@ -27,11 +27,7 @@ function App() {
 
     window.addEventListener('scroll', handleScroll);
 
-    // Check for dark mode preference
-    const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    if (userPrefersDark) {
-      document.documentElement.classList.add('dark');
-    }
+    // Removed duplicate dark mode logic; Header.jsx controls theme
     
     return () => {
       window.removeEventListener('scroll', handleScroll);

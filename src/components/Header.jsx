@@ -10,16 +10,13 @@ const Header = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
-    // Check for user's preferred color scheme
-    const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-    setIsDarkMode(userPrefersDark);
-    
-    // Apply theme class to body
-    updateTheme(userPrefersDark);
-    
+    // Default to normal (light) mode
+    setIsDarkMode(false);
+    updateTheme(false);
+
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
+
       // Determine active section
       const sections = document.querySelectorAll('section[id]');
       const scrollPosition = window.scrollY + 100;
@@ -28,13 +25,13 @@ const Header = () => {
         const sectionTop = section.offsetTop;
         const sectionHeight = section.offsetHeight;
         const sectionId = section.getAttribute('id');
-        
+
         if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
           setActiveSection(sectionId);
         }
       });
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);

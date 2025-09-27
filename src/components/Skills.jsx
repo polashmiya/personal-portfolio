@@ -125,7 +125,7 @@ const Skills = () => {
   };
 
   return (
-    <section id="skills" className="section-padding py-20 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+  <section id="skills" className="section-padding py-20 bg-gradient-to-b from-gray-50 dark:from-dark-900 to-white dark:to-dark-800 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-blue-100 rounded-full filter blur-3xl opacity-20 -mr-48 -mt-48"></div>
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-100 rounded-full filter blur-3xl opacity-20 -ml-48 -mb-48"></div>
@@ -160,12 +160,12 @@ const Skills = () => {
               key={categoryIndex}
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.3 } }}
-              className={`bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${category.shadowColor}`}
+              className={`bg-white dark:bg-dark-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${category.shadowColor}`}
             >
               <div className={`h-2 bg-gradient-to-r ${category.color}`}></div>
               <div className="p-6">
                 <div className="flex items-center justify-center mb-6">
-                  <div className={`p-3 rounded-full ${category.lightColor} transform transition-transform duration-500 hover:rotate-12`}>
+                  <div className={`p-3 rounded-full ${category.lightColor} dark:bg-dark-800 transform transition-transform duration-500 hover:rotate-12`}>
                     {category.icon}
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 ml-3">
@@ -188,7 +188,7 @@ const Skills = () => {
                           <div className="text-2xl">
                             {skill.icon}
                           </div>
-                          <span className="font-medium text-gray-900">
+                          <span className="font-medium text-gray-900 dark:text-white">
                             {skill.name}
                           </span>
                         </div>
@@ -196,7 +196,7 @@ const Skills = () => {
                           {getRatingStars(skill.level)}
                         </div>
                       </div>
-                      <div className="w-full h-2.5 bg-gray-100 rounded-full overflow-hidden shadow-inner">
+                      <div className="w-full h-2.5 bg-gray-100 dark:bg-dark-700 rounded-full overflow-hidden shadow-inner">
                         <motion.div
                           initial={{ width: 0 }}
                           whileInView={{ width: `${skill.level}%` }}
@@ -209,7 +209,7 @@ const Skills = () => {
                           className={`h-full bg-gradient-to-r ${category.color} ${hoveredSkill === `${categoryIndex}-${skillIndex}` ? 'animate-pulse' : ''}`}
                         />
                       </div>
-                      <div className="text-xs text-right font-medium text-gray-500">
+                      <div className="text-xs text-right font-medium text-gray-500 dark:text-gray-300">
                         {skill.level}%
                       </div>
                     </motion.div>

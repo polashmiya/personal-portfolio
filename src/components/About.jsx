@@ -54,7 +54,7 @@ const About = () => {
   ];
 
   return (
-    <section id="about" className="section-padding py-20 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+  <section id="about" className="section-padding py-20 bg-gradient-to-b from-white dark:from-dark-900 to-gray-50 dark:to-dark-800 relative overflow-hidden">
       {/* Background decorations */}
       <div className="absolute top-0 right-0 w-1/4 h-1/4 bg-blue-50 rounded-full filter blur-3xl opacity-70 -mr-20 -mt-20"></div>
       <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-green-50 rounded-full filter blur-3xl opacity-70 -ml-20 -mb-20"></div>
@@ -87,8 +87,8 @@ const About = () => {
             className="relative"
           >
             {/* Decorative background */}
-            <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 rounded-2xl -z-10 transform rotate-3 opacity-70"></div>            {/* Main image */}
-            <div className="relative overflow-hidden rounded-2xl shadow-2xl border-2 border-white">
+            <div className="absolute -top-6 -left-6 w-full h-full bg-gradient-to-br from-primary-100 to-primary-200 dark:from-dark-800 dark:to-dark-700 rounded-2xl -z-10 transform rotate-3 opacity-70"></div>            {/* Main image */}
+            <div className="relative overflow-hidden rounded-2xl shadow-2xl border-2 border-white dark:border-dark-700 bg-white dark:bg-dark-900">
               <img 
                 src={profileImage} 
                 alt="Portfolio Profile - Software Engineer" 
@@ -96,7 +96,7 @@ const About = () => {
               />
               
               {/* Stats overlay */}
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark-900/80 to-transparent p-6"><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-dark-900/80 dark:from-dark-900/90 to-transparent p-6"><div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {stats.map((stat) => (
                     <motion.div
                       key={`stat-${stat.label}`}
@@ -107,7 +107,7 @@ const About = () => {
                       className="text-center"
                     >
                       <motion.div 
-                        className="text-2xl md:text-3xl font-bold text-white"
+                        className="text-2xl md:text-3xl font-bold text-white dark:text-primary-300"
                         initial={{ scale: 1 }}
                         whileInView={{ 
                           scale: [1, 1.2, 1],
@@ -121,7 +121,7 @@ const About = () => {
                       >
                         {stat.number}
                       </motion.div>
-                      <div className="text-sm text-gray-300">{stat.label}</div>
+                      <div className="text-sm text-gray-300 dark:text-gray-400">{stat.label}</div>
                     </motion.div>
                   ))}
                 </div>
@@ -137,10 +137,10 @@ const About = () => {
             viewport={{ once: true }}
             className="space-y-6"
           >
-            <h3 className="text-3xl font-serif font-bold text-dark-900 mb-6">
+            <h3 className="text-3xl font-serif font-bold text-dark-900 dark:text-white mb-6">
               I'm a <span className="text-gradient">Software Engineer</span> specializing in ERP & React JS
             </h3>
-            <div className="space-y-4 text-dark-600 text-lg leading-relaxed">
+            <div className="space-y-4 text-dark-600 dark:text-gray-200 text-lg leading-relaxed">
               <p>
                 With 3+ years of experience, I have contributed to major ERP projects like Managerium, APON ERP, and AKIJ ERP, focusing on front-end development and business module delivery.
               </p>
@@ -223,15 +223,15 @@ const About = () => {
                   boxShadow: '0 15px 30px rgba(0,0,0,0.1)', 
                   backgroundColor: '#f8fafc'
                 }}
-                className="bg-white p-6 rounded-xl shadow-md border border-gray-100 transition-all duration-300 hover:border-transparent"
+                className="bg-white dark:bg-dark-900 p-6 rounded-xl shadow-md border border-gray-100 dark:border-dark-700 transition-all duration-300 hover:border-transparent"
               >
-                <div className="p-4 bg-primary-50 text-primary-600 rounded-lg inline-block mb-4">
+                <div className="p-4 bg-primary-50 dark:bg-dark-800 text-primary-600 dark:text-primary-300 rounded-lg inline-block mb-4">
                   {strength.icon}
                 </div>
-                <h4 className="text-lg font-bold text-gray-900 mb-3">
+                <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-3">
                   {strength.title}
                 </h4>
-                <p className="text-gray-600 text-sm">
+                <p className="text-gray-600 dark:text-gray-300 text-sm">
                   {strength.description}
                 </p>
               </motion.div>

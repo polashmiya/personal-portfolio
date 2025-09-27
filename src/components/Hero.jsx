@@ -15,9 +15,9 @@ const Hero = () => {
   const closeResume = () => setResumeOpen(false);
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center bg-hero-pattern bg-dark-50 pt-20 overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center bg-hero-pattern bg-white dark:bg-dark-900 pt-20 overflow-hidden">
       {/* Background Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-radial from-primary-50/50 to-transparent opacity-70"></div>
+  <div className="absolute inset-0 bg-gradient-radial from-primary-50/50 dark:from-dark-800/60 to-transparent opacity-70"></div>
       
       {/* Animated Shapes */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -64,7 +64,7 @@ const Hero = () => {
         </motion.div>
       </div>
 
-      <div className="container-custom px-4 z-10 flex flex-col lg:flex-row items-center justify-between">
+  <div className="container-custom px-4 z-10 flex flex-col lg:flex-row items-center justify-between">
         {/* Hero Content */}
         <motion.div 
           initial={{ opacity: 0, x: -50 }}
@@ -76,7 +76,7 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 shadow-md mb-6"
+            className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 dark:border-dark-700 shadow-md mb-6"
           >
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 font-semibold">
               {heroSectionInfo?.designation} @ {heroSectionInfo?.company}
@@ -84,7 +84,7 @@ const Hero = () => {
           </motion.div>
           
           <motion.h1 
-            className="text-4xl md:text-5xl lg:text-7xl font-bold font-serif mb-6 leading-tight"
+            className="text-4xl md:text-5xl lg:text-7xl font-bold font-serif mb-6 leading-tight text-dark-900 dark:text-white"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
@@ -93,7 +93,7 @@ const Hero = () => {
           </motion.h1>
           
           <motion.p 
-            className="text-lg text-dark-600 mb-8 max-w-xl lg:mx-0 mx-auto"
+            className="text-lg text-dark-600 dark:text-gray-200 mb-8 max-w-xl lg:mx-0 mx-auto"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
@@ -111,7 +111,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="#contact" 
-              className="btn btn-primary"
+              className="btn btn-primary dark:bg-primary-600 dark:text-white"
             >
               Let's Work Together
             </motion.a>
@@ -119,7 +119,7 @@ const Hero = () => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               href="#projects"
-              className="btn btn-secondary"
+              className="btn btn-secondary dark:bg-dark-800 dark:text-primary-300 dark:border-primary-600"
             >
               View My Work
             </motion.a>
@@ -147,7 +147,7 @@ const Hero = () => {
               href="https://github.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-dark-500 transition-colors text-2xl hover:text-primary-600"
+              className="text-dark-500 dark:text-gray-300 transition-colors text-2xl hover:text-primary-600 dark:hover:text-primary-400"
             >
               <FaGithub />
             </motion.a>
@@ -183,7 +183,7 @@ const Hero = () => {
             <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full blur-xl opacity-30 scale-110 animate-pulse"></div>
             
             <motion.div
-              className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white shadow-2xl"
+              className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white dark:border-dark-700 shadow-2xl"
               whileHover={{ scale: 1.03 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -194,7 +194,7 @@ const Hero = () => {
               />
               
               {/* Overlay gradient for better contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5 dark:to-dark-900/10"></div>
             </motion.div>
             
             {/* Decorative Elements */}
