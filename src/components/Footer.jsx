@@ -5,10 +5,8 @@ import {
   FaEnvelope,
   FaGithub,
   FaHeart,
-  FaInstagram,
   FaLinkedin,
-  FaMapMarkerAlt,
-  FaTwitter
+  FaMapMarkerAlt
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -28,10 +26,8 @@ const Footer = () => {
   ];
   
   const socialLinks = [
-    { icon: <FaLinkedin />, href: 'https://linkedin.com', label: 'LinkedIn', color: 'hover:text-blue-500' },
-    { icon: <FaGithub />, href: 'https://github.com', label: 'GitHub', color: 'hover:text-gray-300' },
-    { icon: <FaTwitter />, href: 'https://twitter.com', label: 'Twitter', color: 'hover:text-blue-400' },
-    { icon: <FaInstagram />, href: 'https://instagram.com', label: 'Instagram', color: 'hover:text-pink-500' }
+    { icon: <FaLinkedin />, href: 'https://www.linkedin.com/in/md-polash-miya-726667193/', label: 'LinkedIn', color: 'hover:text-blue-500' },
+    { icon: <FaGithub />, href: 'https://github.com/polashmiya', label: 'GitHub', color: 'hover:text-gray-300' }
   ];
 
   return (
@@ -85,7 +81,7 @@ const Footer = () => {
             className="space-y-4"
           >
             <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
-              John Smith
+              Md. Polash
               <motion.span 
                 initial={{ width: 0 }}
                 whileInView={{ width: '3rem' }}
@@ -181,8 +177,8 @@ const Footer = () => {
                 <FaEnvelope className="text-primary-400 mr-3 mt-1" />
                 <div>
                   <p className="text-gray-300 dark:text-gray-400 text-sm">Email</p>
-                  <a href="mailto:john.smith@example.com" className="text-white dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300">
-                    john.smith@example.com
+                  <a href="mailto:polashmiya2015@gmail.com" className="text-white dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300">
+                    polashmiya2015@gmail.com
                   </a>
                 </div>
               </div>
@@ -190,7 +186,7 @@ const Footer = () => {
                 <FaMapMarkerAlt className="text-primary-400 mr-3 mt-1" />
                 <div>
                   <p className="text-gray-300 dark:text-gray-400 text-sm">Location</p>
-                  <p className="text-white dark:text-primary-300">San Francisco, CA</p>
+                  <p className="text-white dark:text-primary-300">Dhaka , Bangladesh</p>
                 </div>
               </div>
             </div>
@@ -247,12 +243,12 @@ const Footer = () => {
           <div className="flex items-center mb-4 md:mb-0">
             <FaCode className="text-primary-400 dark:text-primary-300 mr-2" />
             <p className="text-gray-300 dark:text-primary-300 text-sm">
-              &copy; {currentYear} John Smith. All rights reserved.
+              &copy; {currentYear} Md. Polash Miya. All rights reserved.
             </p>
           </div>
-          <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
-            Made with <FaHeart className="text-red-500 mx-1 animate-pulse" /> using React & Tailwind CSS
-          </p>
+          {/* <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
+            Made with <FaHeart className="text-red-500 mx-1 animate-pulse" />
+          </p> */}
         </motion.div>
       </div>
     </footer>

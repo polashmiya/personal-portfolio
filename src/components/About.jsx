@@ -4,9 +4,9 @@ import profileImage from '../assets/profile.jpg';
 
 const About = () => {
   const stats = [
-    { number: "5+", label: "Years Experience" },
+    { number: "3+", label: "Years Experience" },
     { number: "50+", label: "Projects Completed" },
-    { number: "30+", label: "Happy Clients" },
+    // { number: "30+", label: "Happy Clients" },
     { number: "15+", label: "Tech Stack" },
   ];
   
@@ -138,11 +138,11 @@ const About = () => {
             className="space-y-6"
           >
             <h3 className="text-3xl font-serif font-bold text-dark-900 dark:text-white mb-6">
-              I'm a <span className="text-gradient">Software Engineer</span> specializing in ERP & React JS
+              I am a <span className="text-gradient">Software Engineer</span> with 3+ years of experience
             </h3>
             <div className="space-y-4 text-dark-600 dark:text-gray-200 text-lg leading-relaxed">
               <p>
-                With 3+ years of experience, I have contributed to major ERP projects like Managerium, APON ERP, and AKIJ ERP, focusing on front-end development and business module delivery.
+               in ERP solutions and modern web applications. I focus on building scalable, maintainable systems that solve real business challenges.
               </p>
               <p>
                 My expertise includes React JS, RESTful API integration, and collaborating with UX designers and backend teams to deliver seamless user experiences.

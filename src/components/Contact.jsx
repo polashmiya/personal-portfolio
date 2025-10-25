@@ -8,7 +8,6 @@ import {
   FaPaperPlane,
   FaPhone,
   FaRegCheckCircle,
-  FaTwitter,
   FaUser
 } from 'react-icons/fa';
 

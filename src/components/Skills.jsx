@@ -1,10 +1,9 @@
+// eslint-disable-next-line no-unused-vars
 import { motion } from 'framer-motion';
 import { 
   FaReact, 
   FaNode, 
   FaJs, 
-  FaPython, 
-  FaAws, 
   FaGitAlt,
   FaDatabase,
   FaServer,
@@ -12,13 +11,14 @@ import {
 } from 'react-icons/fa';
 import { 
   SiTypescript, 
+  SiNextdotjs,
   SiMongodb,
   SiPostgresql, 
-  SiRedis,
   SiDocker,
-  SiKubernetes,
-  SiGraphql,
-  SiTailwindcss
+  SiExpress,
+  SiDotnet,
+  SiGithubactions,
+  SiPostman,
 } from 'react-icons/si';
 import { useState } from 'react';
 
@@ -31,9 +31,9 @@ const Skills = () => {
       icon: <FaReact className="text-blue-500" size={24} />,
       skills: [
         { name: "React", icon: <FaReact className="text-blue-500" />, level: 95 },
-        { name: "TypeScript", icon: <SiTypescript className="text-blue-600" />, level: 90 },
+        { name: "Next.js", icon: <SiNextdotjs className="text-gray-900 dark:text-white" />, level: 90 },
         { name: "JavaScript", icon: <FaJs className="text-yellow-500" />, level: 95 },
-        { name: "Tailwind CSS", icon: <SiTailwindcss className="text-cyan-500" />, level: 85 }
+        { name: "TypeScript", icon: <SiTypescript className="text-blue-600" />, level: 90 }
       ],
       color: "from-blue-500 to-blue-600",
       lightColor: "bg-blue-50",
@@ -44,8 +44,8 @@ const Skills = () => {
       icon: <FaServer className="text-green-500" size={24} />,
       skills: [
         { name: "Node.js", icon: <FaNode className="text-green-600" />, level: 90 },
-        { name: "Python", icon: <FaPython className="text-blue-500" />, level: 85 },
-        { name: "GraphQL", icon: <SiGraphql className="text-pink-500" />, level: 80 },
+        { name: "Express.js", icon: <SiExpress className="text-gray-800 dark:text-white" />, level: 85 },
+        { name: "ASP .NET", icon: <SiDotnet className="text-purple-600" />, level: 70 },
         { name: "REST APIs", icon: <FaServer className="text-gray-600" />, level: 95 }
       ],
       color: "from-green-500 to-green-600",
@@ -56,23 +56,21 @@ const Skills = () => {
       title: "Database",
       icon: <FaDatabase className="text-purple-500" size={24} />,
       skills: [
-        { name: "MongoDB", icon: <SiMongodb className="text-green-500" />, level: 85 },
-        { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-600" />, level: 80 },
-        { name: "Redis", icon: <SiRedis className="text-red-500" />, level: 75 },
-        { name: "SQL", icon: <FaDatabase className="text-gray-600" />, level: 90 }
+        { name: "SQL", icon: <FaDatabase className="text-gray-600" />, level: 90 },
+        { name: "Mongo", icon: <SiMongodb className="text-green-500" />, level: 85 },
+        { name: "PostgreSQL", icon: <SiPostgresql className="text-blue-600" />, level: 80 }
       ],
       color: "from-purple-500 to-purple-600",
       lightColor: "bg-purple-50",
       shadowColor: "shadow-purple-500/20"
     },
     {
-      title: "DevOps & Tools",
+      title: "Tools",
       icon: <SiDocker className="text-blue-400" size={24} />,
       skills: [
-        { name: "AWS", icon: <FaAws className="text-orange-500" />, level: 80 },
-        { name: "Docker", icon: <SiDocker className="text-blue-500" />, level: 85 },
-        { name: "Kubernetes", icon: <SiKubernetes className="text-blue-600" />, level: 70 },
-        { name: "Git", icon: <FaGitAlt className="text-orange-600" />, level: 95 }
+        { name: "Git", icon: <FaGitAlt className="text-orange-600" />, level: 95 },
+        { name: "GitHub Actions", icon: <SiGithubactions className="text-blue-500" />, level: 80 },
+        { name: "Postman", icon: <SiPostman className="text-orange-500" />, level: 85 },
       ],
       color: "from-cyan-500 to-cyan-600",
       lightColor: "bg-cyan-50",
@@ -131,7 +129,7 @@ const Skills = () => {
       <div className="absolute bottom-0 left-0 w-96 h-96 bg-green-100 dark:bg-dark-700 rounded-full filter blur-3xl opacity-20 -ml-48 -mb-48"></div>
 
       <div className="container-custom max-w-6xl mx-auto px-4 relative">
-        <motion.div
+  <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -146,18 +144,18 @@ const Skills = () => {
           <p className="section-description dark:text-gray-300">
             Technologies I work with to bring ideas to life
           </p>
-        </motion.div>
+  </motion.div>
 
-        <motion.div
+  <motion.div
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-4 gap-8"
         >
-          {skillCategories.map((category, categoryIndex) => (
+          {skillCategories.map((category) => (
             <motion.div
-              key={categoryIndex}
+              key={category.title}
               variants={itemVariants}
               whileHover={{ y: -5, transition: { duration: 0.3 } }}
               className={`bg-white dark:bg-dark-900 rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 ${category.shadowColor} dark:shadow-black/30`}
@@ -173,14 +171,17 @@ const Skills = () => {
                   </h3>
                 </div>
                 <div className="space-y-6">
-                  {category.skills.map((skill, skillIndex) => (
+                  {category.skills.map((skill, skillIndex) => {
+                    const hoverId = `${category.title}-${skill.name}`;
+                    const isHovered = hoveredSkill === hoverId;
+                    return (
                     <motion.div 
-                      key={skillIndex} 
+                      key={skill.name} 
                       className="space-y-2"
                       variants={skillVariants}
                       initial="initial"
                       whileHover="hover"
-                      onHoverStart={() => setHoveredSkill(`${categoryIndex}-${skillIndex}`)}
+                      onHoverStart={() => setHoveredSkill(hoverId)}
                       onHoverEnd={() => setHoveredSkill(null)}
                     >
                       <div className="flex items-center justify-between">
@@ -206,22 +207,22 @@ const Skills = () => {
                             ease: "easeOut" 
                           }}
                           viewport={{ once: true }}
-                          className={`h-full bg-gradient-to-r ${category.color} dark:from-primary-700 dark:to-secondary-700 ${hoveredSkill === `${categoryIndex}-${skillIndex}` ? 'animate-pulse' : ''}`}
+                          className={`h-full bg-gradient-to-r ${category.color} dark:from-primary-700 dark:to-secondary-700 ${isHovered ? 'animate-pulse' : ''}`}
                         />
                       </div>
                       <div className="text-xs text-right font-medium text-gray-500 dark:text-gray-300">
                         {skill.level}%
                       </div>
                     </motion.div>
-                  ))}
+                  )})}
                 </div>
               </div>
             </motion.div>
           ))}
-        </motion.div>
+  </motion.div>
 
         {/* Additional Skills */}
-        <motion.div
+  <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.4 }}
@@ -243,7 +244,7 @@ const Skills = () => {
                   'Prisma', 'Jenkins', 'GitHub Actions', 'Figma', 'Postman', 'VS Code'
                 ].map((tech, index) => (
                   <motion.span
-                    key={index}
+                    key={tech}
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.3, delay: index * 0.05 }}
@@ -261,7 +262,7 @@ const Skills = () => {
               </div>
             </div>
           </div>
-        </motion.div>
+  </motion.div>
       </div>
     </section>
   );

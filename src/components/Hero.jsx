@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaInstagram, FaArrowDown, FaCode, FaLaptopCode, FaMobileAlt } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaArrowDown, FaCode, FaLaptopCode, FaMobileAlt } from 'react-icons/fa';
 import profileImage from '../assets/profile.jpg';
 import React, { useState } from "react";
 import ResumeModal from "./ResumeModal";
@@ -11,7 +11,6 @@ const Hero = () => {
   };
 
   const [resumeOpen, setResumeOpen] = useState(false);
-  const openResume = () => setResumeOpen(true);
   const closeResume = () => setResumeOpen(false);
 
   return (
@@ -144,7 +143,7 @@ const Hero = () => {
           >
             <motion.a
               whileHover={{ y: -5, color: '#171515' }}
-              href="https://github.com"
+              href="https://github.com/polashmiya"
               target="_blank"
               rel="noopener noreferrer"
               className="text-dark-500 dark:text-gray-300 transition-colors text-2xl hover:text-primary-600 dark:hover:text-primary-400"
@@ -153,21 +152,12 @@ const Hero = () => {
             </motion.a>
             <motion.a
               whileHover={{ y: -5, color: '#0077b5' }}
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/md-polash-miya-726667193/"
               target="_blank"
               rel="noopener noreferrer"
               className="text-dark-500 transition-colors text-2xl hover:text-primary-600"
             >
               <FaLinkedin />
-            </motion.a>
-            <motion.a
-              whileHover={{ y: -5, color: '#e4405f' }}
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-dark-500 transition-colors text-2xl hover:text-primary-600"
-            >
-              <FaInstagram />
             </motion.a>
           </motion.div>
         </motion.div>
