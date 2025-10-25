@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { motion } from "framer-motion";
 import {
   FaGithub,
@@ -7,9 +8,22 @@ import {
   FaFilter,
 } from "react-icons/fa";
 import { useState } from "react";
+import ProjectModal from "./ProjectModal";
 import { projects } from "../dummyData";
 const Projects = () => {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+
+  const openDetails = (project) => {
+    setSelectedProject(project);
+    setIsModalOpen(true);
+  };
+  const closeDetails = () => {
+    setIsModalOpen(false);
+    // delay clearing to allow exit animation if added later
+    setTimeout(() => setSelectedProject(null), 200);
+  };
 
   const filteredProjects =
     activeFilter === "all"
@@ -121,7 +135,7 @@ const Projects = () => {
                 <motion.div
                   key={project.id}
                   variants={itemVariants}
-                  className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 card-hover bg-white"
+                  className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-xl transition-all duration-500 card-hover bg-white flex flex-col h-full"
                 >
                   {/* Project Image with Overlay */}
                   <div className="relative aspect-video overflow-hidden rounded-t-xl">
@@ -173,7 +187,7 @@ const Projects = () => {
                   </div>
 
                   {/* Project Content */}
-                  <div className="p-6 bg-white rounded-b-xl">
+                  <div className="p-6 bg-white rounded-b-xl flex flex-col flex-1">
                     <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-primary-600 transition-colors">
                       {project.title}
                     </h3>
@@ -190,14 +204,17 @@ const Projects = () => {
                         </span>
                       ))}
                     </div>
-                    <div className="pt-2 flex justify-end">
-                      <motion.a
-                        href="#"
-                        className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors"
+                    <div className="mt-auto pt-2 flex justify-end">
+                      <motion.button
+                        type="button"
+                        onClick={() => openDetails(project)}
+                        className="inline-flex items-center text-primary-600 hover:text-primary-700 font-medium transition-colors cursor-pointer"
                         whileHover={{ x: 3 }}
+                        aria-haspopup="dialog"
+                        aria-expanded={isModalOpen}
                       >
                         View Details <FaChevronRight className="ml-1" size={14} />
-                      </motion.a>
+                      </motion.button>
                     </div>
                   </div>
                 </motion.div>
@@ -301,6 +318,18 @@ const Projects = () => {
                           </span>
                         )}
                       </div>
+                      <div className="mt-4 flex justify-end">
+                        <motion.button
+                          type="button"
+                          onClick={() => openDetails(project)}
+                          className="text-primary-600 hover:text-primary-700 text-sm font-medium inline-flex items-center cursor-pointer"
+                          whileHover={{ x: 3 }}
+                          aria-haspopup="dialog"
+                          aria-expanded={isModalOpen}
+                        >
+                          View Details <FaChevronRight className="ml-1" size={12} />
+                        </motion.button>
+                      </div>
                     </div>
                   </motion.div>
                 ))}
@@ -339,6 +368,12 @@ const Projects = () => {
           </motion.a>
         </motion.div>
       </div>
+      {/* Project Details Modal */}
+      <ProjectModal
+        isOpen={isModalOpen}
+        onClose={closeDetails}
+        project={selectedProject}
+      />
     </section>
   );
 };

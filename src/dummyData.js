@@ -17,6 +17,14 @@ const heroSectionInfo = {
       technologies: ["React", "Tailwind CSS", "React Hook Form", "React Router","Redux"],
       github: "https://github.com/polashmiya/eGadget_Ecommerce",
       live: "https://e-gadget-ecommerce.vercel.app/",
+      details: [
+        "Product catalog with filtering and category browsing",
+        "Persistent cart and checkout flow with form validation (React Hook Form)",
+        "User authentication and protected routes",
+        "Global state management with Redux",
+        "Responsive, mobile-first UI with Tailwind CSS",
+        "Deployed on Vercel with optimized build via Vite"
+      ],
       featured: true,
       category: "frontend",
     },
@@ -29,6 +37,13 @@ const heroSectionInfo = {
       technologies: ["React", "Tailwind CSS", "Framer Motion"],
       github: "https://github.com/polashmiya/polashDiary",
       live: "https://polash-diary.vercel.app/",
+      details: [
+        "Create, list, and read blog posts with a clean UX",
+        "Commenting experience and smooth page transitions (Framer Motion)",
+        "Client-side routing and lazy UI animations",
+        "Responsive layout built with Tailwind CSS",
+        "Deployed on Vercel for fast global delivery"
+      ],
       featured: true,
       category: "frontend",
     },
