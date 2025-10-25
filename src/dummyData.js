@@ -1,3 +1,5 @@
+import eGadgetThumbnail from "./assets/e_gadget_thumbnail.png";
+import polashDiaryThumbnail from "./assets/polash_dairy_thumbnail.png";
 const heroSectionInfo = {
   name: "Md. Polash Miya",
   designation: "Software Engineer I",
@@ -5,4 +7,30 @@ const heroSectionInfo = {
   description:
     "Full-Stack Software Engineer specializing in React JS and modern web development, with proven experience in building scalable ERP solutions, responsive applications, and integrating RESTful APIs. Adept at collaborating with cross-functional teams, implementing clean architecture, and delivering business-critical features. Passionate about writing reusable, maintainable code and continuously enhancing full-stack development expertise to create impactful software solutions.",
 };
-export { heroSectionInfo };
+  const projects = [
+    {
+      id: "e-Gadget",
+      title: "E-Gadget (E-Commerce Platform)",
+      description:
+        "Full-featured e-commerce platform with product listings, shopping cart, payment integration, and user authentication.",
+      image: eGadgetThumbnail,
+      technologies: ["React", "Tailwind CSS", "React Hook Form", "React Router","Redux"],
+      github: "https://github.com/polashmiya/eGadget_Ecommerce",
+      live: "https://e-gadget-ecommerce.vercel.app/",
+      featured: true,
+      category: "frontend",
+    },
+    {
+      id: "blog_site",
+      title: "Polash Diary (Blog Platform)",
+      description:
+        "A personal blog platform built with a focus on simplicity and performance. Where Anyone can share their thoughts and ideas. Anyone can read and comment on posts.",
+      image: polashDiaryThumbnail,
+      technologies: ["React", "Tailwind CSS", "Framer Motion"],
+      github: "https://github.com/polashmiya/polashDiary",
+      live: "https://polash-diary.vercel.app/",
+      featured: true,
+      category: "frontend",
+    },
+  ];
+export { heroSectionInfo, projects };
