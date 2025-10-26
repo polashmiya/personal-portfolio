@@ -53,7 +53,7 @@ function App() {
         <Projects />
         <Contact />
       </main>
-      {/* <Footer /> */}
+      <Footer />
 
       {/* Glow effect toggle button */}
       <GlowToggle
