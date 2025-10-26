@@ -113,7 +113,7 @@ const Contact = () => {
   };
 
   return (
-    <section id="contact" className="section-padding py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-x-hidden">
+    <section id="contact" className="section-padding py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-0 right-0 w-72 h-72 bg-gradient-to-b from-primary-100 to-primary-50 rounded-full filter blur-3xl opacity-30 -mr-36 -mt-36 animate-blob"></div>
       <div className="absolute bottom-0 left-0 w-72 h-72 bg-gradient-to-t from-primary-100 to-secondary-50 rounded-full filter blur-3xl opacity-30 -ml-36 -mb-36 animate-blob animation-delay-2000"></div>

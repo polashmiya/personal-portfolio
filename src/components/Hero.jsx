@@ -24,7 +24,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center bg-hero-pattern bg-white dark:bg-dark-900 pt-20 overflow-hidden"
+  className="relative min-h-screen flex items-center bg-hero-pattern bg-white dark:bg-dark-900 pt-0 md:pt-20 overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-radial from-primary-50/50 dark:from-dark-800/60 to-transparent opacity-70"></div>
 

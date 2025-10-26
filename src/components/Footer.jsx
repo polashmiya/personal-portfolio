@@ -27,13 +27,13 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-dark-900 dark:to-dark-950 text-white relative overflow-x-hidden">
+    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-dark-900 dark:to-dark-950 text-white relative overflow-hidden">
       {/* Decorative blobs */}
       <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-blue-500 dark:bg-primary-900 filter blur-[120px] opacity-10 animate-blob"></div>
       <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-purple-500 dark:bg-purple-900 filter blur-[120px] opacity-10 animate-blob animation-delay-4000"></div>
 
       {/* Back to top button */}
-      <div className="container-custom relative flex justify-center">
+      <div className="container-custom relative flex justify-center pt-8">
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Back to top"
