@@ -246,9 +246,9 @@ const Footer = () => {
               &copy; {currentYear} Md. Polash Miya. All rights reserved.
             </p>
           </div>
-          {/* <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
+          <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
             Made with <FaHeart className="text-red-500 mx-1 animate-pulse" />
-          </p> */}
+          </p>
         </motion.div>
       </div>
     </footer>
