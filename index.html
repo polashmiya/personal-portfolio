@@ -1,10 +1,74 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/profile.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Md Polash Miya</title>
+
+    <title>Md. Polash Miya — Full-Stack Software Engineer</title>
+    <meta
+      name="description"
+      content="Md. Polash Miya is a full-stack software engineer in Dhaka building ERP platforms, offline-first POS systems, web and mobile apps with React, Next.js, ASP.NET Core, React Native and Flutter."
+    />
+    <meta name="author" content="Md. Polash Miya" />
+    <meta name="keywords" content="Md Polash Miya, Polash Miya, Software Engineer, Full-Stack Developer, React Developer, Next.js, ASP.NET Core, ERP, POS, React Native, Flutter, Dhaka, Bangladesh" />
+    <link rel="canonical" href="https://polash-portfolio.vercel.app/" />
+
+    <!-- Icons & theme -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#07080c" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#fafafc" media="(prefers-color-scheme: light)" />
+
+    <!-- Open Graph / social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Md. Polash Miya" />
+    <meta property="og:title" content="Md. Polash Miya — Full-Stack Software Engineer" />
+    <meta property="og:description" content="Building ERP, POS and web products that businesses run on. React · Next.js · .NET · React Native · Flutter." />
+    <meta property="og:url" content="https://polash-portfolio.vercel.app/" />
+    <meta property="og:image" content="https://polash-portfolio.vercel.app/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Md. Polash Miya — Full-Stack Software Engineer" />
+    <meta name="twitter:description" content="Building ERP, POS and web products that businesses run on." />
+    <meta name="twitter:image" content="https://polash-portfolio.vercel.app/og-image.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@300..800&family=Geist+Mono:wght@400..600&family=Instrument+Serif:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Apply the saved / system theme before first paint to avoid a flash -->
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('theme');
+          var prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          var dark = saved ? saved === 'dark' : !prefersLight;
+          document.documentElement.classList.toggle('dark', dark);
+        } catch (e) {}
+      })();
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Md. Polash Miya",
+        "jobTitle": "Full-Stack Software Engineer",
+        "worksFor": { "@type": "Organization", "name": "AKIJ iBOS Limited" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Dhaka", "addressCountry": "BD" },
+        "url": "https://polash-portfolio.vercel.app/",
+        "image": "https://polash-portfolio.vercel.app/og-image.png",
+        "sameAs": [
+          "https://github.com/polashmiya",
+          "https://www.linkedin.com/in/md-polash-miya-726667193/"
+        ]
+      }
+    </script>
   </head>
   <body>
     <div id="root"></div>

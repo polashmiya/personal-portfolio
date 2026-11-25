@@ -2,27 +2,20 @@
 
 # Portfolio Project Instructions
 
-This is a React.js portfolio website built with:
-- **Vite** for fast development and building
-- **Tailwind CSS** for styling and responsive design
-- **Framer Motion** for smooth animations
-- **React Icons** for iconography
+React 19 + Vite portfolio styled with Tailwind CSS 3, animated with Framer Motion, icons from React Icons.
 
-## Project Structure
-- `src/components/` - All React components (Header, Hero, About, Experience, Skills, Projects, Contact, Footer)
-- `src/index.css` - Tailwind CSS configuration and custom styles
-- `tailwind.config.js` - Tailwind configuration with custom colors and animations
+## Where things live
+- `src/data/portfolio.js` — **all content** (profile, experience, skills, projects, stats). Edit content here, not in components.
+- `src/components/` — one component per section; shared primitives in `src/components/ui/`.
+- `src/index.css` — design tokens (CSS variables for light `:root` and dark `.dark`) and component classes (`card`, `chip`, `btn-primary`, `btn-ghost`, `icon-btn`, `input`, `eyebrow`, `spotlight`, `text-gradient`).
 
-## Design Guidelines
-- Use **standard blue color palette** (primary-500, primary-600, etc.)
-- Maintain **fully responsive design** for all screen sizes
-- Follow **modern, clean design principles**
-- Use **consistent spacing** with Tailwind's spacing scale
-- Implement **smooth animations** with Framer Motion
+## Design guidelines
+- Use the token colors (`bg`, `surface`, `surface-2`, `line`, `fg`, `muted`, `subtle`, `accent`, `accent-2`, `success`), never raw Tailwind palette colors. This keeps light and dark themes consistent.
+- Fonts: Geist (sans), Geist Mono (labels / code), Instrument Serif italic (accent words in headings).
+- New sections should use `SectionHeading` and wrap content in `Reveal` for consistent entrance animations.
+- Keep layouts fully responsive (check 375px phones), with no horizontal overflow.
+- The resume (`Resume.jsx`) is exported to PDF with html2canvas. Use fixed hex colors there, and avoid `overflow: hidden` truncation and native list markers.
 
-## Code Conventions
-- Use **functional components** with hooks
-- Follow **React best practices** for state management
-- Use **semantic HTML** elements for accessibility
-- Implement **proper TypeScript types** when needed
-- Keep components **modular and reusable**
+## Code conventions
+- Functional components with hooks; semantic HTML; accessible labels for icon-only buttons.
+- Respect reduced motion (`MotionConfig reducedMotion="user"` is set in `App.jsx`).

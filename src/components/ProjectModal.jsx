@@ -1,169 +1,131 @@
-import React, { useEffect, useRef } from "react";
-/* eslint-disable no-unused-vars */
-import * as fm from "framer-motion";
-import { FaExternalLinkAlt, FaGithub, FaTimes, FaCheckCircle } from "react-icons/fa";
+import { useState } from 'react';
+import { LuX, LuExternalLink, LuCircleCheck, LuServer, LuKeyRound, LuLayoutDashboard } from 'react-icons/lu';
+import { SiGithub } from 'react-icons/si';
+import Modal from './ui/Modal';
+import ProjectCover from './ProjectCover';
+import { projectFilters } from '../data/portfolio';
 
-const backdropVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
+const categoryLabel = (key) => projectFilters.find((f) => f.key === key)?.label ?? key;
 
-const modalVariants = {
-  hidden: { y: -20, opacity: 0, scale: 0.98 },
-  visible: { y: 0, opacity: 1, scale: 1 },
-};
+export default function ProjectModal({ project: selected, onClose }) {
+  // Keep showing the last project while the modal animates closed.
+  const [project, setProject] = useState(selected);
+  const [shot, setShot] = useState(0);
+  if (selected && selected !== project) {
+    setProject(selected);
+    setShot(0);
+  }
 
-const ProjectModal = ({ isOpen, onClose, project }) => {
-  const closeBtnRef = useRef(null);
-
-  // Close on ESC and focus close button on open
-  useEffect(() => {
-    if (!isOpen) return;
-    const onKeyDown = (e) => {
-      if (e.key === "Escape") onClose();
-    };
-    document.addEventListener("keydown", onKeyDown);
-    // Focus close button for accessibility
-    const t = setTimeout(() => closeBtnRef.current?.focus(), 0);
-    return () => {
-      document.removeEventListener("keydown", onKeyDown);
-      clearTimeout(t);
-    };
-  }, [isOpen, onClose]);
-
-  if (!project) return null;
+  const gallery = project?.gallery?.length > 1 ? project.gallery : null;
+  const coverProject = gallery ? { ...project, image: gallery[shot]?.src ?? project.image } : project;
 
   return (
-    <fm.AnimatePresence>
-      {isOpen && (
-        <fm.motion.div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm px-4"
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={backdropVariants}
-          onClick={onClose}
-        >
-          <fm.motion.dialog
-            className="relative bg-white rounded-2xl shadow-2xl max-w-4xl w-full mx-4 my-8 md:my-10 h-[90vh] overflow-hidden border border-gray-200 flex flex-col"
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            variants={modalVariants}
-            transition={{ type: "spring", stiffness: 300, damping: 30 }}
-            onClick={(e) => e.stopPropagation()}
-            aria-labelledby="project-modal-title"
-            open
+    <Modal open={Boolean(selected)} onClose={onClose} labelledBy="project-modal-title" className="max-w-3xl">
+      {project && (
+        <>
+          <button
+            type="button"
+            onClick={onClose}
+            className="absolute right-4 top-4 z-20 grid h-10 w-10 place-items-center rounded-full border border-white/20 bg-black/40 text-white backdrop-blur transition hover:bg-black/60"
+            aria-label="Close project details"
+            data-autofocus
           >
-            {/* Header with image */}
-            <div className="relative">
-              {project.image && (
-                <div className="h-56 md:h-72 overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              )}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
-              {/* Close */}
-              <button
-                ref={closeBtnRef}
-                onClick={onClose}
-                className="absolute top-4 right-4 text-white/90 hover:text-white bg-black/40 hover:bg-black/60 rounded-full p-2 focus:outline-none focus:ring-2 focus:ring-white/70"
-                aria-label="Close project details"
-              >
-                <FaTimes />
-              </button>
-              {/* Title and category */}
-              <div className="absolute bottom-4 left-4 right-4">
-                <div className="flex flex-wrap items-center gap-2 mb-2">
-                  {project.category && (
-                    <span className="px-2.5 py-1 text-xs font-semibold rounded-full bg-white/90 text-primary-700 uppercase tracking-wide">
-                      {project.category}
-                    </span>
-                  )}
-                </div>
-                <h3
-                  id="project-modal-title"
-                  className="text-white text-2xl md:text-3xl font-bold drop-shadow-sm"
-                >
-                  {project.title}
-                </h3>
-              </div>
-            </div>
+            <LuX className="h-5 w-5" />
+          </button>
 
-            {/* Body */}
-            <div className="flex-1 overflow-y-auto p-6 md:p-8 bg-white">
-              {/* Links */}
-              <div className="flex flex-wrap gap-3 mb-5">
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gray-900 text-white hover:bg-gray-800 transition-colors shadow"
+          <div className="overflow-y-auto overscroll-contain">
+            <ProjectCover project={coverProject} className="aspect-[16/9] w-full" />
+
+            {gallery && (
+              <div className="scrollbar-none flex gap-3 overflow-x-auto border-b border-line px-6 py-4 sm:px-9" role="group" aria-label="Screenshots">
+                {gallery.map((g, i) => (
+                  <button
+                    key={g.caption}
+                    type="button"
+                    onClick={() => setShot(i)}
+                    aria-pressed={shot === i}
+                    className={`shrink-0 overflow-hidden rounded-xl border text-left transition ${
+                      shot === i ? 'border-accent ring-2 ring-accent/30' : 'border-line opacity-70 hover:opacity-100'
+                    }`}
                   >
-                    <FaGithub />
-                    View Code
-                  </a>
-                )}
+                    <img src={g.src} alt="" loading="lazy" className="h-16 w-28 object-cover object-left-top" />
+                    <span className="block bg-surface-2/60 px-2.5 py-1.5 text-[11px] font-medium text-muted">{g.caption}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+
+            <div className="p-6 sm:p-9">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="chip border-accent/30 bg-accent/10 text-accent">{categoryLabel(project.category)}</span>
+                {project.year && <span className="chip font-mono">{project.year}</span>}
+              </div>
+              <h3 id="project-modal-title" className="mt-4 text-3xl font-semibold tracking-tight text-fg">
+                {project.title}
+              </h3>
+              <p className="mt-1 text-muted">{project.tagline}</p>
+
+              <div className="mt-6 flex flex-wrap gap-3">
                 {project.live && (
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary-600 text-white hover:bg-primary-700 transition-colors shadow"
-                  >
-                    <FaExternalLinkAlt />
-                    Live Demo
+                  <a href={project.live} target="_blank" rel="noopener noreferrer" className="btn-primary px-5 py-2.5">
+                    <LuExternalLink className="h-4 w-4" /> Live demo
                   </a>
                 )}
+                {project.github && (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-2.5">
+                    <SiGithub className="h-4 w-4" /> Source code
+                  </a>
+                )}
+                {project.api && (
+                  <a href={project.api} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-2.5">
+                    <LuServer className="h-4 w-4" /> API repo
+                  </a>
+                )}
+                {project.links?.map((l) => (
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="btn-ghost px-5 py-2.5">
+                    <LuLayoutDashboard className="h-4 w-4" /> {l.label}
+                  </a>
+                ))}
               </div>
 
-              {/* Description */}
-              {project.description && (
-                <p className="text-gray-700 leading-relaxed mb-6">{project.description}</p>
+              {project.demo && (
+                <p className="mt-5 flex items-start gap-2.5 rounded-2xl border border-accent/25 bg-accent/5 p-4 text-sm leading-relaxed text-muted">
+                  <LuKeyRound className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                  <span>
+                    <span className="font-semibold text-fg">Demo access: </span>
+                    {project.demo}
+                  </span>
+                </p>
               )}
 
-              {/* Details list */}
-              {Array.isArray(project.details) && project.details.length > 0 && (
-                <div className="mb-6">
-                  <h4 className="text-sm font-semibold text-gray-900 mb-2">Key details</h4>
-                  <ul className="space-y-2">
-                    {project.details.map((item, idx) => (
-                      <li key={`${project.id}-detail-${idx}`} className="flex items-start gap-3">
-                        <FaCheckCircle className="mt-1 text-primary-600 flex-shrink-0" size={16} />
-                        <span className="text-gray-700 leading-snug">{item}</span>
+              <p className="mt-7 leading-relaxed text-muted">{project.description}</p>
+
+              {project.highlights?.length > 0 && (
+                <>
+                  <h4 className="mt-8 text-sm font-semibold uppercase tracking-[0.15em] text-fg">Highlights</h4>
+                  <ul className="mt-4 space-y-3">
+                    {project.highlights.map((h) => (
+                      <li key={h} className="flex gap-3 text-[15px] leading-relaxed text-muted">
+                        <LuCircleCheck className="mt-1 h-4 w-4 shrink-0 text-success" aria-hidden="true" />
+                        {h}
                       </li>
                     ))}
                   </ul>
-                </div>
+                </>
               )}
 
-              {/* Tech stack */}
-              {Array.isArray(project.technologies) && project.technologies.length > 0 && (
-                <div className="mb-2">
-                  <h4 className="text-sm font-semibold text-gray-900 mb-2">Technologies</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={`${project.id}-${tech}`}
-                        className="px-3 py-1 bg-primary-50 text-primary-700 text-xs font-medium rounded-full border border-primary-100"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              )}
+              <h4 className="mt-8 text-sm font-semibold uppercase tracking-[0.15em] text-fg">Built with</h4>
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {project.tech.map((t) => (
+                  <li key={t} className="chip">
+                    {t}
+                  </li>
+                ))}
+              </ul>
             </div>
-          </fm.motion.dialog>
-        </fm.motion.div>
+          </div>
+        </>
       )}
-    </fm.AnimatePresence>
+    </Modal>
   );
-};
-
-export default ProjectModal;
+}

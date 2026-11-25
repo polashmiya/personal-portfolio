@@ -1,293 +1,296 @@
-/* eslint-disable-next-line no-unused-vars */
-import { motion } from "framer-motion";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaArrowDown,
-  FaCode,
-  FaLaptopCode,
-  FaMobileAlt,
-} from "react-icons/fa";
-import profileImage from "../assets/profile.jpg";
-import React, { useState } from "react";
-import ResumeModal from "./ResumeModal";
-import { heroSectionInfo } from "../dummyData";
+import { useEffect, useRef, useState } from 'react';
+import { motion, useInView, animate, useReducedMotion } from 'framer-motion';
+import { LuArrowRight, LuDownload, LuBriefcase, LuMapPin, LuArrowDown } from 'react-icons/lu';
+import { profile, socials, stats } from '../data/portfolio';
+import SocialIcon from './ui/SocialIcon';
 
-const Hero = () => {
-  const scrollToAbout = () => {
-    document.querySelector("#about")?.scrollIntoView({ behavior: "smooth" });
+/* Types, pauses, deletes and moves to the next phrase. */
+function useTypewriter(words, { typeMs = 65, deleteMs = 35, holdMs = 1800 } = {}) {
+  const reduce = useReducedMotion();
+  const [index, setIndex] = useState(0);
+  const [text, setText] = useState(reduce ? words[0] : '');
+  const [deleting, setDeleting] = useState(false);
+
+  useEffect(() => {
+    const word = words[index % words.length];
+    if (reduce) {
+      const t = setTimeout(() => {
+        setIndex((i) => i + 1);
+        setText(words[(index + 1) % words.length]);
+      }, holdMs + 1000);
+      return () => clearTimeout(t);
+    }
+    let t;
+    if (!deleting && text === word) t = setTimeout(() => setDeleting(true), holdMs);
+    else if (deleting && text === '') {
+      setDeleting(false);
+      setIndex((i) => i + 1);
+    } else {
+      t = setTimeout(
+        () => setText(deleting ? word.slice(0, text.length - 1) : word.slice(0, text.length + 1)),
+        deleting ? deleteMs : typeMs
+      );
+    }
+    return () => clearTimeout(t);
+  }, [text, deleting, index, words, reduce, typeMs, deleteMs, holdMs]);
+
+  return text;
+}
+
+/* Counts up from 0 the first time it scrolls into view. */
+function CountUp({ value }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-40px' });
+  const match = String(value).match(/^(\d+)(.*)$/);
+  const target = match ? Number(match[1]) : 0;
+  const suffix = match ? match[2] : '';
+  const [n, setN] = useState(match ? 0 : value);
+
+  useEffect(() => {
+    if (!inView || !match) return;
+    const controls = animate(0, target, {
+      duration: 1.6,
+      ease: [0.22, 1, 0.36, 1],
+      onUpdate: (v) => setN(Math.round(v)),
+    });
+    return () => controls.stop();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [inView, target]);
+
+  return (
+    <span ref={ref}>
+      {n}
+      {suffix}
+    </span>
+  );
+}
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i = 0) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.8, delay: 0.15 + i * 0.1, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
+function CodeCard() {
+  return (
+    <div className="glass w-64 rounded-2xl p-4 font-mono text-[11.5px] leading-relaxed shadow-2xl">
+      <div className="mb-3 flex items-center gap-1.5">
+        <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+        <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
+        <span className="ml-2 text-[10px] text-subtle">engineer.ts</span>
+      </div>
+      <p>
+        <span className="text-accent">const</span> <span className="text-fg">polash</span>{' '}
+        <span className="text-subtle">=</span> <span className="text-subtle">{'{'}</span>
+      </p>
+      <p className="pl-4">
+        <span className="text-muted">stack</span>
+        <span className="text-subtle">: [</span>
+        <span className="text-accent-2">'React'</span>
+        <span className="text-subtle">, </span>
+        <span className="text-accent-2">'.NET'</span>
+        <span className="text-subtle">],</span>
+      </p>
+      <p className="pl-4">
+        <span className="text-muted">builds</span>
+        <span className="text-subtle">: </span>
+        <span className="text-accent-2">'ERP · POS · Apps'</span>
+        <span className="text-subtle">,</span>
+      </p>
+      <p className="pl-4">
+        <span className="text-muted">openToWork</span>
+        <span className="text-subtle">: </span>
+        <span className="text-accent">true</span>
+      </p>
+      <p className="text-subtle">{'};'}</p>
+    </div>
+  );
+}
+
+export default function Hero({ onOpenResume }) {
+  const role = useTypewriter(profile.roles);
+  const sectionRef = useRef(null);
+
+  const onMove = (e) => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty('--hx', `${e.clientX - r.left}px`);
+    el.style.setProperty('--hy', `${e.clientY - r.top}px`);
   };
-
-  const [resumeOpen, setResumeOpen] = useState(false);
-  const closeResume = () => setResumeOpen(false);
 
   return (
     <section
       id="home"
-  className="relative min-h-screen flex items-center bg-hero-pattern bg-white dark:bg-dark-900 pt-0 md:pt-20 overflow-hidden"
+      ref={sectionRef}
+      onMouseMove={onMove}
+      className="relative overflow-hidden pb-16 pt-28 sm:pt-36 lg:flex lg:min-h-[100svh] lg:flex-col lg:justify-center lg:pb-12"
     >
-      <div className="absolute inset-0 bg-gradient-radial from-primary-50/50 dark:from-dark-800/60 to-transparent opacity-70"></div>
+      {/* Background layers */}
+      <div className="bg-grid absolute inset-0 -z-10" aria-hidden="true" />
+      <div className="aurora -left-40 -top-40 -z-10 h-[34rem] w-[34rem] bg-accent" aria-hidden="true" />
+      <div className="aurora -right-40 top-40 -z-10 h-[28rem] w-[28rem] bg-accent-2" aria-hidden="true" />
+      <div
+        className="pointer-events-none absolute inset-0 -z-10 hidden md:block"
+        style={{
+          background:
+            'radial-gradient(600px circle at var(--hx, 50%) var(--hy, 30%), rgb(var(--accent) / 0.07), transparent 45%)',
+        }}
+        aria-hidden="true"
+      />
 
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.07, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          className="absolute -top-40 -left-40 w-96 h-96 bg-primary-500 rounded-full filter blur-xl"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.05, scale: 1 }}
-          transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
-          className="absolute -bottom-40 -right-40 w-[30rem] h-[30rem] bg-secondary-500 rounded-full filter blur-xl"
-        />
-        <motion.div
-          initial={{ opacity: 0, scale: 0 }}
-          animate={{ opacity: 0.07, scale: 1 }}
-          transition={{ duration: 1.5, delay: 0.6, ease: "easeOut" }}
-          className="absolute top-1/3 -right-20 w-64 h-64 bg-accent-500 rounded-full filter blur-xl"
-        />
+      <div className="container-site">
+        <div className="grid items-center gap-14 lg:grid-cols-[1.2fr_0.8fr] lg:gap-10">
+          {/* Copy */}
+          <motion.div initial="hidden" animate="show">
+            {profile.available && (
+              <motion.div variants={fadeUp} custom={0}>
+                <a
+                  href="#contact"
+                  className="glass group inline-flex items-center gap-2.5 rounded-full py-1.5 pl-2 pr-4 text-xs font-medium text-muted transition-colors hover:text-fg sm:text-sm"
+                >
+                  <span className="flex items-center gap-2 rounded-full bg-success/10 px-2.5 py-1 text-success">
+                    <span className="relative flex h-2 w-2">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-success opacity-75" />
+                      <span className="relative inline-flex h-2 w-2 rounded-full bg-success" />
+                    </span>
+                    Available
+                  </span>
+                  Open to new opportunities
+                  <LuArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </a>
+              </motion.div>
+            )}
 
-        {/* Floating Icons */}
-        <motion.div
-          className="absolute top-1/4 left-[10%] text-primary-300"
-          animate={{ y: [0, -20, 0] }}
-          transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-        >
-          <FaCode size={40} className="opacity-40" />
-        </motion.div>
-        <motion.div
-          className="absolute bottom-1/4 right-[10%] text-secondary-300"
-          animate={{ y: [0, -25, 0] }}
-          transition={{
-            repeat: Infinity,
-            duration: 4,
-            ease: "easeInOut",
-            delay: 1,
-          }}
-        >
-          <FaLaptopCode size={50} className="opacity-40" />
-        </motion.div>
-        <motion.div
-          className="absolute top-1/2 right-[20%] text-accent-300"
-          animate={{ y: [0, -15, 0] }}
-          transition={{
-            repeat: Infinity,
-            duration: 2.5,
-            ease: "easeInOut",
-            delay: 0.5,
-          }}
-        >
-          <FaMobileAlt size={30} className="opacity-40" />
-        </motion.div>
-      </div>
+            <motion.h1
+              variants={fadeUp}
+              custom={1}
+              className="mt-7 text-[2.25rem] font-semibold leading-[1.06] tracking-[-0.035em] text-fg min-[400px]:text-[2.5rem] sm:text-6xl lg:text-[4.5rem]"
+            >
+              <span className="mb-3 block text-lg font-medium tracking-normal text-muted sm:text-xl">
+                Hi, I’m {profile.name} <span className="inline-block origin-[70%_70%] animate-[wave_2.4s_ease-in-out_1s_2]">👋</span>
+              </span>
+              I build software that{' '}
+              <span className="whitespace-nowrap pr-1 font-serif font-normal italic tracking-[-0.01em] text-gradient">
+                businesses run on.
+              </span>
+            </motion.h1>
 
-      <div className="container-custom px-4 z-10 flex flex-col lg:flex-row items-center justify-between">
-        {/* Hero Content */}
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0"
-        >
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-block px-4 py-1 glass-effect rounded-full border border-primary-100 dark:border-primary-700 shadow-md mb-6"
-          >
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-secondary-600 dark:from-primary-300 dark:to-secondary-400 font-semibold">
-              {heroSectionInfo?.designation} @ {heroSectionInfo?.company}
-            </span>
+            <motion.p variants={fadeUp} custom={2} className="mt-6 font-mono text-sm text-muted sm:text-base">
+              <span className="text-accent">~/</span>
+              <span className="text-subtle">role $ </span>
+              <span className="text-fg">{role}</span>
+              <span className="ml-0.5 inline-block h-[1.1em] w-[2px] translate-y-[3px] animate-blink bg-accent" />
+            </motion.p>
+
+            <motion.p variants={fadeUp} custom={3} className="mt-6 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+              {profile.tagline}
+            </motion.p>
+
+            <motion.div variants={fadeUp} custom={4} className="mt-9 flex flex-wrap items-center gap-3">
+              <a href="#projects" className="btn-primary group">
+                View my work
+                <LuArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+              <button type="button" onClick={onOpenResume} className="btn-ghost">
+                <LuDownload className="h-4 w-4" />
+                Resume
+              </button>
+              <div className="ml-1 flex items-center gap-2">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target={s.href.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="icon-btn"
+                    aria-label={s.label}
+                    title={s.label}
+                  >
+                    <SocialIcon label={s.label} className="h-4 w-4" />
+                  </a>
+                ))}
+              </div>
+            </motion.div>
           </motion.div>
 
-          <motion.h1
-            className="text-4xl md:text-5xl lg:text-7xl font-bold font-serif mb-6 leading-tight text-dark-900 dark:text-white"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            {heroSectionInfo?.name}
-          </motion.h1>
-
-          <motion.p
-            className="text-lg text-dark-600 dark:text-gray-200 mb-8 max-w-xl lg:mx-0 mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
-          >
-            {heroSectionInfo?.description}
-          </motion.p>
-
+          {/* Portrait */}
           <motion.div
-            className="flex flex-wrap gap-4 justify-center lg:justify-start mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            className="relative mx-auto w-full max-w-[340px] sm:max-w-[380px]"
           >
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#contact"
-              className="btn btn-primary dark:bg-primary-600 dark:text-white"
-            >
-              Let's Work Together
-            </motion.a>
-            <motion.a
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              href="#projects"
-              className="btn btn-secondary dark:bg-dark-800 dark:text-primary-300 dark:border-primary-600"
-            >
-              View My Work
-            </motion.a>
-            {/* <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="button"
-              className="btn btn-secondary"
-              onClick={openResume}
-            >
-              Resume
-            </motion.button> */}
-            {/* Resume Modal */}
-            <ResumeModal isOpen={resumeOpen} onClose={closeResume} />
-          </motion.div>
+            {/* glow + rotating ring */}
+            <div className="ring-animated absolute -inset-6 animate-spin-border rounded-[3rem] opacity-40 blur-3xl" aria-hidden="true" />
+            <div className="ring-animated absolute -inset-[1.5px] animate-spin-border rounded-[2.1rem]" aria-hidden="true" />
 
-          <motion.div
-            className="flex justify-center lg:justify-start space-x-5"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1, duration: 0.8 }}
-          >
-            <motion.a
-              whileHover={{ y: -5, color: "#171515" }}
-              href="https://github.com/polashmiya"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-dark-500 dark:text-gray-300 transition-colors text-2xl hover:text-primary-600 dark:hover:text-primary-400"
-            >
-              <FaGithub />
-            </motion.a>
-            <motion.a
-              whileHover={{ y: -5, color: "#0077b5" }}
-              href="https://www.linkedin.com/in/md-polash-miya-726667193/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-dark-500 transition-colors text-2xl hover:text-primary-600"
-            >
-              <FaLinkedin />
-            </motion.a>
-          </motion.div>
-        </motion.div>
-
-        {/* Hero Image - hidden on small devices */}
-        <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8, delay: 0.5, ease: "easeOut" }}
-          className="hidden lg:flex w-full lg:w-1/2 justify-center lg:justify-end"
-        >
-          <div className="relative">
-            {/* Glowing background effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-primary-400 to-secondary-400 rounded-full blur-xl opacity-30 scale-110 animate-pulse"></div>
-            <motion.div
-              className="relative w-80 h-80 md:w-96 md:h-96 rounded-full overflow-hidden border-8 border-white dark:border-dark-700 shadow-2xl"
-              whileHover={{ scale: 1.03 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
+            <div className="relative overflow-hidden rounded-[2rem] bg-surface">
               <img
-                src={profileImage}
-                alt="Portfolio Profile"
-                className="w-full h-full object-cover filter brightness-110 contrast-110"
+                src={profile.image}
+                alt={`Portrait of ${profile.name}`}
+                width="640"
+                height="800"
+                fetchPriority="high"
+                className="aspect-[4/5] w-full object-cover"
               />
-              {/* Overlay gradient for better contrast */}
-              <div className="absolute inset-0 bg-gradient-to-t from-transparent via-transparent to-white/5 dark:to-dark-900/10"></div>
-            </motion.div>
-            {/* Decorative Elements */}
-            <motion.div
-              className="absolute -top-6 -right-6 w-24 h-24 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg"
-              animate={{ rotate: 360, scale: 1 }}
-              transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            >
-              <motion.div
-                className="w-full h-full rounded-full flex items-center justify-center"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1, rotate: 360 }}
-                transition={{
-                  scale: { delay: 1, duration: 0.6 },
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                }}
-              >
-                <span className="text-sm">React</span>
-              </motion.div>
-            </motion.div>
-            <motion.div
-              className="absolute -right-8 -bottom-1 -left-4 w-20 h-20 bg-gradient-to-r from-secondary-500 to-secondary-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg"
-              animate={{ rotate: 360 }}
-              transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
-            >
-              <motion.div
-                className="w-full h-full rounded-full flex items-center justify-center"
-                initial={{ scale: 0 }}
-                animate={{ scale: 1, rotate: 360 }}
-                transition={{
-                  scale: { delay: 1, duration: 0.6 },
-                  rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-                }}
-              >
-                <span className="text-sm">Next Js</span>
-              </motion.div>
-            </motion.div>
-            <motion.div
-              className="absolute top-1/2 -right-8 w-16 h-16 bg-gradient-to-r from-accent-500 to-accent-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1, rotate: 360 }}
-              transition={{
-                scale: { delay: 1, duration: 0.6 },
-                rotate: { duration: 20, repeat: Infinity, ease: "linear" },
-              }}
-            >
-              <span className="text-xs">Node</span>
-            </motion.div>
-            {/* <motion.div 
-              className="absolute top-1/3 -left-8 w-16 h-16 bg-gradient-to-r from-green-500 to-green-600 rounded-full flex items-center justify-center text-white font-bold shadow-lg"
-              initial={{ scale: 0 }}
-              animate={{ scale: 1, rotate: -360 }}
-              transition={{ 
-                scale: { delay: 1.2, duration: 0.6 },
-                rotate: { duration: 18, repeat: Infinity, ease: "linear" } 
-              }}
-            >
-              <span className="text-xs">Node</span>
-            </motion.div> */}
-          </div>
-        </motion.div>
-      </div>
+              <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/40 to-transparent" />
+            </div>
 
-      <motion.div
-        className="absolute bottom-10 w-full flex justify-center md:w-auto md:left-1/2 md:-translate-x-1/2 md:transform"
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.2, duration: 0.8 }}
-      >
-        <motion.button
-          onClick={scrollToAbout}
-          className="flex flex-col items-center text-dark-500 hover:text-primary-600 transition-colors"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          <span className="text-sm font-medium mb-2">Scroll Down</span>
-          <motion.div
-            animate={{ y: [0, 10, 0] }}
-            transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
-          >
-            <FaArrowDown />
+            {/* floating chips */}
+            <div className="glass absolute -left-4 top-8 flex animate-float items-center gap-3 rounded-2xl py-2 pl-2 pr-4 shadow-xl sm:-left-12">
+              <span className="grid h-9 w-9 shrink-0 place-items-center rounded-xl bg-gradient-accent text-white">
+                <LuBriefcase className="h-4 w-4" />
+              </span>
+              <span className="leading-tight">
+                <span className="block text-xs font-semibold text-fg">{profile.currentTitle}</span>
+                <span className="block text-[11px] text-muted">@ {profile.company}</span>
+              </span>
+            </div>
+            <div className="glass absolute -right-3 top-1/2 flex animate-float-delayed items-center gap-2 rounded-2xl px-3 py-2 text-xs font-medium text-fg shadow-xl sm:-right-8">
+              <LuMapPin className="h-3.5 w-3.5 text-accent-2" />
+              {profile.shortLocation}
+            </div>
+            <div className="absolute -bottom-10 -left-24 hidden animate-float-delayed xl:block">
+              <CodeCard />
+            </div>
           </motion.div>
-        </motion.button>
-      </motion.div>
+        </div>
+
+        {/* Stats */}
+        <motion.dl
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="glass mt-16 grid grid-cols-2 overflow-hidden rounded-3xl md:mt-20 md:grid-cols-4"
+        >
+          {stats().map((s, i) => (
+            <div
+              key={s.label}
+              className={`flex flex-col gap-1 p-5 sm:p-6 ${i % 2 === 1 ? 'border-l border-line/70' : ''} ${
+                i >= 2 ? 'border-t border-line/70 md:border-t-0' : ''
+              } ${i === 2 ? 'md:border-l' : ''}`}
+            >
+              <dt className="order-2 text-xs font-medium text-muted sm:text-sm">{s.label}</dt>
+              <dd className="order-1 text-3xl font-semibold tracking-tight text-fg sm:text-4xl">
+                <CountUp value={s.value} />
+              </dd>
+            </div>
+          ))}
+        </motion.dl>
+
+        <a
+          href="#about"
+          className="mx-auto mt-10 hidden w-fit items-center gap-2 text-xs font-medium uppercase tracking-[0.2em] text-subtle transition-colors hover:text-fg lg:flex"
+        >
+          <LuArrowDown className="h-3.5 w-3.5 animate-bounce" />
+          Scroll
+        </a>
+      </div>
     </section>
   );
-};
-
-export default Hero;
+}

@@ -1,247 +1,154 @@
-import React from "react";
+import { profile, experience, education, skillGroups, projects, socials } from '../data/portfolio';
+import { A4 } from './ui/paper';
 
-const resumeData = {
-  name: "Md. Polash Miya",
-  contact: {
-    phone: "+88 01719623984",
-    email: "polashmiya2015@gmail.com",
-    github: "https://github.com/polashmiya",
-    address: "Uttarkhan, Uttara, Dhaka-1230"
-  },
-  experiences: [
-    {
-      title: "Software Engineer I",
-      org: "AKIJ iBOS Limited | An AKIJ Company",
-      date: "June 2024 – Present",
-      location: "Dhaka, Bangladesh",
-      responsibilities: [
-        "Created/maintained responsive React JS apps for cross-browser suitability.",
-        "Integrated front-end with RESTful APIs for seamless data flow.",
-        "Collaborated with UX designers for consistent user experience on all devices."
-      ]
-    },
-    {
-      title: "Junior Software Engineer",
-      org: "AKIJ iBOS Limited | An AKIJ Company",
-      date: "April 2022 – June 2024",
-      location: "Dhaka, Bangladesh",
-      responsibilities: [
-        "Building responsive web interface using HTML, CSS, JavaScript, React JS.",
-        "Assisting in debugging, issue resolution, and performance optimization."
-      ]
-    }
-  ],
-  projects: [
-    {
-      name: "MANAGERIUM, An ERP Based Solution",
-      description: [
-        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
-        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
-        "Utilized broad business module expertise to ensure exceptional solution delivery."
-      ]
-    },
-    {
-      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
-      description: [
-        "Led the Promotion Management module's creation, ensuring seamless promotions.",
-        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
-      ]
-    },
-    {
-      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
-      description: [
-        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
-      ]
-    },
-     {
-      name: "MANAGERIUM, An ERP Based Solution",
-      description: [
-        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
-        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
-        "Utilized broad business module expertise to ensure exceptional solution delivery."
-      ]
-    },
-    {
-      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
-      description: [
-        "Led the Promotion Management module's creation, ensuring seamless promotions.",
-        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
-      ]
-    },
-    {
-      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
-      description: [
-        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
-      ]
-    }
-    , {
-      name: "MANAGERIUM, An ERP Based Solution",
-      description: [
-        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
-        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
-        "Utilized broad business module expertise to ensure exceptional solution delivery."
-      ]
-    },
-    {
-      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
-      description: [
-        "Led the Promotion Management module's creation, ensuring seamless promotions.",
-        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
-      ]
-    },
-    {
-      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
-      description: [
-        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
-      ]
-    },
-     {
-      name: "MANAGERIUM, An ERP Based Solution",
-      description: [
-        "Significantly contributed as Managerium's lead front-end developer in shaping the ERP solution.",
-        "Played a pivotal role in developing essential features including sales, purchase, accounts, and HR.",
-        "Utilized broad business module expertise to ensure exceptional solution delivery."
-      ]
-    },
-    {
-      name: "APON ERP, An ERP Based Solution for Apon Wellbeing Ltd",
-      description: [
-        "Led the Promotion Management module's creation, ensuring seamless promotions.",
-        "Developed crucial features for the Insurance Management module and played a role in enhancing various project aspects."
-      ]
-    },
-    {
-      name: "AKIJ ERP, An ERP Based Solution for AKIJ",
-      description: [
-        "Actively contributed during my tenure at Akij ERP by developing and implementing critical features such as Internal Expense, Advance in Payment, and Internal Control within the ERP system."
-      ]
-    }
-  ],
-  skills: {
-    expertise: ["JavaScript", "ES6", "React.js", "Redux", "React Router", "React Hook", "Material UI"],
-    comfortable: ["Rtk Query", "Node JS", "Express.js", "SQL", "C#", "Ant Design", "Tailwind"],
-    tools: ["GitHub", "GitLab", "Heroku", "Netlify", "Terminal"]
-  },
-  education: {
-    institute: "Dhaka Polytechnic Institute (DPI)",
-    degree: "Diploma in Engineering (CMT)"
-  }
-};
+/*
+ * A4 resume (794 × 1123 px at 96 dpi), generated from the same data as the site.
+ * It always renders on white "paper" with fixed colors so the PDF export looks the same
+ * regardless of the site theme.
+ */
 
-const Resume = (props) => {
-  const pdfMode = props.pdfMode || false;
+const stripProtocol = (url) => url.replace(/^https?:\/\/(www\.)?/, '').replace(/\/$/, '');
+
+// A text bullet instead of list-style markers: html2canvas offsets text slightly when
+// rasterizing, and a text glyph shifts with it while a native marker or a dot element does not.
+function Bullets({ items, render = (x) => x }) {
   return (
-    <section
-      className={
-        pdfMode
-          ? "pdf-export text-black !p-0 !m-0 !shadow-none !rounded-none !max-w-none !mx-0 !text-xs"
-          : "max-w-3xl mx-auto bg-white shadow-lg rounded-lg p-8 text-gray-900"
-      }
-      style={
-        pdfMode
-          ? {
-              fontSize: "11px",
-              lineHeight: "1.3",
-              width: "210mm",
-              minHeight: "297mm",
-              maxHeight: "297mm",
-              padding: "12mm",
-              margin: 0,
-              boxSizing: "border-box",
-              overflow: "hidden"
-            }
-          : {}
-      }
+    <ul className="mt-1 space-y-[3px] text-[#374151]">
+      {items.map((item, i) => (
+        <li key={i} className="flex gap-2 pl-1">
+          <span className="shrink-0 text-[#9ca3af]" aria-hidden="true">
+            •
+          </span>
+          <span>{render(item)}</span>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function Heading({ children }) {
+  return (
+    <h2 className="mb-2.5 flex items-center gap-3 text-[10.5px] font-bold uppercase tracking-[0.2em] text-[#5b3fd6]">
+      {children}
+      <span className="h-px flex-1 bg-[#e5e7eb]" />
+    </h2>
+  );
+}
+
+export default function Resume({ ref }) {
+  const github = socials.find((s) => s.label === 'GitHub');
+  const linkedin = socials.find((s) => s.label === 'LinkedIn');
+  const selected = projects.filter((p) => p.featured).concat(projects.filter((p) => p.id === 'restaurant-pos'));
+  const job = experience[0];
+
+  const contacts = [
+    { label: 'Email', value: profile.email, href: `mailto:${profile.email}` },
+    { label: 'Phone', value: profile.phone, href: profile.phoneHref },
+    { label: 'Location', value: profile.location },
+    { label: 'GitHub', value: stripProtocol(github.href), href: github.href },
+    { label: 'LinkedIn', value: stripProtocol(linkedin.href), href: linkedin.href },
+    { label: 'Portfolio', value: stripProtocol(profile.siteUrl), href: profile.siteUrl },
+  ];
+
+  return (
+    <article
+      ref={ref}
+      className="pdf-export bg-white font-sans text-[10.5px] leading-[1.5] text-[#1f2937]"
+      style={{ width: A4.width, minHeight: A4.height - 3, padding: '40px 48px', boxSizing: 'border-box' }}
     >
       {/* Header */}
-      <header className={pdfMode ? "border-b pb-2 mb-3" : "border-b pb-4 mb-6"}>
-        <h1 className={pdfMode ? "text-lg font-bold text-primary-600" : "text-3xl font-bold text-primary-600"}>{resumeData.name}</h1>
-        <div className={pdfMode ? "mt-1 text-xs space-y-0.5" : "mt-2 text-sm space-y-1"}>
-          <div><span className="font-semibold">Phone:</span> {resumeData.contact.phone}</div>
-          <div><span className="font-semibold">Gmail:</span> {resumeData.contact.email}</div>
-          <div><span className="font-semibold">GitHub:</span> <a href={resumeData.contact.github} className="text-primary-500 underline" target="_blank" rel="noopener noreferrer">{resumeData.contact.github}</a></div>
-          <div><span className="font-semibold">Present Address:</span> {resumeData.contact.address}</div>
+      <header className="flex items-center gap-5 border-b border-[#e5e7eb] pb-4">
+        <img src={profile.avatar} alt="" width="68" height="68" className="h-[68px] w-[68px] rounded-2xl object-cover" />
+        <div className="flex-1">
+          <h1 className="text-[26px] font-bold leading-tight tracking-tight text-[#0b0c12]">{profile.name}</h1>
+          <p className="mt-0.5 text-[12.5px] font-semibold text-[#5b3fd6]">
+            {profile.role} · {profile.currentTitle} at {profile.company}
+          </p>
         </div>
       </header>
 
-      {/* Experiences */}
-      <section className={pdfMode ? "mb-3" : "mb-8"}>
-        <h2 className={pdfMode ? "text-base font-bold text-primary-500 mb-1" : "text-xl font-bold text-primary-500 mb-2"}>Experiences</h2>
-        {resumeData.experiences.map((exp) => (
-          <div key={exp.title + exp.date} className={pdfMode ? "mb-2" : "mb-4"}>
-            <div className={pdfMode ? "flex flex-col justify-between items-start" : "flex flex-col md:flex-row md:justify-between md:items-center"}>
-              <div>
-                <span className="font-semibold">{exp.title}</span> <span className="text-gray-600">@ {exp.org}</span>
-              </div>
-              <div className={pdfMode ? "text-xs text-gray-500" : "text-sm text-gray-500 md:text-right"}>{exp.date} | {exp.location}</div>
-            </div>
-            <ul className={pdfMode ? "list-disc ml-4 mt-1 text-xs" : "list-disc ml-6 mt-2 text-sm"}>
-              {exp.responsibilities.map((r) => (
-                <li key={r}>{r}</li>
-              ))}
-            </ul>
-          </div>
+      <ul className="mt-3.5 flex flex-wrap gap-x-5 gap-y-1.5 text-[10px]">
+        {contacts.map((c) => (
+          <li key={c.label}>
+            <span className="font-semibold text-[#111827]">{c.label}: </span>
+            {c.href ? (
+              <a href={c.href} className="text-[#374151]">
+                {c.value}
+              </a>
+            ) : (
+              <span className="text-[#374151]">{c.value}</span>
+            )}
+          </li>
         ))}
+      </ul>
+
+      <section className="mt-5">
+        <Heading>Summary</Heading>
+        <p className="text-[#374151]">{profile.summary}</p>
       </section>
 
-      {/* Projects */}
-      <section className={pdfMode ? "mb-3" : "mb-8"}>
-        <h2 className={pdfMode ? "text-base font-bold text-primary-500 mb-1" : "text-xl font-bold text-primary-500 mb-2"}>Projects</h2>
-        <div className={pdfMode ? "grid grid-cols-1 gap-1" : ""}>
-          {resumeData.projects.map((proj) => (
-            <div key={proj.name} className={pdfMode ? "mb-1" : "mb-4"}>
-              <div className="font-semibold">{proj.name}</div>
-              <ul className={pdfMode ? "list-disc ml-4 mt-1 text-xs" : "list-disc ml-6 mt-2 text-sm"}>
-                {proj.description.map((d) => (
-                  <li key={d}>{d}</li>
-                ))}
-              </ul>
+      <section className="mt-5">
+        <Heading>Experience</Heading>
+        <p className="text-[11.5px] font-bold text-[#0b0c12]">
+          {job.company} <span className="font-normal text-[#6b7280]">— {job.companyNote} · {job.location}</span>
+        </p>
+        {job.roles.map((role) => (
+          <div key={role.title} className="mt-2.5">
+            <div className="flex items-baseline justify-between">
+              <p className="font-semibold text-[#111827]">{role.title}</p>
+              <p className="text-[9.5px] font-medium text-[#6b7280]">{role.period}</p>
+            </div>
+            <Bullets items={role.points} />
+          </div>
+        ))}
+        <p className="mt-3.5 font-semibold text-[#111827]">Key ERP products</p>
+        <Bullets
+          items={job.products}
+          render={(p) => (
+            <>
+              <span className="font-semibold text-[#111827]">{p.name}</span> ({p.kind}) — {p.text}
+            </>
+          )}
+        />
+      </section>
+
+      <section className="mt-5">
+        <Heading>Selected projects</Heading>
+        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+          {selected.map((p) => (
+            <div key={p.id}>
+              <p className="font-semibold text-[#111827]">
+                {p.title} <span className="font-normal text-[#6b7280]">— {p.tagline}</span>
+              </p>
+              <p className="mt-0.5 text-[9.5px] text-[#4b5563]">{p.tech.slice(0, 6).join(' · ')}</p>
+              <p className="text-[9px] text-[#5b3fd6]">{stripProtocol(p.live ?? p.github)}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* Skills */}
-      <section className={pdfMode ? "mb-3" : "mb-8"}>
-        <h2 className={pdfMode ? "text-base font-bold text-primary-500 mb-1" : "text-xl font-bold text-primary-500 mb-2"}>Technical Skills</h2>
-        {pdfMode ? (
-          <div className="text-xs">
-            <div><span className="font-semibold">Expertise:</span> {resumeData.skills.expertise.join(", ")}</div>
-            <div><span className="font-semibold">Comfortable:</span> {resumeData.skills.comfortable.join(", ")}</div>
-            <div><span className="font-semibold">Tools:</span> {resumeData.skills.tools.join(", ")}</div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-            <div>
-              <div className="font-semibold">Expertise:</div>
-              <ul className="list-disc ml-6 mt-1">
-                {resumeData.skills.expertise.map((s) => <li key={s}>{s}</li>)}
-              </ul>
+      <section className="mt-5">
+        <Heading>Technical skills</Heading>
+        <dl className="space-y-1">
+          {skillGroups.map((g) => (
+            <div key={g.key} className="flex gap-2">
+              <dt className="w-[110px] shrink-0 font-semibold text-[#111827]">{g.title}</dt>
+              <dd className="text-[#374151]">{g.skills.map((s) => s.name).join(', ')}</dd>
             </div>
-            <div>
-              <div className="font-semibold">Comfortable:</div>
-              <ul className="list-disc ml-6 mt-1">
-                {resumeData.skills.comfortable.map((s) => <li key={s}>{s}</li>)}
-              </ul>
-            </div>
-            <div>
-              <div className="font-semibold">Tools:</div>
-              <ul className="list-disc ml-6 mt-1">
-                {resumeData.skills.tools.map((s) => <li key={s}>{s}</li>)}
-              </ul>
-            </div>
-          </div>
-        )}
+          ))}
+        </dl>
       </section>
 
-      {/* Education */}
-      <section>
-        <h2 className={pdfMode ? "text-base font-bold text-primary-500 mb-1" : "text-xl font-bold text-primary-500 mb-2"}>Education</h2>
-        <div className={pdfMode ? "font-semibold text-xs" : "font-semibold"}>{resumeData.education.institute}</div>
-        <div className={pdfMode ? "text-xs" : "text-sm"}>{resumeData.education.degree}</div>
+      <section className="mt-5">
+        <Heading>Education</Heading>
+        <div className="flex items-baseline justify-between">
+          <p>
+            <span className="font-semibold text-[#111827]">{education.degree}</span>
+            <span className="text-[#6b7280]"> — {education.institute}</span>
+          </p>
+          <p className="text-[9.5px] text-[#6b7280]">{education.location}</p>
+        </div>
       </section>
-    </section>
+    </article>
   );
-};
-
-export default Resume;
+}

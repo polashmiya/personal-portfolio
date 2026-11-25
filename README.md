@@ -1,125 +1,71 @@
-# Software Engineer Portfolio
+# Md. Polash Miya — Portfolio
 
-A beautiful, responsive portfolio website built with React.js and Tailwind CSS, showcasing professional experience, skills, and projects.
+Personal portfolio of **Md. Polash Miya**, full-stack software engineer (React · Next.js · ASP.NET Core · React Native · Flutter).
 
-## ✨ Features
+**Live:** https://polash-portfolio.vercel.app
 
-- **Fully Responsive Design** - Optimized for all devices and screen sizes
-- **Modern UI/UX** - Clean, professional design with smooth animations
-- **Interactive Sections** - Home, About, Experience, Skills, Projects, Contact
-- **Smooth Scrolling** - Navigation with smooth scroll to sections
-- **Contact Form** - Functional contact form for inquiries
-- **Social Links** - Integration with GitHub, LinkedIn, and other platforms
+## Features
 
-## 🛠️ Built With
+- **Dark-first design** with a light theme. The visitor's choice is remembered, and the first visit follows their system setting with no flash on load.
+- **Sections:** hero, tech marquee, about (bento), experience timeline, skills, projects (featured + filterable grid with detail modals), contact.
+- **Illustrated project covers.** Projects without a screenshot get a generated mockup in their own colors. Add a screenshot any time.
+- **Resume built from the same data:** A4 preview with one-click PDF download. The PDF library loads only when needed.
+- **Working contact form** via [Web3Forms](https://web3forms.com), with a pre-filled email fallback.
+- **Accessible:** keyboard-friendly modals (focus trap, Escape), skip link, visible focus rings, reduced-motion support.
+- **SEO:** meta description, Open Graph / Twitter card image, JSON-LD `Person` schema, sitemap and robots.txt.
+- **Fast:** WebP images (~250 KB total), vendor chunk splitting, lazy-loaded resume/PDF code.
 
-- **React.js** - Frontend framework
-- **Vite** - Build tool for fast development
-- **Tailwind CSS** - Utility-first CSS framework
-- **Framer Motion** - Animation library
-- **React Icons** - Icon library
+## Tech stack
 
-## 🚀 Getting Started
+React 19 · Vite 6 · Tailwind CSS 3 · Framer Motion · React Icons
 
-### Prerequisites
+## Getting started
 
-- Node.js (v16 or higher)
-- npm or yarn
-
-### Installation
-
-1. Clone the repository
-```bash
-git clone <repository-url>
-cd portfolio
-```
-
-2. Install dependencies
 ```bash
 npm install
+npm run dev       # http://localhost:5173
+npm run build     # production build in dist/
+npm run preview   # serve the production build
+npm run lint
 ```
 
-3. Start the development server
-```bash
-npm run dev
-```
+### Contact form (optional)
 
-4. Open [http://localhost:5173](http://localhost:5173) to view it in the browser
+1. Get a free access key at [web3forms.com](https://web3forms.com), using the email address that should receive messages.
+2. Copy `.env.example` to `.env.local` and set `VITE_WEB3FORMS_ACCESS_KEY`.
+3. On Vercel, add the same variable under **Project → Settings → Environment Variables**, then redeploy.
 
-## 📁 Project Structure
+Without a key, the form opens the visitor's email app with their message pre-filled, so no message is lost.
+
+## Updating content
+
+**All content lives in [`src/data/portfolio.js`](src/data/portfolio.js).** That covers the profile, bio, experience, skills, projects and stats. Every section and the downloadable resume read from it.
+
+- **Add a project:** add an entry to `projects`. Set `featured: true` to show it in the large cards at the top.
+- **Use a real screenshot:** put a `.webp` in `src/assets/`, import it at the top of the data file and set `image` on the project. Otherwise, `cover.variant` (`pos`, `dashboard`, `store`, `blog`, `phone` or `game`) and `cover.hue` control the illustrated cover.
+- **Availability badge:** set `profile.available` to `false` to hide "Open to new opportunities".
+- **Years of experience** is calculated from `CAREER_START`, so it stays current.
+
+## Project structure
 
 ```
 src/
+├── data/portfolio.js        # ← all site content
 ├── components/
-│   ├── Header.jsx      # Navigation header
-│   ├── Hero.jsx        # Hero/landing section
-│   ├── About.jsx       # About section
-│   ├── Experience.jsx  # Work experience
-│   ├── Skills.jsx      # Skills and technologies
-│   ├── Projects.jsx    # Project showcase
-│   ├── Contact.jsx     # Contact form
-│   └── Footer.jsx      # Footer component
-├── App.jsx             # Main app component
-├── main.jsx           # Entry point
-└── index.css          # Global styles with Tailwind
+│   ├── Navbar.jsx  Hero.jsx  TechMarquee.jsx  About.jsx
+│   ├── Experience.jsx  Skills.jsx  Projects.jsx  Contact.jsx  Footer.jsx
+│   ├── ProjectCover.jsx     # illustrated project thumbnails
+│   ├── ProjectModal.jsx  Resume.jsx  ResumeModal.jsx  ScrollChrome.jsx
+│   └── ui/                  # Modal, Reveal, SectionHeading, SocialIcon, helpers
+├── hooks/                   # useTheme, useActiveSection
+└── index.css                # design tokens (light/dark) + component classes
+public/                      # favicon, OG image, robots.txt, sitemap.xml
 ```
 
-## 🎨 Customization
+## Design tokens
 
-### Colors
-The color scheme is defined in `tailwind.config.js`. The primary color palette uses blue tones:
-- `primary-500`: Main brand color
-- `primary-600`: Hover states
-- `gray-*`: Text and background variations
+Colors are CSS variables defined in `src/index.css` (`:root` for light, `.dark` for dark) and exposed to Tailwind as `bg`, `surface`, `surface-2`, `line`, `fg`, `muted`, `subtle`, `accent`, `accent-2` and `success`. Change the accent once and the whole site follows.
 
-### Content
-Update the content in each component file:
-- Personal information in `Hero.jsx`
-- Work experience in `Experience.jsx`
-- Skills and technologies in `Skills.jsx`
-- Projects in `Projects.jsx`
-- Contact information in `Contact.jsx`
+## Contact
 
-### Styling
-- Tailwind CSS classes are used throughout
-- Custom animations defined in `tailwind.config.js`
-- Component-specific styles in `index.css`
-
-## 📱 Responsive Breakpoints
-
-- **Mobile**: < 768px
-- **Tablet**: 768px - 1024px
-- **Desktop**: > 1024px
-
-## 🚀 Build & Deploy
-
-### Build for Production
-```bash
-npm run build
-```
-
-### Preview Production Build
-```bash
-npm run preview
-```
-
-### Deploy
-The `dist` folder can be deployed to any static hosting service:
-- Vercel
-- Netlify
-- GitHub Pages
-- AWS S3
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
-## 🤝 Contributing
-
-Contributions, issues, and feature requests are welcome!
-
-## 📞 Contact
-
-Md Polash Miya - [polashmiya2015@gmail.com](mailto:polashmiya2015@gmail.com)
-
-Project Link: [https://github.com/polashmiya/personal-portfolio](https://github.com/polashmiya/personal-portfolio)
+Md. Polash Miya — [polashmiya2015@gmail.com](mailto:polashmiya2015@gmail.com) · [LinkedIn](https://www.linkedin.com/in/md-polash-miya-726667193/) · [GitHub](https://github.com/polashmiya)

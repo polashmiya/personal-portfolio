@@ -1,234 +1,136 @@
-import { motion } from "framer-motion";
-import {
-  FaBriefcase,
-  FaCalendarAlt,
-  FaMapMarkerAlt,
-  FaQuoteLeft,
-} from "react-icons/fa";
+import { LuBuilding2, LuMapPin, LuCalendar, LuLayers } from 'react-icons/lu';
+import { experience } from '../data/portfolio';
+import SectionHeading from './ui/SectionHeading';
+import Reveal from './ui/Reveal';
+import { trackSpotlight } from './ui/spotlight';
 
-const Experience = () => {
-  const experiences = [
-    {
-      title: "Software Engineer I",
-      company: "AKIJ iBOS Limited | An AKIJ Company",
-      period: "June 2024 – Present",
-      location: "Dhaka, Bangladesh",
-      description: [
-        "Built and maintained scalable full-stack ERP applications using React JS for the front-end and ASP.NET Core Web APIs for the backend.",
-        "Integrated front-end components with RESTful APIs to enable seamless, real-time data flow across ERP modules.",
-        "Collaborated with UX/UI designers to deliver consistent, user-friendly interfaces, improving productivity and reducing user errors.",
-        "Participated in code reviews, feature enhancements, and agile development, contributing to timely delivery of high-quality ERP solutions.",
-      ],
-      technologies: [
-        "React",
-        "Next.js",
-        "React Native",
-        "ASP.NET Core",
-        "SQL Server",
-        "Tailwind CSS",
-        "Redux",
-        "REST APIs",
-        "ERP",
-        "Responsive UI",
-        "Full-stack optimization",
-        "Agile practices",
-      ],
-    },
-    {
-      title: "Junior Software Engineer",
-      company: "AKIJ iBOS Limited | An AKIJ Company",
-      period: "April 2022 – June 2024",
-      location: "Dhaka, Bangladesh",
-      description: [
-        "Developed responsive and interactive web interfaces using React JS, enhancing ERP module usability.",
-        "Assisted in debugging, issue resolution, and performance optimization, ensuring smooth application workflows.",
-        "Contributed to ERP project modules, gaining hands-on experience with front-end and backend integration.",
-      ],
-      technologies: ["JavaScript", "React JS", "Redux"],
-    },
-  ];
+function duration(start, end) {
+  const s = new Date(start);
+  const e = end ? new Date(end) : new Date();
+  const months = Math.max(1, (e.getFullYear() - s.getFullYear()) * 12 + (e.getMonth() - s.getMonth()) + 1);
+  const y = Math.floor(months / 12);
+  const m = months % 12;
+  return [y && `${y} yr${y > 1 ? 's' : ''}`, m && `${m} mo${m > 1 ? 's' : ''}`].filter(Boolean).join(' ');
+}
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
-  };
-  const itemVariants = {
-    hidden: { y: 30, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 12,
-        duration: 0.8,
-      },
-    },
-  };
-
+export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="section-padding py-20 bg-white dark:bg-dark-900 relative overflow-hidden"
-    >
-      {" "}
-      {/* Decorative Elements with reduced opacity */}
-      <div className="absolute top-0 left-0 w-64 h-64 bg-primary-100/20 dark:bg-dark-800/30 rounded-full filter blur-3xl -ml-32 -mt-32 pointer-events-none"></div>
-      <div className="absolute bottom-0 right-0 w-64 h-64 bg-blue-100/20 dark:bg-dark-700/30 rounded-full filter blur-3xl -mr-32 -mb-32 pointer-events-none"></div>
-      <div className="container-custom max-w-6xl mx-auto px-4 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <span className="text-sm uppercase tracking-wider font-semibold text-primary-600 mb-3 block">
-            Career Path
-          </span>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4">
-            Work Experience
-          </h2>
-          <div className="mx-auto w-24 h-1 bg-gradient-to-r from-primary-500 to-primary-600 rounded-full mb-6"></div>
-          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-            My professional journey and the impact I've made at each step
-          </p>
-        </motion.div>{" "}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.1 }}
-          className="max-w-4xl mx-auto relative z-10"
-        >
-          {/* Timeline vertical line */}{" "}
-          <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 h-full w-1 bg-primary-400 rounded-full hidden md:block"></div>
-          {experiences.map((exp, index) => (
-            <motion.div
-              key={`experience-${exp.company}-${index}`}
-              variants={itemVariants}
-              className="relative mb-16 last:mb-0"
-            >
-              {" "}
-              {/* Timeline circle marker */}
-              <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 -top-3 w-6 h-6 rounded-full shadow-md bg-white border-4 border-primary-400 z-10 hidden md:block"></div>
-              {/* Content */}
-              <div
-                className={`md:w-6/12 relative ${
-                  index % 2 === 0 ? "md:ml-auto" : "md:mr-auto"
-                }`}
-              >
-                {" "}
-                <motion.div
-                  className={`bg-white dark:bg-dark-900 rounded-xl p-8 shadow-lg border border-gray-100 dark:border-dark-700 backdrop-blur-sm ${
-                    index % 2 === 0 ? "md:ml-6 lg:ml-8" : "md:mr-6 lg:mr-8"
-                  }`}
-                  whileHover={{
-                    y: -5,
-                    transition: { duration: 0.3 },
-                    boxShadow:
-                      "0 15px 30px -10px rgba(0, 0, 0, 0.1), 0 10px 20px -15px rgba(0, 0, 0, 0.05)",
-                  }}
-                >
-                  <span
-                    className="absolute top-10 md:top-12 left-0 md:left-auto md:right-full transform translate-x-4 md:-translate-x-4 w-8 h-8 bg-white dark:bg-dark-900 rotate-45 hidden md:block border-l border-t border-gray-100 dark:border-dark-700"
-                    style={{ display: index % 2 === 0 ? "none" : "block" }}
-                  ></span>
-                  <span
-                    className="absolute top-10 md:top-12 right-full md:right-auto md:left-full transform -translate-x-4 md:translate-x-4 w-8 h-8 bg-white dark:bg-dark-900 rotate-45 hidden md:block border-r border-b border-gray-100 dark:border-dark-700"
-                    style={{ display: index % 2 === 0 ? "block" : "none" }}
-                  ></span>
+    <section id="experience" className="section" aria-labelledby="experience-title">
+      <div className="aurora left-1/2 top-1/3 -z-10 h-[30rem] w-[30rem] -translate-x-1/2 bg-accent/60" aria-hidden="true" />
+      <div className="container-site">
+        <SectionHeading
+          id="experience-title"
+          index="02"
+          eyebrow="Experience"
+          title="Where I’ve been"
+          accent="building."
+          description="Promoted twice — from Junior Software Engineer to Software Engineer II — building enterprise ERP products used across multiple companies."
+        />
 
-                  <div className="flex items-center mb-4">
-                    <div className="p-3 rounded-full bg-primary-50 dark:bg-dark-800 text-primary-600 dark:text-primary-300 mr-4 shadow-sm">
-                      <FaBriefcase size={20} />
-                    </div>
+        {experience.map((job) => {
+          const first = job.roles[job.roles.length - 1];
+          return (
+            <div key={job.company} className="grid gap-8 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.5fr)] lg:gap-12">
+              {/* Company + products */}
+              <Reveal className="lg:sticky lg:top-28 lg:self-start">
+                <div className="card p-7">
+                  <div className="flex items-center gap-4">
+                    <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-gradient-accent text-white shadow-lg shadow-accent/25">
+                      <LuBuilding2 className="h-6 w-6" />
+                    </span>
                     <div>
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
-                        {exp.title}
-                      </h3>
-                      <h4 className="text-lg font-semibold text-primary-600 dark:text-primary-400">
-                        {exp.company}
-                      </h4>
+                      <h3 className="text-xl font-semibold tracking-tight text-fg">{job.company}</h3>
+                      <p className="text-sm text-muted">{job.companyNote}</p>
+                      <p className="mt-0.5 text-xs text-subtle">{job.employment}</p>
                     </div>
                   </div>
+                  <dl className="mt-6 grid grid-cols-2 gap-3 text-sm">
+                    <div className="rounded-2xl border border-line/70 bg-surface-2/50 p-3">
+                      <dt className="flex items-center gap-1.5 text-xs text-subtle">
+                        <LuCalendar className="h-3.5 w-3.5" /> Tenure
+                      </dt>
+                      <dd className="mt-1 font-medium text-fg">{duration(first.start)}</dd>
+                    </div>
+                    <div className="rounded-2xl border border-line/70 bg-surface-2/50 p-3">
+                      <dt className="flex items-center gap-1.5 text-xs text-subtle">
+                        <LuMapPin className="h-3.5 w-3.5" /> Location
+                      </dt>
+                      <dd className="mt-1 font-medium text-fg">{job.location.split(',')[0]}</dd>
+                    </div>
+                  </dl>
 
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 text-sm">
-                    <div className="flex items-center mb-2 sm:mb-0 text-gray-600 dark:text-gray-300">
-                      <FaCalendarAlt className="mr-2" />
-                      {exp.period}
-                    </div>
-                    <div className="flex items-center text-gray-600 dark:text-gray-300">
-                      <FaMapMarkerAlt className="mr-2" />
-                      {exp.location}
-                    </div>
-                  </div>
-
-                  <div className="mb-6">
-                    <ul className="space-y-2 list-disc pl-5">
-                      {exp.description.map((item, i) => (
-                        <li
-                          key={`desc-${exp.company}-${i}`}
-                          className="text-gray-600 dark:text-gray-300 leading-relaxed"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                  {exp.testimonial && (
-                    <div className="bg-gray-50 dark:bg-dark-800 p-4 rounded-lg mb-6 relative shadow-sm border border-gray-100 dark:border-dark-700">
-                      <FaQuoteLeft
-                        className="text-primary-300 absolute top-2 left-2"
-                        size={16}
-                      />
-                      <p className="text-gray-600 dark:text-gray-300 italic text-sm pl-6">
-                        "{exp.testimonial}"
-                      </p>
-                    </div>
-                  )}
-                  <div className="flex flex-wrap gap-2">
-                    {exp.technologies.map((tech) => (
-                      <span
-                        key={`tech-${exp.company}-${tech}`}
-                        className="px-3 py-1 text-xs font-medium rounded-full bg-gray-50 dark:bg-dark-800 text-primary-600 dark:text-primary-300 border border-gray-100 dark:border-dark-700 transition-all duration-200"
-                      >
-                        {tech}
-                      </span>
+                  <p className="eyebrow mt-8 text-[10px]">
+                    <LuLayers className="h-3.5 w-3.5" /> Key products
+                  </p>
+                  <ul className="mt-4 space-y-3">
+                    {job.products.map((p) => (
+                      <li key={p.name} className="rounded-2xl border border-line/70 bg-surface-2/40 p-4">
+                        <div className="flex items-baseline justify-between gap-3">
+                          <p className="font-semibold text-fg">{p.name}</p>
+                          <p className="shrink-0 text-[11px] text-subtle">{p.kind}</p>
+                        </div>
+                        <p className="mt-1.5 text-sm leading-relaxed text-muted">{p.text}</p>
+                      </li>
                     ))}
-                  </div>
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>{" "}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="mt-16 text-center"
-        >
-          <motion.a
-            href="#contact"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-flex items-center group py-3 px-6 rounded-lg bg-primary-600 dark:bg-primary-700 text-white dark:text-primary-300 font-medium transition-all duration-300 shadow-md"
-          >
-            Ready to collaborate?{" "}
-            <span className="ml-2 text-lg group-hover:translate-x-1 transition-all duration-300">
-              →
-            </span>
-          </motion.a>
-        </motion.div>
+                  </ul>
+                </div>
+              </Reveal>
+
+              {/* Role timeline */}
+              <ol className="relative space-y-6 pl-8 sm:pl-10">
+                <span
+                  className="absolute bottom-4 left-[11px] top-4 w-px bg-gradient-to-b from-accent via-accent-2/60 to-transparent sm:left-[15px]"
+                  aria-hidden="true"
+                />
+                {job.roles.map((role, i) => (
+                  <Reveal as="li" key={role.title} delay={0.1 * i} className="relative">
+                    <span
+                      className="absolute -left-8 top-8 grid h-6 w-6 place-items-center rounded-full border border-line bg-bg sm:-left-10 sm:h-8 sm:w-8"
+                      aria-hidden="true"
+                    >
+                      <span className={`h-2.5 w-2.5 rounded-full ${role.current ? 'bg-success' : 'bg-subtle'}`} />
+                      {role.current && <span className="absolute h-2.5 w-2.5 animate-ping rounded-full bg-success/70" />}
+                    </span>
+
+                    <article className="card spotlight p-6 sm:p-8" onMouseMove={trackSpotlight}>
+                      <div className="flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                          <h3 className="text-xl font-semibold tracking-tight text-fg sm:text-2xl">{role.title}</h3>
+                          <p className="mt-1 text-sm text-muted">
+                            {job.company} · {duration(role.start, role.end)}
+                          </p>
+                        </div>
+                        <span
+                          className={`chip font-mono ${role.current ? 'border-success/30 bg-success/10 text-success' : ''}`}
+                        >
+                          {role.period}
+                        </span>
+                      </div>
+
+                      <ul className="mt-6 space-y-3">
+                        {role.points.map((point) => (
+                          <li key={point.slice(0, 32)} className="flex gap-3 text-[15px] leading-relaxed text-muted">
+                            <span className="mt-[0.6em] h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                            {point}
+                          </li>
+                        ))}
+                      </ul>
+
+                      <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies used">
+                        {role.tech.map((t) => (
+                          <li key={t} className="chip">
+                            {t}
+                          </li>
+                        ))}
+                      </ul>
+                    </article>
+                  </Reveal>
+                ))}
+              </ol>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
-};
-
-export default Experience;
+}

@@ -1,166 +1,88 @@
+import { LuArrowUp } from 'react-icons/lu';
+import { navLinks, profile, socials } from '../data/portfolio';
+import { Logo } from './Navbar';
+import SocialIcon from './ui/SocialIcon';
 
-import { motion } from 'framer-motion';
-import {
-  FaArrowUp,
-  FaCode,
-  FaEnvelope,
-  FaGithub,
-  FaHeart,
-  FaLinkedin,
-  FaMapMarkerAlt
-} from 'react-icons/fa';
-
-
-const Footer = () => {
-  const currentYear = new Date().getFullYear();
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Experience', href: '#experience' },
-    { name: 'Skills', href: '#skills' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Contact', href: '#contact' }
-  ];
-  const socialLinks = [
-    { icon: <FaLinkedin />, href: 'https://www.linkedin.com/in/md-polash-miya-726667193/', label: 'LinkedIn', color: 'hover:text-blue-500' },
-    { icon: <FaGithub />, href: 'https://github.com/polashmiya', label: 'GitHub', color: 'hover:text-gray-300' }
-  ];
+export default function Footer() {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-r from-gray-900 to-gray-800 dark:from-dark-900 dark:to-dark-950 text-white relative overflow-hidden">
-      {/* Decorative blobs */}
-      <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-blue-500 dark:bg-primary-900 filter blur-[120px] opacity-10 animate-blob"></div>
-      <div className="absolute bottom-0 right-0 w-1/3 h-1/3 bg-purple-500 dark:bg-purple-900 filter blur-[120px] opacity-10 animate-blob animation-delay-4000"></div>
-
-      {/* Back to top button */}
-      <div className="container-custom relative flex justify-center pt-8">
-        <motion.button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          aria-label="Back to top"
-          className="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r from-primary-500 to-primary-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 -mt-6"
-          whileHover={{ y: -5, boxShadow: '0 15px 30px rgba(59, 130, 246, 0.3)' }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <FaArrowUp />
-        </motion.button>
-      </div>
-
-      {/* Footer content */}
-      <div className="container-custom pt-12 md:pt-20 pb-8 md:pb-12 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-12 mb-10 md:mb-16">
-          {/* About */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
-              Md. Polash
-              <span className="absolute left-0 bottom-0 h-1 w-12 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"></span>
-            </h3>
-            <p className="text-gray-300 dark:text-gray-400 text-sm">
-              A passionate software engineer dedicated to creating elegant solutions to complex problems.
+    <footer className="relative overflow-hidden border-t border-line/70">
+      <div className="container-site py-14">
+        <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
+          <div>
+            <Logo />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted">
+              Full-stack software engineer building ERP, POS and web products that businesses run on.
             </p>
-            <div className="flex space-x-3 pt-2">
-              {socialLinks.map((link, index) => (
+            <div className="mt-6 flex gap-2">
+              {socials.map((s) => (
                 <a
-                  key={`footer-social-${link.label}`}
-                  href={link.href}
-                  target="_blank"
+                  key={s.label}
+                  href={s.href}
+                  target={s.href.startsWith('http') ? '_blank' : undefined}
                   rel="noopener noreferrer"
-                  className={`w-9 h-9 rounded-full flex items-center justify-center bg-gray-800 dark:bg-dark-800 text-gray-300 dark:text-primary-300 ${link.color} transition-all duration-300 hover:shadow-lg`}
-                  aria-label={link.label}
+                  className="icon-btn"
+                  aria-label={s.label}
+                  title={s.label}
                 >
-                  {link.icon}
+                  <SocialIcon label={s.label} className="h-4 w-4" />
                 </a>
               ))}
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
-              Quick Links
-              <span className="absolute left-0 bottom-0 h-1 w-12 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"></span>
-            </h3>
-            <ul className="space-y-2">
-              {navLinks.map((link) => (
-                <li key={`footer-nav-${link.name}`}>
-                  <a
-                    href={link.href}
-                    className="text-gray-300 dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300 flex items-center group"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary-500 mr-2 transform scale-0 group-hover:scale-100 transition-all duration-300"></span>
-                    {link.name}
+          <nav aria-label="Footer">
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-subtle">Navigate</p>
+            <ul className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-1">
+              {navLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} className="text-sm text-muted transition-colors hover:text-fg">
+                    {l.label}
                   </a>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Contact Info */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
-              Contact
-              <span className="absolute left-0 bottom-0 h-1 w-12 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"></span>
-            </h3>
-            <div className="space-y-3">
-              <div className="flex items-start">
-                <FaEnvelope className="text-primary-400 mr-3 mt-1" />
-                <div>
-                  <p className="text-gray-300 dark:text-gray-400 text-sm">Email</p>
-                  <a href="mailto:polashmiya2015@gmail.com" className="text-white dark:text-primary-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors duration-300">
-                    polashmiya2015@gmail.com
-                  </a>
-                </div>
-              </div>
-              <div className="flex items-start">
-                <FaMapMarkerAlt className="text-primary-400 mr-3 mt-1" />
-                <div>
-                  <p className="text-gray-300 dark:text-gray-400 text-sm">Location</p>
-                  <p className="text-white dark:text-primary-300">Dhaka, Bangladesh</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Newsletter */}
-          <div className="space-y-4">
-            <h3 className="text-xl font-semibold text-white dark:text-primary-300 relative inline-block pb-2">
-              Newsletter
-              <span className="absolute left-0 bottom-0 h-1 w-12 bg-gradient-to-r from-primary-500 to-primary-400 rounded-full"></span>
-            </h3>
-            <p className="text-gray-300 dark:text-gray-400 text-sm">
-              Subscribe to my newsletter for the latest updates and articles.
-            </p>
-            <form className="flex flex-col space-y-2">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="bg-gray-800 dark:bg-dark-800 text-white dark:text-primary-300 px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-sm"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-gradient-to-r from-primary-600 to-primary-500 dark:from-primary-700 dark:to-primary-500 text-white dark:text-primary-300 py-2 rounded-lg hover:shadow-lg transition-all duration-300 text-sm font-medium"
-              >
-                Subscribe
-              </button>
-            </form>
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-subtle">Get in touch</p>
+            <ul className="mt-5 space-y-3 text-sm">
+              <li>
+                <a href={`mailto:${profile.email}`} className="break-all text-muted transition-colors hover:text-fg">
+                  {profile.email}
+                </a>
+              </li>
+              <li>
+                <a href={profile.phoneHref} className="text-muted transition-colors hover:text-fg">
+                  {profile.phone}
+                </a>
+              </li>
+              <li className="text-muted">{profile.shortLocation}</li>
+            </ul>
           </div>
         </div>
 
-        {/* Bottom Footer */}
-        <div className="border-t border-gray-800 dark:border-dark-700 pt-6 md:pt-8 flex flex-col md:flex-row justify-between items-center w-full">
-          <div className="flex items-center mb-4 md:mb-0">
-            <FaCode className="text-primary-400 dark:text-primary-300 mr-2" />
-            <p className="text-gray-300 dark:text-primary-300 text-sm">
-              &copy; {currentYear} Md. Polash Miya. All rights reserved.
-            </p>
-          </div>
-          <p className="text-gray-300 dark:text-primary-300 text-sm flex items-center">
-            Made with <FaHeart className="text-red-500 mx-1 animate-pulse" />
+        <div className="mt-14 flex flex-col-reverse items-start justify-between gap-4 border-t border-line/70 pt-6 text-xs text-subtle sm:flex-row sm:items-center">
+          <p>
+            © {year} {profile.name}. Designed & built with React, Tailwind CSS and Framer Motion.
           </p>
+          <a href="#home" className="group inline-flex items-center gap-2 font-medium text-muted transition-colors hover:text-fg">
+            Back to top
+            <span className="grid h-7 w-7 place-items-center rounded-full border border-line transition-transform group-hover:-translate-y-0.5">
+              <LuArrowUp className="h-3.5 w-3.5" />
+            </span>
+          </a>
         </div>
       </div>
+
+      {/* Oversized wordmark */}
+      <p
+        aria-hidden="true"
+        className="pointer-events-none -mb-[0.22em] select-none text-center text-[22vw] font-bold leading-none tracking-[-0.06em] text-transparent [-webkit-background-clip:text] [background-clip:text] [background-image:linear-gradient(to_bottom,rgb(var(--fg)/0.09),transparent_85%)] md:text-[17vw]"
+      >
+        POLASH
+      </p>
     </footer>
   );
-};
-
-export default Footer;
+}
