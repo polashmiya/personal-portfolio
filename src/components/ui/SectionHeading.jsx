@@ -1,25 +1,49 @@
+import { motion } from 'framer-motion';
+import { EASE } from '../../lib/motion';
+import { RevealWords } from './TextMotion';
 import Reveal from './Reveal';
 
 /**
- * Consistent section header: numbered eyebrow, a title with an optional italic serif accent,
- * and a short description.
+ * Section header, set like a chapter opening: a numbered label over a hairline that draws in,
+ * a large serif title whose words rise into place, and a short description beside it.
  */
-export default function SectionHeading({ index, eyebrow, title, accent, description, align = 'left', id }) {
-  const centered = align === 'center';
+export function SectionLabel({ index, label, className = '' }) {
   return (
-    <Reveal className={`mb-12 md:mb-14 ${centered ? 'mx-auto max-w-3xl text-center' : 'max-w-3xl'}`}>
-      <span className="eyebrow">
-        {index && <span className="text-subtle">{index}</span>}
-        <span className="h-px w-6 bg-accent/60" aria-hidden="true" />
-        {eyebrow}
-      </span>
-      <h2 id={id} className="mt-4 text-balance text-4xl font-semibold tracking-tight text-fg sm:text-5xl">
-        {title}{' '}
-        {accent && (
-          <span className="whitespace-nowrap pr-1 font-serif text-[1.08em] font-normal italic text-gradient">{accent}</span>
+    <div className={`flex items-center gap-4 ${className}`}>
+      <p className="label shrink-0">
+        <span className="text-accent">{index}</span>
+        <span className="mx-2 opacity-50" aria-hidden="true">
+          /
+        </span>
+        {label}
+      </p>
+      <motion.span
+        aria-hidden="true"
+        className="h-px flex-1 origin-left bg-line"
+        initial={{ scaleX: 0 }}
+        whileInView={{ scaleX: 1 }}
+        viewport={{ once: true, margin: '0px 0px -10% 0px' }}
+        transition={{ duration: 1.2, ease: EASE }}
+      />
+    </div>
+  );
+}
+
+export default function SectionHeading({ index, label, title, description, id }) {
+  return (
+    <header className="mb-14 md:mb-20">
+      <SectionLabel index={index} label={label} />
+
+      <div className="mt-8 grid gap-6 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <h2 id={id} className="display text-balance text-[2.5rem] leading-[1.02] sm:text-5xl lg:col-span-8 lg:text-[4.25rem]">
+          <RevealWords text={title} />
+        </h2>
+        {description && (
+          <Reveal delay={0.2} className="lg:col-span-4 lg:pb-2">
+            <p className="max-w-md text-base leading-relaxed text-muted sm:text-[17px]">{description}</p>
+          </Reveal>
         )}
-      </h2>
-      {description && <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted sm:text-lg">{description}</p>}
-    </Reveal>
+      </div>
+    </header>
   );
 }

@@ -5,9 +5,6 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   build: {
-    // html2pdf (~740 kB) is the only chunk above the default limit, and it is lazy-loaded
-    // only when someone downloads the resume.
-    chunkSizeWarningLimit: 800,
     rollupOptions: {
       output: {
         // Long-lived vendor chunks so returning visitors re-download only app code.

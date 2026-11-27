@@ -10,6 +10,7 @@ export default {
     extend: {
       colors: {
         bg: token('--bg'),
+        deep: token('--bg-deep'),
         surface: token('--surface'),
         'surface-2': token('--surface-2'),
         line: token('--line'),
@@ -17,56 +18,30 @@ export default {
         muted: token('--muted'),
         subtle: token('--subtle'),
         accent: token('--accent'),
-        'accent-2': token('--accent-2'),
+        'accent-fg': token('--accent-fg'),
+        // Marigold in both themes: the hero badge and underline
+        gold: token('--gold'),
+        'gold-fg': token('--gold-fg'),
+        // The palash flower itself: always the bright flame, in both themes (illustration only)
+        flame: token('--flame'),
         success: token('--success'),
+        danger: token('--danger'),
       },
       fontFamily: {
-        sans: ['Geist', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
+        sans: ['"Instrument Sans"', 'ui-sans-serif', 'system-ui', 'Segoe UI', 'sans-serif'],
+        display: ['Fraunces', 'ui-serif', 'Georgia', 'serif'],
         mono: ['"Geist Mono"', 'ui-monospace', 'SFMono-Regular', 'Consolas', 'monospace'],
-        serif: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif'],
       },
       maxWidth: {
-        site: '72rem',
+        site: '82rem',
       },
-      keyframes: {
-        marquee: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
-        },
-        'marquee-reverse': {
-          from: { transform: 'translateX(-50%)' },
-          to: { transform: 'translateX(0)' },
-        },
-        ping: {
-          '75%, 100%': { transform: 'scale(2.2)', opacity: '0' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        },
-        'spin-border': {
-          to: { '--angle': '360deg' },
-        },
-        blink: {
-          '0%, 49%': { opacity: '1' },
-          '50%, 100%': { opacity: '0' },
-        },
-        wave: {
-          '0%, 60%, 100%': { transform: 'rotate(0deg)' },
-          '10%, 30%': { transform: 'rotate(14deg)' },
-          '20%': { transform: 'rotate(-8deg)' },
-          '40%': { transform: 'rotate(-4deg)' },
-          '50%': { transform: 'rotate(10deg)' },
-        },
+      // One easing curve everywhere: a long, soft ease-out.
+      transitionTimingFunction: {
+        DEFAULT: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        out: 'cubic-bezier(0.22, 1, 0.36, 1)',
       },
-      animation: {
-        marquee: 'marquee 40s linear infinite',
-        'marquee-reverse': 'marquee-reverse 40s linear infinite',
-        ping: 'ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite',
-        float: 'float 6s ease-in-out infinite',
-        'float-delayed': 'float 7s ease-in-out 1.5s infinite',
-        'spin-border': 'spin-border 6s linear infinite',
-        blink: 'blink 1s step-end infinite',
+      transitionDuration: {
+        DEFAULT: '160ms',
       },
     },
   },

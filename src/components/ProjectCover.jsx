@@ -1,19 +1,28 @@
 /**
- * Illustrated project thumbnail. Everything inside is sized in `em`, and the root font-size
+ * Project thumbnail. Everything inside is sized in `em`, and the root font-size
  * is 1% of the card width (container query units), so the artwork scales with any card size.
- * When a project has a screenshot it is shown inside the same window frame.
+ * A screenshot is shown inside a window frame on a calm neutral stage; projects without one
+ * get an illustrated mockup that uses a single project color.
  */
 
+const WINDOW_BG = '#12152e';
 const bars = [42, 68, 52, 80, 61, 92, 70, 96, 74, 88];
+const TOP_BAR = bars.indexOf(Math.max(...bars));
+
+// A darker step of the same hue, for tone shifts inside one color.
+const deep = (c, amount = 40) => `color-mix(in srgb, ${c} ${amount}%, ${WINDOW_BG})`;
 
 function Window({ children }) {
   return (
-    <div className="absolute -bottom-[4%] left-[8%] right-[8%] top-[13%] overflow-hidden rounded-t-[1.4em] border border-white/15 bg-[#0c0e16] shadow-[0_2em_6em_-1em_rgb(0_0_0/0.6)] transition-transform duration-700 ease-out group-hover:-translate-y-[1.5%]">
-      <div className="flex h-[4em] items-center gap-[0.8em] border-b border-white/10 bg-white/[0.03] px-[1.6em]">
-        <span className="h-[1em] w-[1em] rounded-full bg-[#ff5f57]" />
-        <span className="h-[1em] w-[1em] rounded-full bg-[#febc2e]" />
-        <span className="h-[1em] w-[1em] rounded-full bg-[#28c840]" />
-        <span className="ml-[2em] h-[1.8em] w-[34%] rounded-full bg-white/10" />
+    <div
+      className="absolute -bottom-[4%] left-[8%] right-[8%] top-[12%] overflow-hidden rounded-t-[1.4em] border border-white/10 shadow-[0_1.6em_4em_-1.6em_rgb(0_0_0/0.45)] transition-transform duration-700 ease-out group-hover:-translate-y-2"
+      style={{ background: WINDOW_BG }}
+    >
+      <div className="flex h-[4em] items-center gap-[0.8em] border-b border-white/10 px-[1.6em]">
+        <span className="h-[1em] w-[1em] rounded-full bg-white/20" />
+        <span className="h-[1em] w-[1em] rounded-full bg-white/20" />
+        <span className="h-[1em] w-[1em] rounded-full bg-white/20" />
+        <span className="ml-[2em] h-[1.8em] w-[34%] rounded-[0.6em] bg-white/[0.07]" />
       </div>
       <div className="relative h-[calc(100%-4em)]">{children}</div>
     </div>
@@ -24,7 +33,7 @@ const L = ({ w = '100%', h = '1.1em', c = 'bg-white/10', className = '' }) => (
   <span className={`block rounded-full ${c} ${className}`} style={{ width: w, height: h }} />
 );
 
-function Dashboard({ a, b }) {
+function Dashboard({ a }) {
   return (
     <div className="flex h-full gap-[2em] p-[2em]">
       <div className="w-[18%] space-y-[1.3em]">
@@ -35,10 +44,14 @@ function Dashboard({ a, b }) {
       </div>
       <div className="flex-1 space-y-[1.8em]">
         <div className="grid grid-cols-3 gap-[1.4em]">
-          {[a, b, '#ffffff'].map((c, i) => (
-            <div key={i} className="space-y-[1em] rounded-[1em] border border-white/10 bg-white/[0.05] p-[1.3em]">
+          {[0, 1, 2].map((i) => (
+            <div key={i} className="space-y-[1em] rounded-[1em] border border-white/10 bg-white/[0.04] p-[1.3em]">
               <L w="50%" h="0.9em" />
-              <span className="block h-[1.8em] w-[70%] rounded-full opacity-80" style={{ background: c }} />
+              {i === 0 ? (
+                <span className="block h-[1.8em] w-[70%] rounded-full" style={{ background: a }} />
+              ) : (
+                <L w="70%" h="1.8em" c="bg-white/25" />
+              )}
             </div>
           ))}
         </div>
@@ -46,8 +59,8 @@ function Dashboard({ a, b }) {
           {bars.map((h, i) => (
             <span
               key={i}
-              className="flex-1 rounded-t-[0.5em]"
-              style={{ height: `${h}%`, background: `linear-gradient(to top, ${a}, ${b})`, opacity: 0.55 + i * 0.04 }}
+              className={`flex-1 rounded-t-[0.4em] ${i === TOP_BAR ? '' : 'bg-white/15'}`}
+              style={{ height: `${h}%`, background: i === TOP_BAR ? a : undefined }}
             />
           ))}
         </div>
@@ -63,12 +76,12 @@ function Dashboard({ a, b }) {
   );
 }
 
-function Store({ a, b }) {
+function Store({ a }) {
   return (
     <div className="space-y-[1.8em] p-[2em]">
       <div className="flex items-center justify-between">
         <span className="h-[2.2em] w-[13%] rounded-[0.6em]" style={{ background: a }} />
-        <span className="h-[2.4em] w-[42%] rounded-full bg-white/10" />
+        <span className="h-[2.4em] w-[42%] rounded-[0.8em] bg-white/10" />
         <div className="flex gap-[0.8em]">
           {[0, 1, 2].map((i) => (
             <span key={i} className="h-[2.2em] w-[2.2em] rounded-full bg-white/10" />
@@ -77,17 +90,17 @@ function Store({ a, b }) {
       </div>
       <div
         className="flex h-[11em] flex-col justify-center gap-[1em] rounded-[1.2em] px-[3em]"
-        style={{ background: `linear-gradient(110deg, ${a}, ${b})` }}
+        style={{ background: deep(a, 70) }}
       >
         <L w="38%" h="1.8em" c="bg-white/80" />
         <L w="26%" c="bg-white/50" />
-        <span className="mt-[0.6em] block h-[2.2em] w-[13%] rounded-full bg-white" />
+        <span className="mt-[0.6em] block h-[2.2em] w-[13%] rounded-[0.6em] bg-white" />
       </div>
       <div className="grid grid-cols-4 gap-[1.4em]">
         {[0, 1, 2, 3].map((i) => (
           <div key={i} className="space-y-[0.9em]">
             <div className="grid aspect-square place-items-center rounded-[1em] bg-white/[0.06]">
-              <span className="h-[45%] w-[45%] rounded-full opacity-70" style={{ background: i % 2 ? b : a }} />
+              <span className="h-[45%] w-[45%] rounded-full" style={{ background: deep(a, i % 2 ? 55 : 85) }} />
             </div>
             <L w="80%" />
             <L w="45%" c="bg-white/20" />
@@ -98,24 +111,24 @@ function Store({ a, b }) {
   );
 }
 
-function Pos({ a, b }) {
+function Pos({ a }) {
   return (
     <div className="flex h-full gap-[1.6em] p-[1.8em]">
       <div className="flex-1 space-y-[1.4em]">
-        <span className="block h-[2.6em] w-full rounded-[0.8em] border-[0.15em]" style={{ borderColor: a }} />
+        <span className="block h-[2.6em] w-full rounded-[0.8em] border-[0.15em] border-white/15" />
         <div className="flex gap-[0.8em]">
           {[0, 1, 2, 3, 4].map((i) => (
             <span
               key={i}
-              className={`h-[2em] flex-1 rounded-full ${i ? 'bg-white/10' : ''}`}
+              className={`h-[2em] flex-1 rounded-[0.6em] ${i ? 'bg-white/10' : ''}`}
               style={i ? undefined : { background: a }}
             />
           ))}
         </div>
         <div className="grid grid-cols-4 gap-[1.2em]">
           {Array.from({ length: 8 }).map((_, i) => (
-            <div key={i} className="space-y-[0.7em] rounded-[1em] border border-white/10 bg-white/[0.05] p-[1em]">
-              <span className="mx-auto block h-[3.4em] w-[3.4em] rounded-[0.8em] opacity-80" style={{ background: i % 3 ? a : b }} />
+            <div key={i} className="space-y-[0.7em] rounded-[1em] border border-white/10 bg-white/[0.04] p-[1em]">
+              <span className="mx-auto block h-[3.4em] w-[3.4em] rounded-[0.8em]" style={{ background: deep(a, i % 3 ? 45 : 80) }} />
               <L w="85%" h="0.9em" />
               <L w="45%" h="0.9em" c="bg-white/25" />
             </div>
@@ -140,20 +153,20 @@ function Pos({ a, b }) {
             <L w="30%" />
             <L w="25%" c="bg-white/40" />
           </div>
-          <span className="block h-[3.4em] rounded-[0.9em]" style={{ background: `linear-gradient(110deg, ${a}, ${b})` }} />
+          <span className="block h-[3.4em] rounded-[0.9em]" style={{ background: a }} />
         </div>
       </div>
     </div>
   );
 }
 
-function Blog({ a, b }) {
+function Blog({ a }) {
   return (
     <div className="space-y-[1.8em] p-[2.4em]">
       <div className="flex items-center justify-between">
-        <span className="h-[2em] w-[18%] rounded-full" style={{ background: a }} />
+        <span className="h-[2em] w-[18%] rounded-[0.6em]" style={{ background: a }} />
         <div className="flex gap-[1em]">
-          <span className="h-[2.2em] w-[6em] rounded-[0.6em]" style={{ background: b }} />
+          <span className="h-[2.2em] w-[6em] rounded-[0.6em] bg-white/80" />
           <span className="h-[2.2em] w-[6em] rounded-[0.6em] border border-white/20" />
         </div>
       </div>
@@ -161,16 +174,13 @@ function Blog({ a, b }) {
       <div className="flex gap-[1em]">
         <span className="h-[2.4em] flex-1 rounded-[0.6em] bg-white/[0.06]" />
         {[0, 1, 2].map((i) => (
-          <span key={i} className={`h-[2.4em] w-[7em] rounded-full ${i ? 'border border-white/15' : 'bg-white/80'}`} />
+          <span key={i} className={`h-[2.4em] w-[7em] rounded-[0.6em] ${i ? 'border border-white/15' : 'bg-white/80'}`} />
         ))}
       </div>
       <div className="grid grid-cols-3 gap-[1.6em]">
-        {[a, b, a].map((c, i) => (
+        {[0, 1, 2].map((i) => (
           <div key={i} className="overflow-hidden rounded-[1em] border border-white/10 bg-white/[0.04]">
-            <span
-              className="block h-[9em]"
-              style={{ background: `linear-gradient(135deg, ${c}, transparent)`, opacity: 0.8 }}
-            />
+            <span className="block h-[9em]" style={{ background: deep(a, i === 1 ? 45 : 75) }} />
             <div className="space-y-[0.8em] p-[1.2em]">
               <L w="40%" h="0.9em" c="bg-white/20" />
               <L w="90%" />
@@ -199,13 +209,13 @@ const TERMINAL_ROWS = [
   [['ok', 3], ['m', 40]],
 ];
 
-function Terminal({ a, b }) {
+function Terminal({ a }) {
   const style = (kind) =>
     ({
-      p: { background: '#28c840' },
-      ok: { background: '#28c840', opacity: 0.8 },
+      p: { background: a },
+      ok: { background: '#4cc38a', opacity: 0.8 },
       a: { background: a },
-      b: { background: b, opacity: 0.85 },
+      b: { background: 'rgb(255 255 255 / 0.4)' },
       w: { background: 'rgb(255 255 255 / 0.7)' },
       m: { background: 'rgb(255 255 255 / 0.14)' },
       i: { background: 'transparent' },
@@ -223,15 +233,16 @@ function Terminal({ a, b }) {
   );
 }
 
-function Phone({ a, b, game, className = '' }) {
+function Phone({ a, game, className = '' }) {
   return (
     <div
-      className={`absolute aspect-[9/19] w-[27em] overflow-hidden rounded-[4em] border-[0.7em] border-[#1b1e29] bg-[#0c0e16] shadow-[0_2em_6em_-1em_rgb(0_0_0/0.6)] ${className}`}
+      className={`absolute aspect-[9/19] w-[27em] overflow-hidden rounded-[4em] border-[0.7em] border-[#262a4d] shadow-[0_1.6em_4em_-1.6em_rgb(0_0_0/0.45)] ${className}`}
+      style={{ background: '#0c0e22' }}
     >
       <span className="absolute left-1/2 top-[1.2em] z-10 h-[1.8em] w-[30%] -translate-x-1/2 rounded-full bg-black" />
       {game ? (
-        <div className="relative h-full" style={{ background: `linear-gradient(to bottom, ${a}, ${b} 70%, #0c0e16)` }}>
-          <span className="absolute right-[18%] top-[18%] h-[6em] w-[6em] rounded-full bg-white/70 blur-[0.2em]" />
+        <div className="relative h-full" style={{ background: `linear-gradient(to bottom, ${a}, ${deep(a, 30)} 75%)` }}>
+          <span className="absolute right-[18%] top-[18%] h-[6em] w-[6em] rounded-full bg-white/70" />
           <div className="absolute inset-x-[1.6em] top-[4.4em] space-y-[0.7em]">
             {[78, 52, 64].map((w, i) => (
               <div key={i} className="h-[0.9em] overflow-hidden rounded-full bg-black/30">
@@ -244,7 +255,7 @@ function Phone({ a, b, game, className = '' }) {
               <span key={i} className="flex-1 rounded-t-[0.3em] bg-black/55" style={{ height: `${h / 6}em` }} />
             ))}
           </div>
-          <div className="absolute inset-x-[1.4em] bottom-[2.2em] space-y-[0.9em] rounded-[1.6em] border border-white/10 bg-black/60 p-[1.4em] backdrop-blur">
+          <div className="absolute inset-x-[1.4em] bottom-[2.2em] space-y-[0.9em] rounded-[1.6em] border border-white/10 bg-black/60 p-[1.4em]">
             <L w="85%" c="bg-white/50" />
             <L w="60%" c="bg-white/25" />
             <div className="grid grid-cols-2 gap-[0.8em] pt-[0.4em]">
@@ -255,23 +266,20 @@ function Phone({ a, b, game, className = '' }) {
         </div>
       ) : (
         <div className="space-y-[1.4em] p-[1.6em] pt-[4.4em]">
-          <div
-            className="flex h-[12em] flex-col justify-end gap-[0.8em] rounded-[2em] p-[1.6em]"
-            style={{ background: `linear-gradient(135deg, ${a}, ${b})` }}
-          >
+          <div className="flex h-[12em] flex-col justify-end gap-[0.8em] rounded-[2em] p-[1.6em]" style={{ background: deep(a, 75) }}>
             <L w="40%" h="0.9em" c="bg-white/60" />
             <L w="70%" h="1.8em" c="bg-white/90" />
           </div>
           <div className="grid grid-cols-3 gap-[1em]">
-            {[a, b, a].map((c, i) => (
+            {[0, 1, 2].map((i) => (
               <span key={i} className="grid aspect-square place-items-center rounded-[1.4em] bg-white/[0.06]">
-                <span className="h-[40%] w-[40%] rounded-full opacity-80" style={{ background: c }} />
+                <span className="h-[40%] w-[40%] rounded-full" style={{ background: deep(a, i === 1 ? 50 : 85) }} />
               </span>
             ))}
           </div>
           {[0, 1, 2].map((i) => (
             <div key={i} className="flex items-center gap-[1em] rounded-[1.4em] bg-white/[0.05] p-[1.1em]">
-              <span className="h-[3em] w-[3em] shrink-0 rounded-full opacity-80" style={{ background: i % 2 ? b : a }} />
+              <span className="h-[3em] w-[3em] shrink-0 rounded-full" style={{ background: deep(a, i % 2 ? 50 : 80) }} />
               <div className="flex-1 space-y-[0.6em]">
                 <L w="75%" h="0.9em" />
                 <L w="45%" h="0.9em" c="bg-white/[0.06]" />
@@ -286,38 +294,20 @@ function Phone({ a, b, game, className = '' }) {
 
 export default function ProjectCover({ project, className = '' }) {
   const { cover = {}, image, title } = project;
-  const [a, b] = cover.hue ?? ['#8b5cf6', '#22d3ee'];
+  const a = cover.hue ?? '#f5b63a';
   const variant = cover.variant ?? 'dashboard';
   const isPhone = variant === 'phone' || variant === 'game';
 
   return (
-    <div
-      className={`relative overflow-hidden [container-type:inline-size] ${className}`}
-      style={{ background: `linear-gradient(135deg, ${a}, ${b})` }}
-    >
-      {/* depth: darken, grid lines, highlight */}
-      <div className="absolute inset-0 bg-[#07080c]/45" />
-      <div
-        className="absolute inset-0 opacity-40"
-        style={{
-          backgroundImage:
-            'linear-gradient(to right, rgb(255 255 255 / 0.07) 1px, transparent 1px), linear-gradient(to bottom, rgb(255 255 255 / 0.07) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-          maskImage: 'radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%)',
-          WebkitMaskImage: 'radial-gradient(ellipse at 50% 0%, #000 30%, transparent 75%)',
-        }}
-      />
-      <div className="absolute -top-1/3 left-1/4 h-2/3 w-1/2 rounded-full bg-white/25 blur-3xl" />
-
+    <div className={`relative overflow-hidden bg-surface-2 [container-type:inline-size] ${className}`}>
       <div className="absolute inset-0" style={{ fontSize: '1cqw' }} aria-hidden={image ? undefined : 'true'}>
         {isPhone ? (
           <>
-            <Phone a={b} b={a} game={variant === 'game'} className="left-[20%] top-[22%] rotate-[-9deg] opacity-60" />
+            <Phone a={a} game={variant === 'game'} className="left-[20%] top-[22%] rotate-[-9deg] opacity-50" />
             <Phone
               a={a}
-              b={b}
               game={variant === 'game'}
-              className="left-[46%] top-[9%] rotate-[4deg] transition-transform duration-700 ease-out group-hover:-translate-y-[2%] group-hover:rotate-[2deg]"
+              className="left-[46%] top-[9%] rotate-[4deg] transition-transform duration-700 ease-out group-hover:-translate-y-2"
             />
           </>
         ) : (
@@ -331,15 +321,15 @@ export default function ProjectCover({ project, className = '' }) {
                 className="h-full w-full object-cover object-left-top"
               />
             ) : variant === 'store' ? (
-              <Store a={a} b={b} />
+              <Store a={a} />
             ) : variant === 'pos' ? (
-              <Pos a={a} b={b} />
+              <Pos a={a} />
             ) : variant === 'blog' ? (
-              <Blog a={a} b={b} />
+              <Blog a={a} />
             ) : variant === 'terminal' ? (
-              <Terminal a={a} b={b} />
+              <Terminal a={a} />
             ) : (
-              <Dashboard a={a} b={b} />
+              <Dashboard a={a} />
             )}
           </Window>
         )}

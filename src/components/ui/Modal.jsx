@@ -1,6 +1,8 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
+import { EASE } from '../../lib/motion';
+import { lockScroll } from '../../lib/smoothScroll';
 
 const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
@@ -17,6 +19,7 @@ export default function Modal({ open, onClose, labelledBy, children, className =
     const { overflow, paddingRight } = document.body.style;
     const scrollbar = window.innerWidth - document.documentElement.clientWidth;
     document.body.style.overflow = 'hidden';
+    lockScroll(true);
     if (scrollbar > 0) document.body.style.paddingRight = `${scrollbar}px`;
 
     const focusTimer = setTimeout(() => {
@@ -50,6 +53,7 @@ export default function Modal({ open, onClose, labelledBy, children, className =
       document.removeEventListener('keydown', onKey);
       document.body.style.overflow = overflow;
       document.body.style.paddingRight = paddingRight;
+      lockScroll(false);
       previouslyFocused?.focus?.();
     };
   }, [open, onClose]);
@@ -58,23 +62,24 @@ export default function Modal({ open, onClose, labelledBy, children, className =
     <AnimatePresence>
       {open && (
         <motion.div
+          data-lenis-prevent
           className="fixed inset-0 z-[100] flex items-end justify-center p-0 sm:items-center sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
         >
-          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} aria-hidden="true" />
+          <div className="absolute inset-0 bg-deep/80" onClick={onClose} aria-hidden="true" />
           <motion.div
             ref={panelRef}
             role="dialog"
             aria-modal="true"
             aria-labelledby={labelledBy}
-            initial={{ opacity: 0, y: 40, scale: 0.98 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 30, scale: 0.98 }}
-            transition={{ type: 'spring', stiffness: 320, damping: 32 }}
-            className={`relative flex max-h-[92svh] w-full flex-col overflow-hidden rounded-t-3xl border border-line bg-surface shadow-2xl sm:rounded-3xl ${className}`}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 24 }}
+            transition={{ duration: 0.55, ease: EASE }}
+            className={`relative flex max-h-[92svh] w-full flex-col overflow-hidden rounded-t-[24px] border border-line bg-surface shadow-[0_24px_64px_-24px_rgb(0_0_0/0.5)] sm:rounded-[24px] ${className}`}
           >
             {children}
           </motion.div>

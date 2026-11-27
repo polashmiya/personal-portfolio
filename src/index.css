@@ -2,60 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Animated conic borders read this as an angle (falls back to a static border where unsupported). */
-@property --angle {
-  syntax: '<angle>';
-  initial-value: 0deg;
-  inherits: false;
-}
-
 /* ------------------------------------------------------------------ */
 /* Design tokens — space-separated RGB so Tailwind can apply opacity.   */
+/* Indigo & marigold: Bengal's indigo dye and marigold garlands.        */
+/* Light: indigo ink on porcelain white. Dark: marigold on indigo night. */
+/* `gold` is the marigold of the badge and underline in both themes,    */
+/* `flame` the coral of the palash mark.                                */
 /* ------------------------------------------------------------------ */
 @layer base {
   :root {
-    --bg: 250 250 252;
+    --bg: 241 242 250;
+    --bg-deep: 232 234 246;
     --surface: 255 255 255;
-    --surface-2: 243 244 248;
-    --line: 226 228 236;
-    --fg: 12 14 22;
-    --muted: 82 88 108;
-    --subtle: 128 134 154;
-    --accent: 109 76 245;
-    --accent-2: 8 145 178;
-    --success: 16 185 129;
-    --glow: 0.18;
+    --surface-2: 230 232 245;
+    --line: 218 220 236;
+    --fg: 20 22 58;
+    --muted: 74 77 112;
+    --subtle: 95 98 134;
+    --accent: 43 47 184;
+    --accent-fg: 255 255 255;
+    --gold: 245 182 58;
+    --gold-fg: 20 22 58;
+    --flame: 238 96 60;
+    --success: 22 128 70;
+    --danger: 196 40 30;
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
     color-scheme: light;
   }
 
   .dark {
-    --bg: 7 8 12;
-    --surface: 14 16 23;
-    --surface-2: 21 24 34;
-    --line: 36 40 54;
-    --fg: 237 238 245;
-    --muted: 156 162 182;
-    --subtle: 108 114 134;
-    --accent: 139 108 255;
-    --accent-2: 34 211 238;
-    --success: 52 211 153;
-    --glow: 0.35;
+    --bg: 14 16 36;
+    --bg-deep: 10 11 27;
+    --surface: 21 24 52;
+    --surface-2: 29 33 66;
+    --line: 37 38 58;
+    --fg: 243 236 221;
+    --muted: 171 170 196;
+    --subtle: 133 132 160;
+    --accent: 245 182 58;
+    --accent-fg: 14 16 36;
+    --gold: 245 182 58;
+    --gold-fg: 14 16 36;
+    --flame: 255 122 89;
+    --success: 111 211 160;
+    --danger: 255 107 107;
     color-scheme: dark;
   }
 
   html {
+    /* Non-static, so scroll-linked animations measure offsets against the page itself */
+    position: relative;
     scroll-behavior: smooth;
-    scroll-padding-top: 6rem;
+    scroll-padding-top: 5rem;
     -webkit-tap-highlight-color: transparent;
   }
 
   body {
     @apply bg-bg font-sans text-fg antialiased;
-    font-feature-settings: 'ss01', 'cv11';
     text-rendering: optimizeLegibility;
+    font-size: 16px;
   }
 
-  /* Decorative glows extend past the viewport; clip them without breaking position: sticky */
   html,
   body {
     overflow-x: hidden;
@@ -64,6 +71,7 @@
 
   ::selection {
     background: rgb(var(--accent) / 0.3);
+    color: rgb(var(--fg));
   }
 
   :focus-visible {
@@ -82,6 +90,7 @@
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
+      transition-delay: 0ms !important;
     }
   }
 }
@@ -91,139 +100,96 @@
 /* ------------------------------------------------------------------ */
 @layer components {
   .container-site {
-    @apply mx-auto w-full max-w-site px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-site px-5 sm:px-8 lg:px-10;
   }
 
   .section {
-    @apply relative py-20 md:py-24;
-  }
-
-  .text-gradient {
-    background-image: linear-gradient(100deg, rgb(var(--accent)) 10%, rgb(var(--accent-2)) 90%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
-
-  .bg-gradient-accent {
-    background-image: linear-gradient(110deg, rgb(var(--accent)), rgb(var(--accent-2)));
+    @apply relative py-24 md:py-32;
   }
 
   .card {
-    @apply rounded-3xl border border-line/80 bg-surface/70 backdrop-blur-sm;
+    @apply rounded-[20px] border border-line bg-surface;
   }
 
-  .glass {
-    @apply border border-line/70 bg-surface/60 backdrop-blur-xl;
-  }
-
+  /* Small quiet tag for tech names */
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-surface-2/60 px-3 py-1 text-xs font-medium text-muted;
+    @apply inline-flex items-center gap-1.5 rounded-md border border-line px-2 py-0.5 text-xs text-muted;
   }
 
-  .eyebrow {
-    @apply inline-flex items-center gap-2 font-mono text-xs font-medium uppercase tracking-[0.2em] text-accent;
+  /* Small mono label: section index, meta, counts */
+  .label {
+    @apply font-mono text-xs text-subtle;
+  }
+
+  /* Large editorial serif */
+  .display {
+    @apply font-normal text-fg;
+    font-family: Fraunces, ui-serif, Georgia, serif;
+    letter-spacing: -0.025em;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply relative inline-flex h-12 items-center justify-center gap-2.5 rounded-full px-6 text-[15px] font-medium transition-[background-color,border-color,color,transform] duration-200 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60;
   }
 
   .btn-primary {
-    @apply btn bg-fg text-bg shadow-[0_8px_30px_-8px_rgb(var(--accent)/0.6)] hover:-translate-y-0.5 hover:shadow-[0_14px_40px_-10px_rgb(var(--accent)/0.8)];
+    @apply btn bg-accent text-accent-fg hover:bg-accent/90;
   }
 
   .btn-ghost {
-    @apply btn border border-line bg-surface/60 text-fg backdrop-blur hover:-translate-y-0.5 hover:border-accent/50 hover:bg-surface;
+    @apply btn border border-line text-fg hover:border-fg/30 hover:bg-surface-2/60;
+  }
+
+  .btn-sm {
+    @apply h-10 px-5 text-sm;
   }
 
   .icon-btn {
-    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface/60 text-muted backdrop-blur transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/50 hover:text-fg;
+    @apply inline-flex h-10 w-10 items-center justify-center rounded-full border border-line text-muted transition-colors hover:border-fg/30 hover:text-fg;
   }
 
+  /* Underline field, like writing on a ruled line */
   .input {
-    @apply w-full rounded-2xl border border-line bg-surface-2/50 px-4 py-3 text-sm text-fg outline-none transition placeholder:text-subtle focus:border-accent/60 focus:bg-surface focus:ring-4 focus:ring-accent/10;
+    @apply h-12 w-full rounded-none border-0 border-b border-line bg-transparent px-0 text-base text-fg outline-none transition-colors placeholder:text-subtle/80 focus:border-accent;
   }
 
-  /* Faint engineering grid, faded out toward the edges */
-  .bg-grid {
-    background-image: linear-gradient(to right, rgb(var(--fg) / 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(var(--fg) / 0.045) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
-    -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+  /* A link whose underline draws in from the left on hover */
+  .link {
+    @apply text-fg;
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0% 1px no-repeat;
+    transition: background-size 450ms var(--ease), color 160ms var(--ease);
+  }
+  .link:hover,
+  .link:focus-visible {
+    background-size: 100% 1px;
   }
 
-  .bg-dots {
-    background-image: radial-gradient(rgb(var(--fg) / 0.12) 1px, transparent 1px);
-    background-size: 18px 18px;
+  /* Letters of a label roll up on hover, one after another (see ui/RollText.jsx) */
+  .roll {
+    @apply relative inline-flex overflow-hidden whitespace-pre;
+    line-height: 1.25;
+  }
+  .roll-char {
+    @apply relative inline-block;
+    transition: transform 500ms var(--ease);
+    transition-delay: calc(var(--i) * 14ms);
+  }
+  .roll-char::after {
+    content: attr(data-c);
+    @apply absolute left-0 top-full;
+  }
+  .group:hover .roll-char,
+  .group:focus-visible .roll-char {
+    transform: translateY(-100%);
   }
 
-  /* Soft color blob used behind sections */
-  .aurora {
-    @apply pointer-events-none absolute rounded-full blur-3xl;
-    opacity: var(--glow);
+  /* Letters catch fire as the cursor passes, then cool back slowly (the big name) */
+  .ember {
+    transition: color 1100ms var(--ease);
   }
-
-  /* Card with a cursor-following highlight. Set --mx / --my from JS. */
-  .spotlight {
-    position: relative;
-    isolation: isolate;
-  }
-  .spotlight::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    padding: 1px;
-    background: radial-gradient(
-      420px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(var(--accent) / 0.55),
-      transparent 45%
-    );
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
-    z-index: 1;
-  }
-  .spotlight::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    background: radial-gradient(
-      600px circle at var(--mx, 50%) var(--my, 50%),
-      rgb(var(--accent) / 0.07),
-      transparent 40%
-    );
-    opacity: 0;
-    transition: opacity 0.4s;
-    pointer-events: none;
-    z-index: -1;
-  }
-  .spotlight:hover::before,
-  .spotlight:hover::after {
-    opacity: 1;
-  }
-
-  /* Rotating gradient ring (hero portrait) */
-  .ring-animated {
-    background: conic-gradient(
-      from var(--angle),
-      rgb(var(--accent)),
-      rgb(var(--accent-2)),
-      transparent 40%,
-      transparent 60%,
-      rgb(var(--accent))
-    );
-  }
-
-  .mask-fade-x {
-    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent);
+  .ember:hover {
+    color: rgb(var(--accent));
+    transition-duration: 60ms;
   }
 
   .scrollbar-none {
@@ -234,8 +200,23 @@
   }
 }
 
-/* Keep the PDF export of the resume from splitting blocks across pages */
-.pdf-export section,
-.pdf-export header {
-  break-inside: avoid;
+/* ------------------------------------------------------------------ */
+/* Theme switch: the new theme opens as a circle from the toggle        */
+/* ------------------------------------------------------------------ */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }
+::view-transition-new(root) {
+  animation: theme-reveal 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes theme-reveal {
+  from {
+    clip-path: circle(0 at var(--vt-x, 50%) var(--vt-y, 0%));
+  }
+  to {
+    clip-path: circle(150vmax at var(--vt-x, 50%) var(--vt-y, 0%));
+  }
+}
+

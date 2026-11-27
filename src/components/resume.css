@@ -1,0 +1,140 @@
+/*
+ * The resume sheet. Fixed colors and print units, so the preview on the site, the PDF
+ * and the Word file (scripts/resume/build.mjs mirrors these values) look the same.
+ * Carlito has the same metrics as Calibri, the font of the Word file, so lines break alike.
+ */
+.resume-sheet {
+  --r-ink: #14163a;
+  --r-text: #2a2c45;
+  --r-muted: #5a5c78;
+  --r-accent: #2b2fb8;
+  --r-rule: #d9d8e6;
+  box-sizing: border-box;
+  padding: 0.6in;
+  background: #fff;
+  color: var(--r-text);
+  font-family: Carlito, Calibri, 'Segoe UI', Arial, sans-serif;
+  font-size: 10.5pt;
+  line-height: 13.5pt;
+  text-align: left;
+}
+
+/* In the PDF the page margins come from @page, so every page gets them */
+.resume-sheet.is-print {
+  padding: 0;
+  width: auto;
+  min-height: 0;
+}
+
+.resume-sheet h1 {
+  margin: 0;
+  color: var(--r-ink);
+  font-size: 24pt;
+  font-weight: 700;
+  line-height: 28pt;
+}
+
+.resume-sheet .r-headline {
+  margin: 2pt 0 0;
+  color: var(--r-accent);
+  font-size: 11.5pt;
+  line-height: 15pt;
+}
+
+.resume-sheet .r-contact {
+  margin: 4pt 0 0;
+  color: var(--r-muted);
+  font-size: 9.5pt;
+  line-height: 13pt;
+}
+
+.resume-sheet .r-contact.is-next {
+  margin-top: 0;
+}
+
+.resume-sheet .r-contact a {
+  color: inherit;
+}
+
+.resume-sheet .r-sep {
+  margin: 0 5pt;
+  color: #a6a8c0;
+}
+
+.resume-sheet h2 {
+  margin: 11pt 0 5pt;
+  padding-bottom: 2pt;
+  border-bottom: 0.75pt solid var(--r-rule);
+  color: var(--r-accent);
+  font-size: 10.5pt;
+  font-weight: 700;
+  line-height: 13.5pt;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.resume-sheet p {
+  margin: 0;
+}
+
+.resume-sheet a {
+  color: var(--r-accent);
+  text-decoration: none;
+}
+
+.resume-sheet strong {
+  color: var(--r-ink);
+  font-weight: 700;
+}
+
+.resume-sheet .r-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12pt;
+}
+
+.resume-sheet .r-right {
+  flex-shrink: 0;
+  color: var(--r-muted);
+  white-space: nowrap;
+}
+
+.resume-sheet a.r-right {
+  color: var(--r-accent);
+}
+
+.resume-sheet .r-muted {
+  color: var(--r-muted);
+}
+
+.resume-sheet .r-company {
+  font-size: 11pt;
+}
+
+.resume-sheet .r-role {
+  margin-top: 5pt;
+}
+
+.resume-sheet .r-item + .r-item {
+  margin-top: 6pt;
+}
+
+.resume-sheet ul {
+  margin: 1.5pt 0 0;
+  padding-left: 13pt;
+  list-style: disc;
+}
+
+.resume-sheet li {
+  margin-top: 1.5pt;
+  padding-left: 2pt;
+}
+
+.resume-sheet li::marker {
+  color: #8a8ca8;
+}
+
+.resume-sheet .r-skills p + p {
+  margin-top: 1.5pt;
+}

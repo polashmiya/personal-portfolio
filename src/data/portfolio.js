@@ -73,7 +73,7 @@ export const profile = {
   name: 'Md. Polash Miya',
   firstName: 'Polash',
   initials: 'PM',
-  role: 'Full-Stack Software Engineer',
+  role: 'Software Engineer',
   currentTitle: 'Software Engineer II',
   company: 'AKIJ iBOS Limited',
   location: 'Uttara, Dhaka, Bangladesh',
@@ -86,16 +86,18 @@ export const profile = {
   available: true,
   image: profileImg,
   avatar: avatarImg,
-  // Rotating line under the hero heading
-  roles: ['Full-Stack Engineer', 'React & Next.js Specialist', 'ERP & POS Builder', 'Mobile App Developer'],
+  // Subhead under the hero headline
   tagline:
-    'I design and build ERP platforms, offline-first POS systems and polished web & mobile apps — with React, Next.js, ASP.NET Core, React Native and Flutter.',
+    'Software Engineer II at AKIJ iBOS Limited, working in React, Next.js and ASP.NET Core. On my own time I build offline-first POS systems and Bangla / English mobile apps.',
+  // The large statement at the top of About, lit word by word as it scrolls past (*words* get the accent)
+  statement:
+    'I’m a software engineer in Dhaka. At AKIJ iBOS Limited I build the *ERP software* businesses run on every day, from sales, purchase and accounts to HR. On my own time I build *offline-first point-of-sale systems* and *bilingual Bangla and English apps.*',
   summary:
-    'Full-stack software engineer with hands-on experience building scalable ERP solutions, responsive web applications and RESTful API integrations. Comfortable across React / TypeScript front ends and ASP.NET Core / Node.js back ends, with a strong focus on clean architecture, reusable components and business-critical delivery.',
+    'Software engineer with hands-on experience building scalable ERP solutions, responsive web applications and RESTful API integrations. Comfortable across React / TypeScript front ends and ASP.NET Core / Node.js back ends, with a strong focus on clean architecture, reusable components and business-critical delivery.',
   bio: [
-    'I’m a full-stack software engineer based in Dhaka. At AKIJ iBOS Limited I build ERP software that real businesses run on every day — from sales, purchase and accounts to HR, promotions and insurance — for products like Managerium, Apon ERP and AKIJ ERP.',
+    'I’m a software engineer based in Dhaka. At AKIJ iBOS Limited I build ERP software that real businesses run on every day — from sales, purchase and accounts to HR, promotions and insurance — for products like Managerium, Apon Bazar and AKIJ ERP.',
     'My core is React and TypeScript on the front end and ASP.NET Core and Node.js on the back end. Outside of work I build offline-first point-of-sale systems with Electron, mobile apps with React Native and Flutter, and bilingual (Bangla / English) products designed around how people here actually work.',
-    'I care about clean architecture, reusable components, real test coverage and interfaces that feel effortless. I’m always learning — and always shipping.',
+    'I care about clean architecture, reusable components, real test coverage and interfaces that are easy to use.',
   ],
 };
 
@@ -117,25 +119,37 @@ export const navLinks = [
 /* What I do                                                           */
 /* ------------------------------------------------------------------ */
 
+/**
+ * Shown in the hero: `phrase` completes "I build …" and rolls through in turn,
+ * `short` is the one-line description in the hero's "What I do" strip.
+ */
 export const services = [
   {
     key: 'web',
-    title: 'Web Applications',
-    text: 'Fast, accessible React & Next.js apps with clean component architecture and pixel-perfect, responsive UI.',
+    title: 'Web applications',
+    phrase: 'ERP web applications',
+    short: 'React and Next.js apps with clean, reusable components',
+    text: 'Fast, accessible React and Next.js apps with a clean component architecture and responsive UI.',
   },
   {
     key: 'backend',
-    title: 'APIs & Backend',
+    title: 'APIs and back end',
+    phrase: 'APIs and back ends',
+    short: 'ASP.NET Core and Node.js services with auth and roles',
     text: 'ASP.NET Core and Node.js services with REST APIs, auth, role-based permissions and solid data models.',
   },
   {
     key: 'mobile',
-    title: 'Mobile Apps',
+    title: 'Mobile apps',
+    phrase: 'mobile apps',
+    short: 'React Native and Flutter apps that keep working offline',
     text: 'Cross-platform apps with React Native, Expo and Flutter — offline-first, bilingual and tested.',
   },
   {
     key: 'desktop',
-    title: 'Desktop & POS',
+    title: 'Desktop and POS',
+    phrase: 'offline POS systems',
+    short: 'Electron point of sale with local data and thermal printing',
     text: 'Electron point-of-sale software with local databases, thermal printing and zero internet dependency.',
   },
 ];
@@ -159,10 +173,10 @@ export const experience = [
         start: '2026-07-01',
         current: true,
         points: [
-          'Build and maintain scalable full-stack ERP applications with React on the front end and ASP.NET Core Web APIs on the back end.',
-          'Integrate front-end modules with RESTful APIs for seamless, real-time data flow across ERP modules.',
-          'Partner with UX/UI designers to ship consistent, user-friendly interfaces that improve productivity and reduce user errors.',
-          'Take part in code reviews, feature planning and agile delivery of high-quality ERP releases.',
+          'Build and maintain scalable full-stack ERP applications with React on the front end and ASP.NET Core Web APIs on the back end',
+          'Integrate front-end modules with RESTful APIs for real-time data flow across ERP modules',
+          'Partner with UX/UI designers to ship consistent, user-friendly interfaces that improve productivity and reduce user errors',
+          'Take part in code reviews, feature planning and agile delivery of high-quality ERP releases',
         ],
         tech: ['React', 'Next.js', 'React Native', 'ASP.NET Core', 'SQL Server', 'Software Design', 'Software Infrastructure', 'REST APIs'],
       },
@@ -172,9 +186,9 @@ export const experience = [
         start: '2024-07-01',
         end: '2026-06-01',
         points: [
-          'Created and maintained responsive React applications with cross-browser compatibility.',
-          'Integrated front-end modules with RESTful APIs for seamless data flow.',
-          'Collaborated with UX designers to deliver a consistent experience on every device.',
+          'Created and maintained responsive React applications with cross-browser compatibility',
+          'Integrated front-end modules with back-end RESTful APIs',
+          'Collaborated with UX designers to deliver a consistent experience on every device',
         ],
         tech: ['React', 'JavaScript', 'Next.js', 'ASP.NET Core', 'SQL Server', 'Redux', 'Tailwind CSS'],
       },
@@ -184,9 +198,9 @@ export const experience = [
         start: '2022-04-01',
         end: '2024-06-01',
         points: [
-          'Developed responsive, interactive web interfaces with React that improved ERP module usability.',
-          'Debugged issues, resolved defects and optimized performance to keep business workflows smooth.',
-          'Contributed across ERP modules, gaining hands-on experience integrating front ends with back-end services.',
+          'Developed responsive, interactive web interfaces with React that improved ERP module usability',
+          'Debugged issues, resolved defects and optimized performance to keep business workflows smooth',
+          'Contributed across ERP modules, gaining hands-on experience integrating front ends with back-end services',
         ],
         tech: ['JavaScript', 'React', 'Redux', 'HTML & CSS'],
       },
@@ -195,17 +209,17 @@ export const experience = [
       {
         name: 'Managerium',
         kind: 'ERP solution',
-        text: 'Lead front-end developer — shaped core modules including sales, purchase, accounts and HR.',
+        text: 'Lead front-end developer — shaped core modules including sales, purchase, accounts and HR',
       },
       {
-        name: 'Apon ERP',
+        name: 'Apon Bazar',
         kind: 'For Apon Wellbeing Ltd',
-        text: 'Led the Promotion Management module and built key features of Insurance Management.',
+        text: 'Led the Promotion Management module and built key features of Insurance Management',
       },
       {
         name: 'AKIJ ERP',
         kind: 'For AKIJ Group',
-        text: 'Delivered Internal Expense, Advance in Payment and Internal Control features.',
+        text: 'Delivered Internal Expense, Advance in Payment and Internal Control features',
       },
     ],
   },
@@ -221,79 +235,78 @@ export const education = {
 /* Skills                                                              */
 /* ------------------------------------------------------------------ */
 
-// `color` is the brand color; null means "use the text color" (for black logos).
 export const skillGroups = [
   {
     key: 'frontend',
     title: 'Frontend',
-    blurb: 'Interfaces that are fast, accessible and a joy to use.',
+    blurb: 'Interfaces that are fast, accessible and easy to use',
     skills: [
-      { name: 'React', icon: SiReact, color: '#61DAFB' },
-      { name: 'Next.js', icon: SiNextdotjs, color: null },
-      { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-      { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-      { name: 'Redux / RTK Query', icon: SiRedux, color: '#764ABC' },
-      { name: 'TanStack Query', icon: SiReactquery, color: '#FF4154' },
-      { name: 'React Hook Form', icon: SiReacthookform, color: '#EC5990' },
-      { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-      { name: 'Ant Design', icon: SiAntdesign, color: '#1677FF' },
-      { name: 'Material UI', icon: SiMui, color: '#007FFF' },
-      { name: 'Framer Motion', icon: SiFramer, color: null },
-      { name: 'HTML & CSS', icon: SiHtml5, color: '#E34F26' },
+      { name: 'React', icon: SiReact },
+      { name: 'Next.js', icon: SiNextdotjs },
+      { name: 'TypeScript', icon: SiTypescript },
+      { name: 'JavaScript', icon: SiJavascript },
+      { name: 'Redux / RTK Query', icon: SiRedux },
+      { name: 'TanStack Query', icon: SiReactquery },
+      { name: 'React Hook Form', icon: SiReacthookform },
+      { name: 'Tailwind CSS', icon: SiTailwindcss },
+      { name: 'Ant Design', icon: SiAntdesign },
+      { name: 'Material UI', icon: SiMui },
+      { name: 'Framer Motion', icon: SiFramer },
+      { name: 'HTML & CSS', icon: SiHtml5 },
     ],
   },
   {
     key: 'backend',
     title: 'Backend',
-    blurb: 'Reliable APIs with clear contracts and sensible data models.',
+    blurb: 'Reliable APIs with clear contracts and sensible data models',
     skills: [
-      { name: 'ASP.NET Core', icon: SiDotnet, color: '#7C5CDB' },
-      { name: 'C#', icon: TbBrandCSharp, color: '#9B4F96' },
-      { name: 'Node.js', icon: SiNodedotjs, color: '#5FA04E' },
-      { name: 'Express', icon: SiExpress, color: null },
-      { name: 'REST APIs', icon: TbApi, color: null },
-      { name: 'JWT Auth', icon: SiJsonwebtokens, color: '#D63AFF' },
-      { name: 'Swagger / OpenAPI', icon: SiSwagger, color: '#85EA2D' },
+      { name: 'ASP.NET Core', icon: SiDotnet },
+      { name: 'C#', icon: TbBrandCSharp },
+      { name: 'Node.js', icon: SiNodedotjs },
+      { name: 'Express', icon: SiExpress },
+      { name: 'REST APIs', icon: TbApi },
+      { name: 'JWT Auth', icon: SiJsonwebtokens },
+      { name: 'Swagger / OpenAPI', icon: SiSwagger },
     ],
   },
   {
     key: 'mobile',
-    title: 'Mobile & Desktop',
-    blurb: 'Cross-platform apps that keep working offline.',
+    title: 'Mobile & desktop',
+    blurb: 'Cross-platform apps that keep working offline',
     skills: [
-      { name: 'React Native', icon: TbBrandReactNative, color: '#61DAFB' },
-      { name: 'Expo', icon: SiExpo, color: null },
-      { name: 'Flutter', icon: SiFlutter, color: '#42A5F5' },
-      { name: 'Dart', icon: SiDart, color: '#0FB2D4' },
-      { name: 'Electron', icon: SiElectron, color: '#47848F' },
-      { name: 'Kotlin', icon: SiKotlin, color: '#7F52FF' },
+      { name: 'React Native', icon: TbBrandReactNative },
+      { name: 'Expo', icon: SiExpo },
+      { name: 'Flutter', icon: SiFlutter },
+      { name: 'Dart', icon: SiDart },
+      { name: 'Electron', icon: SiElectron },
+      { name: 'Kotlin', icon: SiKotlin },
     ],
   },
   {
     key: 'data',
     title: 'Databases',
-    blurb: 'Relational and document stores, on the server or on the device.',
+    blurb: 'Relational and document stores, on the server or on the device',
     skills: [
-      { name: 'SQL Server', icon: DiMsqlServer, color: '#CC2927' },
-      { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-      { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-      { name: 'SQLite', icon: SiSqlite, color: '#44A1D9' },
-      { name: 'Supabase', icon: SiSupabase, color: '#3ECF8E' },
+      { name: 'SQL Server', icon: DiMsqlServer },
+      { name: 'PostgreSQL', icon: SiPostgresql },
+      { name: 'MongoDB', icon: SiMongodb },
+      { name: 'SQLite', icon: SiSqlite },
+      { name: 'Supabase', icon: SiSupabase },
     ],
   },
   {
     key: 'tools',
-    title: 'Tooling & Testing',
-    blurb: 'The workflow that keeps quality high and releases boring.',
+    title: 'Tooling & testing',
+    blurb: 'The workflow that keeps quality high and releases boring',
     skills: [
-      { name: 'Git', icon: SiGit, color: '#F05032' },
-      { name: 'GitHub Actions', icon: SiGithubactions, color: '#2088FF' },
-      { name: 'Vite', icon: SiVite, color: '#9467FF' },
-      { name: 'Vitest', icon: SiVitest, color: '#6E9F18' },
-      { name: 'Playwright', icon: TbTestPipe, color: '#2EAD33' },
-      { name: 'pnpm', icon: SiPnpm, color: '#F69220' },
-      { name: 'Postman', icon: SiPostman, color: '#FF6C37' },
-      { name: 'Vercel', icon: SiVercel, color: null },
+      { name: 'Git', icon: SiGit },
+      { name: 'GitHub Actions', icon: SiGithubactions },
+      { name: 'Vite', icon: SiVite },
+      { name: 'Vitest', icon: SiVitest },
+      { name: 'Playwright', icon: TbTestPipe },
+      { name: 'pnpm', icon: SiPnpm },
+      { name: 'Postman', icon: SiPostman },
+      { name: 'Vercel', icon: SiVercel },
     ],
   },
 ];
@@ -302,22 +315,22 @@ export const skillCount = skillGroups.reduce((n, g) => n + g.skills.length, 0);
 
 /** Logos for the scrolling tech strip */
 export const marquee = [
-  { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: null },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-  { name: 'ASP.NET Core', icon: SiDotnet, color: '#7C5CDB' },
-  { name: 'Node.js', icon: SiNodedotjs, color: '#5FA04E' },
-  { name: 'React Native', icon: TbBrandReactNative, color: '#61DAFB' },
-  { name: 'Flutter', icon: SiFlutter, color: '#42A5F5' },
-  { name: 'Electron', icon: SiElectron, color: '#47848F' },
-  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-  { name: 'Redux', icon: SiRedux, color: '#764ABC' },
-  { name: 'SQL Server', icon: DiMsqlServer, color: '#CC2927' },
-  { name: 'PostgreSQL', icon: SiPostgresql, color: '#4169E1' },
-  { name: 'MongoDB', icon: SiMongodb, color: '#47A248' },
-  { name: 'SQLite', icon: SiSqlite, color: '#44A1D9' },
-  { name: 'Expo', icon: SiExpo, color: null },
-  { name: 'Vite', icon: SiVite, color: '#9467FF' },
+  { name: 'React', icon: SiReact },
+  { name: 'Next.js', icon: SiNextdotjs },
+  { name: 'TypeScript', icon: SiTypescript },
+  { name: 'ASP.NET Core', icon: SiDotnet },
+  { name: 'Node.js', icon: SiNodedotjs },
+  { name: 'React Native', icon: TbBrandReactNative },
+  { name: 'Flutter', icon: SiFlutter },
+  { name: 'Electron', icon: SiElectron },
+  { name: 'Tailwind CSS', icon: SiTailwindcss },
+  { name: 'Redux', icon: SiRedux },
+  { name: 'SQL Server', icon: DiMsqlServer },
+  { name: 'PostgreSQL', icon: SiPostgresql },
+  { name: 'MongoDB', icon: SiMongodb },
+  { name: 'SQLite', icon: SiSqlite },
+  { name: 'Expo', icon: SiExpo },
+  { name: 'Vite', icon: SiVite },
 ];
 
 /* ------------------------------------------------------------------ */
@@ -329,7 +342,7 @@ const gh = (repo) => `https://github.com/polashmiya/${repo}`;
 /**
  * `cover` drives the illustrated thumbnail when there is no screenshot:
  *   variant: 'pos' | 'dashboard' | 'store' | 'blog' | 'phone' | 'game' | 'terminal'
- *   hue:     two colors for the gradient
+ *   hue:     one project color used inside the illustration
  * Drop a screenshot into src/assets and set `image` to replace it.
  *
  * Optional extras shown in the project modal:
@@ -346,7 +359,7 @@ export const projects = [
     featured: true,
     year: '2026',
     image: superShopImg,
-    cover: { variant: 'pos', hue: ['#10b981', '#0ea5e9'] },
+    cover: { variant: 'pos', hue: '#6dbe7b' },
     description:
       'A bilingual (Bangla / English) supermarket POS that runs as a desktop app and in the browser from one codebase. Barcode checkout, VAT, split payments, returns, inventory, suppliers and thermal receipts — all on a local SQLite database, with no internet required.',
     highlights: [
@@ -376,7 +389,7 @@ export const projects = [
     featured: true,
     year: '2026',
     image: coreliumImg,
-    cover: { variant: 'dashboard', hue: ['#16a34a', '#0d9488'] },
+    cover: { variant: 'dashboard', hue: '#6dbe7b' },
     description:
       'An enterprise resource planning suite covering purchase, sales, accounts, inventory, configuration and approval workflows, with an executive dashboard of sales, purchases, collections, receivables, payables, margins and cash flow.',
     highlights: [
@@ -402,7 +415,7 @@ export const projects = [
     featured: true,
     year: '2026',
     image: mediNestImg,
-    cover: { variant: 'store', hue: ['#14b8a6', '#f97316'] },
+    cover: { variant: 'store', hue: '#4ba8a0' },
     description:
       'The full online-pharmacy journey — browse, search, product details, cart, checkout and order tracking — built with Next.js 16 and React 19 over a service layer that can be pointed at a real backend without touching the UI.',
     highlights: [
@@ -424,7 +437,7 @@ export const projects = [
     category: 'desktop',
     year: '2026',
     image: restaurantPosImg,
-    cover: { variant: 'pos', hue: ['#f59e0b', '#ef4444'] },
+    cover: { variant: 'pos', hue: '#f2a33a' },
     description:
       'A restaurant point of sale for Windows, macOS and Linux that handles ordering, tables, payments, kitchen tickets, receipts, shifts and reports with Wi-Fi off. Bangla by default, English one tap away.',
     highlights: [
@@ -448,7 +461,7 @@ export const projects = [
     category: 'web',
     year: '2026',
     image: erpSolutionImg,
-    cover: { variant: 'dashboard', hue: ['#059669', '#0ea5e9'] },
+    cover: { variant: 'dashboard', hue: '#6dbe7b' },
     description:
       'An operations hub for inventory and supply chain: live stock KPIs, incoming shipments, purchase-order tracking, stock-level trends and a logistics activity feed — alongside POS sales, purchase receiving, items, suppliers and a Smart PO (AI) module.',
     highlights: [
@@ -473,7 +486,7 @@ export const projects = [
     tagline: 'Multi-tenant ERP driven by configuration',
     category: 'web',
     year: '2026',
-    cover: { variant: 'dashboard', hue: ['#8b5cf6', '#6366f1'] },
+    cover: { variant: 'dashboard', hue: '#7fa7d9' },
     description:
       'One ERP codebase whose screens and data shape are configured per account. An internal Panel app sets up accounts, business units, fields and layouts; the client ERP renders its UI from that resolved configuration, served by an ASP.NET Core API.',
     highlights: [
@@ -494,7 +507,7 @@ export const projects = [
     category: 'web',
     year: '2026',
     image: ukCoachingImg,
-    cover: { variant: 'dashboard', hue: ['#4f46e5', '#3b82f6'] },
+    cover: { variant: 'dashboard', hue: '#7fa7d9' },
     description:
       'A Bangla-first platform for coaching centres: a public website for courses, teachers and admissions, plus a management dashboard for students, batches, attendance, exams, results, payments and more — with separate admin, teacher and student logins.',
     highlights: [
@@ -520,7 +533,7 @@ export const projects = [
     category: 'web',
     year: '2026',
     image: furniBdImg,
-    cover: { variant: 'store', hue: ['#15803d', '#a16207'] },
+    cover: { variant: 'store', hue: '#6dbe7b' },
     description:
       'A modern furniture storefront for Bangladeshi homes with a hero-led landing page, category browsing, a shop with product listings, wishlist, orders and account login.',
     highlights: [
@@ -540,7 +553,7 @@ export const projects = [
     category: 'web',
     year: '2025',
     image: eGadgetImg,
-    cover: { variant: 'store', hue: ['#3b82f6', '#9333ea'] },
+    cover: { variant: 'store', hue: '#7fa7d9' },
     description:
       'A responsive e-commerce storefront with category browsing, product listings, a persistent cart, validated checkout and user authentication.',
     highlights: [
@@ -561,7 +574,7 @@ export const projects = [
     category: 'web',
     year: '2025',
     image: polashDiaryImg,
-    cover: { variant: 'blog', hue: ['#6366f1', '#ec4899'] },
+    cover: { variant: 'blog', hue: '#d9774b' },
     description:
       'A clean, fast blog where anyone can sign up, write posts with a rich-text editor and join the conversation in the comments — backed by its own REST API.',
     highlights: [
@@ -581,7 +594,7 @@ export const projects = [
     tagline: 'Multi-vendor, multi-language e-commerce',
     category: 'web',
     year: '2026',
-    cover: { variant: 'store', hue: ['#0ea5e9', '#8b5cf6'] },
+    cover: { variant: 'store', hue: '#4ba8a0' },
     description:
       'A complete e-commerce storefront built on the Next.js App Router: 38 localized pages covering shop, product, compare, cart, checkout and order tracking, customer accounts, a blog and careers, plus vendor registration and a vendor dashboard.',
     highlights: [
@@ -600,7 +613,7 @@ export const projects = [
     tagline: 'Collaborative B2B deal workspace',
     category: 'web',
     year: '2025',
-    cover: { variant: 'dashboard', hue: ['#0891b2', '#6366f1'] },
+    cover: { variant: 'dashboard', hue: '#4ba8a0' },
     description:
       'A shared workspace for a single B2B deal, where sellers and buyers track stakeholders, proposals, contracts, meetings, document requisitions and compliance in one place — with a built-in chat panel.',
     highlights: [
@@ -618,7 +631,7 @@ export const projects = [
     tagline: 'Offline maths learning & exam prep app',
     category: 'mobile',
     year: '2026',
-    cover: { variant: 'phone', hue: ['#f43f5e', '#8b5cf6'] },
+    cover: { variant: 'phone', hue: '#e86f5c' },
     description:
       'A complete, fully offline mathematics learning, practice, brain-training and competitive-exam platform for Android and iOS. No backend, no account — and architected so a backend can be added later without a rewrite.',
     highlights: [
@@ -636,7 +649,7 @@ export const projects = [
     tagline: 'Personal finance & smart tally app',
     category: 'mobile',
     year: '2026',
-    cover: { variant: 'phone', hue: ['#22c55e', '#0ea5e9'] },
+    cover: { variant: 'phone', hue: '#6dbe7b' },
     description:
       'An offline-first Android finance app with expense tracking, budgets, a Tally-style personal ledger, voice entry in Bangla, English or Banglish and a local financial-insight engine. Every byte stays on the device.',
     highlights: [
@@ -655,7 +668,7 @@ export const projects = [
     tagline: 'Offline Bangla / English text-to-speech',
     category: 'mobile',
     year: '2026',
-    cover: { variant: 'phone', hue: ['#a855f7', '#06b6d4'] },
+    cover: { variant: 'phone', hue: '#4ba8a0' },
     description:
       'An Android app that turns Bangla, English and Banglish text into natural speech entirely on the phone, running open-source TTS models with sherpa-onnx. No cloud, no paid API, no account.',
     highlights: [
@@ -674,7 +687,7 @@ export const projects = [
     tagline: 'Bilingual survival-strategy game',
     category: 'game',
     year: '2026',
-    cover: { variant: 'game', hue: ['#f97316', '#e11d48'] },
+    cover: { variant: 'game', hue: '#ff7a59' },
     description:
       'Traffic. Rain. Bills. Somehow, survive. An offline survival-strategy game about getting through seven ordinary days in Dhaka, where every decision costs money, time, energy or your temper.',
     highlights: [
@@ -692,7 +705,7 @@ export const projects = [
     tagline: 'Time-loop puzzle game for Android',
     category: 'game',
     year: '2026',
-    cover: { variant: 'game', hue: ['#0ea5e9', '#6366f1'] },
+    cover: { variant: 'game', hue: '#4ba8a0' },
     description:
       'Time can be rewound, but knowledge cannot be forgotten. A puzzle game where every rewind resets the world — doors, items, people, the clock — but never what you have learned.',
     highlights: [
@@ -710,7 +723,7 @@ export const projects = [
     tagline: 'Mobile expense tracker',
     category: 'mobile',
     year: '2025',
-    cover: { variant: 'phone', hue: ['#eab308', '#f97316'] },
+    cover: { variant: 'phone', hue: '#f2a33a' },
     description:
       'A React Native app for logging and reviewing expenses on the go, with on-device storage, notification reminders and a clean Material Design interface.',
     highlights: [
@@ -728,7 +741,7 @@ export const projects = [
     tagline: 'Restaurant POS app with Bluetooth printing',
     category: 'mobile',
     year: '2025',
-    cover: { variant: 'phone', hue: ['#f97316', '#db2777'] },
+    cover: { variant: 'phone', hue: '#ff7a59' },
     description:
       'A React Native point-of-sale app for restaurant staff, with real-time order updates, push notifications and receipt printing straight to Bluetooth thermal printers through custom native Android modules.',
     highlights: [
@@ -746,7 +759,7 @@ export const projects = [
     tagline: 'Scaffolding tool for ERP front ends',
     category: 'tools',
     year: '2026',
-    cover: { variant: 'terminal', hue: ['#3b4fd4', '#8b5cf6'] },
+    cover: { variant: 'terminal', hue: '#7fa7d9' },
     description:
       'A command-line tool that scaffolds new iBOS ERP front-end projects in seconds — asking for the project name, API base URL, theme and package manager — and then injects whole modules or individual features from manifests, wiring up their routes automatically.',
     highlights: [
@@ -764,7 +777,7 @@ export const projects = [
     tagline: 'Authentication REST API in ASP.NET Core',
     category: 'tools',
     year: '2025',
-    cover: { variant: 'terminal', hue: ['#7c3aed', '#db2777'] },
+    cover: { variant: 'terminal', hue: '#7fa7d9' },
     description:
       'An ASP.NET Core Web API for user accounts: registration, login, and a forgot / reset password flow with expiring reset tokens sent by email.',
     highlights: [
@@ -782,7 +795,7 @@ export const projects = [
     tagline: 'HR & office back end in ASP.NET Core',
     category: 'tools',
     year: '2024',
-    cover: { variant: 'terminal', hue: ['#0d9488', '#2563eb'] },
+    cover: { variant: 'terminal', hue: '#4ba8a0' },
     description:
       'An ASP.NET Core Web API for running an office: employees and offices, plus the departments, designations, customers, suppliers, items, projects and units of measure around them.',
     highlights: [

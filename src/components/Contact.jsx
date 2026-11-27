@@ -1,21 +1,12 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import {
-  LuMail,
-  LuPhone,
-  LuMapPin,
-  LuCopy,
-  LuCheck,
-  LuSend,
-  LuLoaderCircle,
-  LuCircleCheck,
-  LuTriangleAlert,
-  LuArrowUpRight,
-} from 'react-icons/lu';
+import { LuCopy, LuCheck, LuArrowUpRight, LuArrowRight, LuLoaderCircle, LuCircleCheck, LuTriangleAlert } from 'react-icons/lu';
 import { profile, socials } from '../data/portfolio';
+import { EASE } from '../lib/motion';
 import SectionHeading from './ui/SectionHeading';
 import Reveal from './ui/Reveal';
-import SocialIcon from './ui/SocialIcon';
+import { RollText } from './ui/TextMotion';
+import Magnetic from './ui/Magnetic';
 
 /*
  * Messages are delivered with Web3Forms (free) when VITE_WEB3FORMS_ACCESS_KEY is set.
@@ -28,25 +19,48 @@ const empty = { name: '', email: '', subject: '', message: '' };
 
 function validate(values) {
   const errors = {};
-  if (!values.name.trim()) errors.name = 'Please tell me your name.';
-  if (!EMAIL_RE.test(values.email.trim())) errors.email = 'Please enter a valid email address.';
-  if (values.message.trim().length < 10) errors.message = 'A little more detail, please (10+ characters).';
+  if (!values.name.trim()) errors.name = 'Please enter your name';
+  if (!EMAIL_RE.test(values.email.trim())) errors.email = 'Please enter a valid email address';
+  if (values.message.trim().length < 10) errors.message = 'Please write at least 10 characters';
   return errors;
 }
 
 function Field({ id, label, error, children }) {
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-sm font-medium text-fg">
+      <label htmlFor={id} className="label block">
         {label}
       </label>
       {children}
       {error && (
-        <p id={`${id}-error`} className="mt-1.5 text-xs text-red-500">
+        <p id={`${id}-error`} className="mt-2 text-xs text-danger">
           {error}
         </p>
       )}
     </div>
+  );
+}
+
+/* One ruled line of contact detail, with an arrow that turns on hover */
+function ContactRow({ label, value, href, external }) {
+  return (
+    <li>
+      <a
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noopener noreferrer' : undefined}
+        className="group flex items-center justify-between gap-4 border-t border-line py-5"
+      >
+        <span className="label w-20 shrink-0">{label}</span>
+        <span className="min-w-0 flex-1 truncate text-[15px] text-fg transition-transform duration-500 ease-out group-hover:translate-x-1">
+          {value}
+        </span>
+        <LuArrowUpRight
+          className="h-4 w-4 shrink-0 text-subtle transition-[transform,color] duration-300 group-hover:rotate-45 group-hover:text-accent"
+          aria-hidden="true"
+        />
+      </a>
+    </li>
   );
 }
 
@@ -111,151 +125,99 @@ export default function Contact() {
     }
   };
 
-  const contactRows = [
-    { icon: LuPhone, label: 'Phone', value: profile.phone, href: profile.phoneHref },
-    { icon: LuMapPin, label: 'Location', value: profile.location },
-  ];
+  const github = socials.find((s) => s.label === 'GitHub');
+  const linkedin = socials.find((s) => s.label === 'LinkedIn');
 
   return (
-    <section id="contact" className="section" aria-labelledby="contact-title">
-      <div className="aurora bottom-0 left-1/2 -z-10 h-[30rem] w-[40rem] -translate-x-1/2 bg-accent/70" aria-hidden="true" />
+    <section id="contact" className="section bg-deep/50" aria-labelledby="contact-title">
       <div className="container-site">
         <SectionHeading
           id="contact-title"
           index="05"
-          eyebrow="Contact"
-          title="Let’s build something"
-          accent="great together."
-          description="Have a role, a project or an idea in mind? I’d love to hear about it. Send a message and I’ll get back to you as soon as I can."
+          label="Contact"
+          title="Have a role or a project in mind?"
+          description="Send a message and I’ll get back to you as soon as I can"
         />
 
-        <div className="grid gap-5 lg:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-20 lg:grid-cols-12 lg:gap-8">
           {/* Direct contact */}
-          <Reveal className="flex flex-col gap-5">
-            <div className="card relative overflow-hidden p-7">
-              <div className="bg-dots absolute inset-0 opacity-50 [mask-image:linear-gradient(to_bottom_left,#000,transparent_60%)]" aria-hidden="true" />
-              <div className="relative">
-                <p className="eyebrow text-[10px]">Prefer email?</p>
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="mt-4 block break-all text-xl font-semibold tracking-tight text-fg transition-colors hover:text-accent sm:text-2xl"
-                >
-                  {profile.email}
+          <Reveal className="lg:col-span-5">
+            <p className="label">Email</p>
+            <a
+              href={`mailto:${profile.email}`}
+              className="link display mt-4 inline text-[1.5rem] leading-snug [overflow-wrap:anywhere] sm:text-[2rem] lg:text-[1.75rem] xl:text-[2.25rem]"
+            >
+              {profile.email}
+            </a>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Magnetic>
+                <a href={`mailto:${profile.email}`} className="btn-primary group">
+                  <RollText>Write to me</RollText>
+                  <LuArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                 </a>
-                <div className="mt-6 flex flex-wrap gap-3">
-                  <button type="button" onClick={copyEmail} className="btn-ghost px-5 py-2.5" aria-live="polite">
-                    {copied ? <LuCheck className="h-4 w-4 text-success" /> : <LuCopy className="h-4 w-4" />}
-                    {copied ? 'Copied!' : 'Copy email'}
-                  </button>
-                  <a href={`mailto:${profile.email}`} className="btn-primary px-5 py-2.5">
-                    <LuMail className="h-4 w-4" /> Write to me
-                  </a>
-                </div>
-              </div>
+              </Magnetic>
+              <button type="button" onClick={copyEmail} className="btn-ghost" aria-live="polite">
+                {copied ? (
+                  <LuCheck className="h-4 w-4 text-success" aria-hidden="true" />
+                ) : (
+                  <LuCopy className="h-4 w-4" aria-hidden="true" />
+                )}
+                {copied ? 'Copied' : 'Copy email'}
+              </button>
             </div>
 
-            <ul className="card divide-y divide-line/70">
-              {contactRows.map(({ icon: Icon, label, value, href }) => {
-                const inner = (
-                  <>
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-2xl border border-line bg-surface-2 text-accent">
-                      <Icon className="h-[18px] w-[18px]" />
-                    </span>
-                    <span className="min-w-0 flex-1">
-                      <span className="block text-xs text-subtle">{label}</span>
-                      <span className="block truncate text-[15px] font-medium text-fg">{value}</span>
-                    </span>
-                    {href && (
-                      <LuArrowUpRight className="h-4 w-4 text-subtle transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-fg" />
-                    )}
-                  </>
-                );
-                return (
-                  <li key={label}>
-                    {href ? (
-                      <a href={href} className="group flex items-center gap-4 p-5 transition-colors hover:bg-surface-2/40">
-                        {inner}
-                      </a>
-                    ) : (
-                      <div className="flex items-center gap-4 p-5">{inner}</div>
-                    )}
-                  </li>
-                );
-              })}
+            <ul className="mt-14 border-b border-line">
+              <ContactRow label="Phone" value={profile.phone} href={profile.phoneHref} />
+              <ContactRow label="LinkedIn" value={linkedin.handle} href={linkedin.href} external />
+              <ContactRow label="GitHub" value={github.handle} href={github.href} external />
             </ul>
-
-            <div className="grid grid-cols-2 gap-5">
-              {socials
-                .filter((s) => s.label !== 'Email')
-                .map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="card group flex flex-col gap-4 p-5 transition-all duration-300 hover:-translate-y-1 hover:border-accent/40"
-                  >
-                    <span className="flex items-center justify-between">
-                      <SocialIcon label={s.label} className="h-6 w-6 text-fg" />
-                      <LuArrowUpRight className="h-4 w-4 text-subtle transition group-hover:text-fg" />
-                    </span>
-                    <span>
-                      <span className="block font-semibold text-fg">{s.label}</span>
-                      <span className="block truncate text-xs text-muted">{s.handle}</span>
-                    </span>
-                  </a>
-                ))}
-            </div>
+            <p className="label mt-5">{profile.location}</p>
           </Reveal>
 
           {/* Form */}
-          <Reveal delay={0.1} className="card relative overflow-hidden p-6 sm:p-9">
+          <Reveal delay={0.1} className="relative lg:col-span-6 lg:col-start-7">
             <AnimatePresence mode="wait">
               {status === 'sent' || status === 'mailto' ? (
                 <motion.div
                   key="done"
-                  initial={{ opacity: 0, y: 12 }}
+                  initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
-                  className="flex min-h-[420px] flex-col items-center justify-center text-center"
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                  className="flex min-h-[460px] flex-col items-start justify-center"
                   role="status"
                 >
-                  <span className="grid h-16 w-16 place-items-center rounded-full bg-success/15 text-success">
-                    <LuCircleCheck className="h-8 w-8" />
-                  </span>
-                  <h3 className="mt-6 text-2xl font-semibold text-fg">
-                    {status === 'sent' ? 'Message sent — thank you!' : 'Almost there!'}
+                  <LuCircleCheck className="h-8 w-8 text-success" aria-hidden="true" />
+                  <h3 className="display mt-6 text-[2.25rem] leading-tight">
+                    {status === 'sent' ? 'Message sent' : 'Your email app should be open'}
                   </h3>
-                  <p className="mt-3 max-w-sm text-muted">
+                  <p className="mt-4 max-w-md text-muted">
                     {status === 'sent'
-                      ? 'Your message is in my inbox. I’ll get back to you as soon as possible.'
-                      : 'Your email app should have opened with the message ready — just press send. If it didn’t, email me directly at '}
+                      ? 'Thank you. It’s in my inbox and I’ll get back to you as soon as I can.'
+                      : 'The message is ready there, so just press send. If nothing opened, email me directly at '}
                     {status === 'mailto' && (
-                      <a className="font-medium text-accent underline-offset-4 hover:underline" href={`mailto:${profile.email}`}>
+                      <a className="link" href={`mailto:${profile.email}`}>
                         {profile.email}
                       </a>
                     )}
                   </p>
-                  <button type="button" onClick={() => setStatus('idle')} className="btn-ghost mt-8">
+                  <button type="button" onClick={() => setStatus('idle')} className="btn-ghost mt-10">
                     Send another message
                   </button>
                 </motion.div>
               ) : (
                 <motion.form
                   key="form"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -12 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.25, ease: EASE }}
                   onSubmit={onSubmit}
                   noValidate
-                  className="space-y-5"
+                  className="space-y-10"
                 >
-                  <div>
-                    <h3 className="text-xl font-semibold text-fg">Send a message</h3>
-                    <p className="mt-1 text-sm text-muted">All fields except subject are required.</p>
-                  </div>
-
-                  <div className="grid gap-5 sm:grid-cols-2">
+                  <div className="grid gap-10 sm:grid-cols-2 sm:gap-8">
                     <Field id="name" label="Your name" error={errors.name}>
                       <input
                         id="name"
@@ -285,13 +247,13 @@ export default function Contact() {
                     </Field>
                   </div>
 
-                  <Field id="subject" label="Subject">
+                  <Field id="subject" label="Subject, optional">
                     <input
                       id="subject"
                       name="subject"
                       value={values.subject}
                       onChange={onChange}
-                      placeholder="Job opportunity, project, collaboration…"
+                      placeholder="Job opportunity, project or collaboration"
                       className="input"
                     />
                   </Field>
@@ -300,11 +262,11 @@ export default function Contact() {
                     <textarea
                       id="message"
                       name="message"
-                      rows={6}
+                      rows={5}
                       value={values.message}
                       onChange={onChange}
-                      placeholder="Tell me a bit about what you have in mind…"
-                      className="input resize-none"
+                      placeholder="What do you have in mind?"
+                      className="input h-auto resize-none py-3 leading-relaxed"
                       aria-invalid={Boolean(errors.message)}
                       aria-describedby={errors.message ? 'message-error' : undefined}
                     />
@@ -314,20 +276,21 @@ export default function Contact() {
                   <input type="checkbox" name="botcheck" className="hidden" tabIndex={-1} autoComplete="off" aria-hidden="true" />
 
                   {status === 'error' && (
-                    <p className="flex items-start gap-2 rounded-2xl border border-red-500/30 bg-red-500/10 p-3 text-sm text-red-500" role="alert">
-                      <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0" />
-                      Something went wrong sending your message. Please try again or email me directly.
+                    <p className="flex items-start gap-2 rounded-[10px] border border-danger/30 bg-danger/10 p-3 text-sm text-danger" role="alert">
+                      <LuTriangleAlert className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                      Your message could not be sent. Please try again, or email me directly.
                     </p>
                   )}
 
-                  <button type="submit" disabled={status === 'sending'} className="btn-primary w-full py-3.5 sm:w-auto sm:px-8">
+                  <button type="submit" disabled={status === 'sending'} className="btn-primary group w-full sm:w-auto">
                     {status === 'sending' ? (
                       <>
-                        <LuLoaderCircle className="h-4 w-4 animate-spin" /> Sending…
+                        <LuLoaderCircle className="h-4 w-4 animate-spin" aria-hidden="true" /> Sending…
                       </>
                     ) : (
                       <>
-                        <LuSend className="h-4 w-4" /> Send message
+                        <RollText>Send message</RollText>
+                        <LuArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true" />
                       </>
                     )}
                   </button>
