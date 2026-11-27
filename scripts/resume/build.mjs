@@ -76,6 +76,8 @@ const RIGHT = PAGE.width - 2 * PAGE.margin; // right edge of the text block, for
 const exact = (line) => ({ line: tw(line), lineRule: LineRuleType.EXACT });
 
 const run = (text, opts = {}) => new TextRun({ text, font: FONT, size: pt(10.5), color: C.text, ...opts });
+/** The grey "|" between items in the header lines */
+const sep = () => run('  |  ', { size: pt(9.5), color: C.sep });
 const link = (label, href, opts = {}) =>
   new ExternalHyperlink({ link: href, children: [run(label, { color: C.accent, ...opts })] });
 
@@ -109,13 +111,16 @@ function buildDocx() {
   // Header
   children.push(
     new Paragraph({ spacing: exact(28), children: [run(resume.name, { bold: true, size: pt(24), color: C.ink })] }),
-    new Paragraph({ spacing: { before: tw(2), ...exact(15) }, children: [run(resume.headline, { size: pt(11.5), color: C.accent })] }),
+    new Paragraph({
+      spacing: { before: tw(2), ...exact(15) },
+      children: resume.headline.flatMap((part, i) => [...(i > 0 ? [sep()] : []), run(part, { size: pt(11.5), color: C.accent })]),
+    }),
     ...resume.contact.map(
       (line, li) =>
         new Paragraph({
           spacing: { before: tw(li ? 0 : 4), ...exact(13) },
           children: line.flatMap((c, i) => [
-            ...(i > 0 ? [run('  |  ', { size: pt(9.5), color: C.sep })] : []),
+            ...(i > 0 ? [sep()] : []),
             c.href ? link(c.label, c.href, { size: pt(9.5), color: C.muted }) : run(c.label, { size: pt(9.5), color: C.muted }),
           ]),
         })
@@ -173,7 +178,7 @@ function buildDocx() {
   return new Document({
     creator: resume.name,
     title: `${resume.name} — Resume`,
-    description: resume.headline,
+    description: resume.headline.join(' | '),
     styles: { default: { document: { run: { font: FONT, size: pt(10.5), color: C.text } } } },
     numbering: {
       config: [

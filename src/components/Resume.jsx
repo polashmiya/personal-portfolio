@@ -8,6 +8,15 @@ import './resume.css';
  * public/ is printed from this same component by `npm run resume` (scripts/resume/build.mjs).
  */
 
+/** The grey "|" between items in the header lines */
+function Sep() {
+  return (
+    <span className="r-sep" aria-hidden="true">
+      |
+    </span>
+  );
+}
+
 function Section({ title, children }) {
   return (
     <section>
@@ -25,16 +34,19 @@ export default function Resume({ print = false }) {
     >
       <header>
         <h1>{resume.name}</h1>
-        <p className="r-headline">{resume.headline}</p>
+        <p className="r-headline">
+          {resume.headline.map((part, i) => (
+            <Fragment key={part}>
+              {i > 0 && <Sep />}
+              {part}
+            </Fragment>
+          ))}
+        </p>
         {resume.contact.map((line, li) => (
           <p key={li} className={`r-contact ${li ? 'is-next' : ''}`}>
             {line.map((c, i) => (
               <Fragment key={c.label}>
-                {i > 0 && (
-                  <span className="r-sep" aria-hidden="true">
-                    |
-                  </span>
-                )}
+                {i > 0 && <Sep />}
                 {c.href ? <a href={c.href}>{c.label}</a> : c.label}
               </Fragment>
             ))}

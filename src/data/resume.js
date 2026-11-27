@@ -8,7 +8,8 @@
  */
 export const resume = {
   name: 'Md. Polash Miya',
-  headline: 'Software Engineer II · React, Next.js, TypeScript, ASP.NET Core',
+  // Shown with the same grey "|" separator as the contact lines
+  headline: ['Software Engineer', 'React, Next.js, TypeScript, ASP.NET Core'],
   // Two lines, so no link breaks in the middle
   contact: [
     [
